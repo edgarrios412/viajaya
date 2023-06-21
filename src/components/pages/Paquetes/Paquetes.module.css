@@ -1,0 +1,52 @@
+.paquetes{
+    width: 100vw;
+    height: fit-content;
+    height: 100vh;
+    padding: 20px 0px;
+    background: rgb(143,239,243);
+background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 55%, rgba(255,255,255,1) 78%);
+}
+
+.titleSection{
+    text-align: center;
+    font-size: 3em;
+    color:var(--primary);
+    font-family: var(--font);
+}
+
+.title{
+    font-size: 1.05em;
+    text-align: center;
+    height: 50px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.paquetesContainer{
+    width: 500px;
+    height: 400px;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+}
+
+.paquete{
+    width: 95%;
+    min-height: 100px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.mapa{
+    width: 500px;
+    height: 400px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-size: 5em;
+}

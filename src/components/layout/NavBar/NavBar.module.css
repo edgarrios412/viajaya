@@ -1,0 +1,69 @@
+.nav{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    height: 10vh;
+    z-index: 100;
+    width: 100%;
+    margin-top: -11vh;
+    animation: aparecer 1s .5s ease-in-out forwards;
+
+}
+
+@keyframes aparecer{
+    100%{
+        margin-top: 0vh;
+    }
+}
+
+.logo{
+    width: 60px;
+    margin-left: 75px;
+}
+
+.ul{
+    display: flex;
+    list-style:none;
+    gap: 40px;
+    align-items: center;
+    justify-content: end;
+    padding: 0px 40px;
+}
+
+.li{
+    font-size: 1.25em;
+    cursor:pointer
+}
+
+.libutton{
+    background-color: var(--primary);;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.25em;
+    cursor: pointer;
+}
+
+.noLink{
+    text-decoration: none;
+    border: 0;
+    outline: 0;
+    color:black
+}
+
+@media screen and (max-width: 900px){
+    .li{
+        display: none;
+    }
+    .ul{
+        gap: 0;
+    }
+    .logo{
+        width: 50px;
+        margin-left: 40px;
+    }
+}

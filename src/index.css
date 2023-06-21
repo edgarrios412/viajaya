@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  font-family: "Fenix";
+  overflow-x: hidden;
+}
+
+:root{
+  --primary: #da66a5;
+  --font: "Dancing Script";
+}
