@@ -30,8 +30,8 @@ function App() {
       <Footer/>
       </>}/>
       <Route path="/login" element={<Login/>}/>
-      <Route path="/profile" element={<Profile/>}/>
-      <Route path="/profilea" element={<ProfileAdmin/>}/>
+      {/* <Route path="/profile" element={<Profile/>}/> */}
+      <Route path="/profile" element={<ProfileAdmin/>}/>
       <Route path="/detail" element={<Detail/>}/>
     </Routes>
     </>

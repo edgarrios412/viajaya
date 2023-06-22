@@ -24,7 +24,7 @@ const Login = () => {
             <input type="password" className={style.input} placeholder="Email"/>
             <input type="email" className={style.input} placeholder="Contraseña"/>
             <input type="password" className={style.input} placeholder="Repetir contraseña"/>
-            <Link to="/profilea"><input type="button" value="Registrarme" className={style.button}/></Link>
+            <Link to="/profile"><input type="button" value="Registrarme" className={style.button}/></Link>
         </form>
         <p className={style.register}>¿Ya tienes cuenta?<p onClick={() => setLogin(true)} className={style.buttonRegister}>Ingresa</p></p>
     </div>
