@@ -2,6 +2,11 @@ import { useState } from 'react';
 import style from './Profile.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import promo from "../../../assets/promo.jpg"
+import {AiOutlineUser} from "react-icons/ai"
+import {MdPayment , MdExitToApp, MdOutlineLocalOffer} from "react-icons/md"
+import {FiUsers} from "react-icons/fi"
+import {BsBoxSeam} from "react-icons/bs"
+import {FaChalkboardTeacher} from "react-icons/fa"
  
 const Profile = () => {
     const [page, setPage] = useState(0)
@@ -12,13 +17,13 @@ const Profile = () => {
       <nav className={style.nav}>
         <h3 className={style.title}>Mi perfil</h3>
         <ul className={style.ul}>
-        <li onClick={() => setPage(0)} className={style.li}>Información</li>
-        <li onClick={() => setPage(1)} className={style.li}>Mis compras</li>
-        <li onClick={() => setPage(2)} className={style.li}>Usuarios</li>
-        <li onClick={() => setPage(3)} className={style.li}>Paquetes</li>
-        <li onClick={() => setPage(4)} className={style.li}>Promocion</li>
-        <li onClick={() => setPage(5)} className={style.li}>Capacitaciones</li>
-        <li onClick={() => navigate("/")} className={style.li}>Salir</li>
+        <li onClick={() => setPage(0)} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
+        <li onClick={() => setPage(1)} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
+        <li onClick={() => setPage(2)} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>
+        <li onClick={() => setPage(3)} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>
+        <li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>
+        <li onClick={() => setPage(5)} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>
+        <li onClick={() => navigate("/")} className={style.li}><MdExitToApp className={style.icon}/> Salir</li>
         </ul>
       </nav>
       { page == 0 && <div className={style.view}>
@@ -134,7 +139,12 @@ const Profile = () => {
       </div>}
       { page == 2 && <div className={style.view}>
       <div className={style.top}>
-          <input placeholder='Rol'/>
+          <select>
+          <option selected>Rol</option>
+          <option>Admin</option>
+          <option>Asesor</option>
+          <option>Usuario</option>
+          </select>
           <input placeholder='Buscar por email'/>
         </div>
         <table>
@@ -168,7 +178,12 @@ const Profile = () => {
       { (page == 3 && !creator) && <div className={style.view}>
         <div className={style.top}>
           <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear paquete</button>
-          <input placeholder='Estado'/>
+          <select>
+          <option selected>Estado</option>
+          <option>No publicado</option>
+          <option>Publicado</option>
+          <option>Archivado</option>
+          </select>
           <input placeholder='Buscar paquete'/>
         </div>
         <table>
@@ -221,9 +236,14 @@ const Profile = () => {
           <button className={style.buttonPromo}>Guardar</button>
         </div>
       </div>}
-      { page == 5 && <div className={style.view}>
+      { (page == 5 && !creator) && <div className={style.view}>
       <div className={style.top}>
-          <input placeholder='Estado'/>
+      <select>
+          <option selected>Estado</option>
+          <option>No publicado</option>
+          <option>Publicado</option>
+          <option>Archivado</option>
+          </select>
           <input placeholder='Buscar capacitacion'/>
         </div>
         <table>
@@ -242,7 +262,14 @@ const Profile = () => {
           <td className={style.td}>Archivar</td>
           </tr>
         </table>
-        <button className={style.buttonPromo}>Crear capacitacion</button>
+        <button className={style.buttonPromo} onClick={() => setCreator(true)}>Crear capacitacion</button>
+      </div>}
+      { (page == 5 && creator) && <div className={style.view}>
+        <form className={style.formCapacitacion}>
+        <input className={style.inputCapacitacion} placeholder="Nombre de la capacitacion"/>
+        <input className={style.inputCapacitacion} placeholder="Link"/>
+        </form>
+        <button className={style.buttonPromo} onClick={() => setCreator(false)}>Crear capacitacion</button>
       </div>}
     </div>
   )

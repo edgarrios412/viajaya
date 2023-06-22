@@ -37,11 +37,72 @@ const Paquetes = () => {
       <h2 className={style.titleSection}>Paquetes</h2>
       <div className={style.container}>
         <div className={style.paquetesContainer}>
-          <div className={style.paquete}></div>
-          <div className={style.paquete}></div>
-          <div className={style.paquete}></div>
-          <div className={style.paquete}></div>
-          <div className={style.paquete}></div>
+          <div className={style.paquete}>
+          <div className={style.planTop}>
+                <img className={style.imgPlan}/>
+                <div className={style.planDetail}>
+                  <div className={style.nameAndPrice}>
+                    <b className={style.planName}>SANTA MARTA</b>
+                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                  </div>
+                  <p>Hotel maracana - Todo incluido</p>
+                  <div className={style.tags}>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div className={style.paquete}>
+          <div className={style.planTop}>
+                <img className={style.imgPlan}/>
+                <div className={style.planDetail}>
+                  <div className={style.nameAndPrice}>
+                    <b className={style.planName}>SANTA MARTA</b>
+                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                  </div>
+                  <p>Hotel maracana - Todo incluido</p>
+                  <div className={style.tags}>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div className={style.paquete}>
+          <div className={style.planTop}>
+                <img className={style.imgPlan}/>
+                <div className={style.planDetail}>
+                  <div className={style.nameAndPrice}>
+                    <b className={style.planName}>SANTA MARTA</b>
+                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                  </div>
+                  <p>Hotel maracana - Todo incluido</p>
+                  <div className={style.tags}>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
         <div className={style.mapa}>
           ESTO ES UN MAPA

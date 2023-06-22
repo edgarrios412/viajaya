@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import Modal from '../../layout/Modal/Modal';
 import style from './Detail.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import ShortNav from '../../layout/ShortNav/ShortNav';
  
 const Detail = () => {
     const [open, setOpen] = useState(false)
-    const [step, setStep] = useState(0)
+    const navigate= useNavigate()
+    const [count, setCount] = useState(1)
   return(
     <>
-    {open && <Modal pay={() => {setStep(1);setOpen(false)}}close={() => setOpen(false)}/>}
-      { step == 0 && <div className={style.detailContainer}>
+    <ShortNav/>
+    {open && <Modal pay={() => navigate("/pay")}close={() => setOpen(false)}/>}
+      <div className={style.detailContainer}>
         <div className={style.sliderImg}>
             <div className={style.img}></div>
             <div className={style.img}></div>
@@ -19,7 +22,7 @@ const Detail = () => {
         <div className={style.detail}>
             <h2 className={style.title}>Santa Marta</h2>
             <p className={style.location}>Hotel maracana - Todo incluido</p>
-            <span className={style.precio}>Precio</span> <span className={style.cantidad}>1</span>
+            <b className={style.price}>$1.400.000 p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
             <p className={style.fecha}>13-12-2023   14-04-2023</p>
             <p className={style.fecha}>13-12-2023   14-04-2023</p>
             <div className={style.tags}>
@@ -34,31 +37,7 @@ const Detail = () => {
                   </div>
             <button onClick={() => setOpen(true)} className={style.addCar}>Agregar al carrito</button>
         </div>
-      </div>}
-      { step == 1 && <div className={style.detailContainer}>
-        <div className={style.detailPay}>
-            <div className={style.datosComprador}>
-              <h2 className={style.title}>Revisa y confirma tu compra</h2>
-              <p className={style.passenger}>Pasajero 1</p>
-              <form className={style.form}>
-                <input className={style.inputForm} placeholder="Nombre completo"/>
-                <input className={style.inputForm} placeholder="Documento"/>
-                <input className={style.inputForm} placeholder="Telefono"/>
-                <input className={style.inputForm} placeholder="Email"/>
-              </form>
-            </div>
-            <div className={style.resumenCompra}>
-              <p className={style.resume}>Resumen de la compra</p>
-              <div className={style.details}>
-
-              </div>
-              <div className={style.buttons}>
-                <button className={style.button}>Pagar ahora</button>
-                <Link to="/"><button style={{width:"200px"}} className={style.button}>Seguir comprando</button></Link>
-              </div>
-            </div>
-        </div>
-      </div>}
+      </div>
     </>
   )
 };

@@ -12,6 +12,7 @@ import Login from "./components/pages/Login/Login"
 import Profile from "./components/pages/Profile/Profile"
 import ProfileAdmin from "./components/pages/ProfileAdmin/Profile"
 import Detail from "./components/pages/Detail/Detail"
+import Pay from "./components/pages/Pay/Pay"
 
 function App() {
   
@@ -32,6 +33,7 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       {/* <Route path="/profile" element={<Profile/>}/> */}
       <Route path="/profile" element={<ProfileAdmin/>}/>
+      <Route path="/pay" element={<Pay/>}/>
       <Route path="/detail" element={<Detail/>}/>
     </Routes>
     </>

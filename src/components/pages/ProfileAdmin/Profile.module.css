@@ -10,6 +10,10 @@
     font-size: 1.5em;
 }
 
+.icon{
+    margin: 0px 10px;
+}
+
 .ul{
     list-style: none;
     display: flex;
@@ -322,4 +326,20 @@ table{
 .tip{
     margin: 0;
     padding: 14px 0px;
+}
+
+.formCapacitacion{
+    display: flex;
+    flex-direction: column;
+    margin: 200px auto;
+    margin-bottom: 30px;
+    gap: 20px;
+    width: 300px;
+}
+
+.inputCapacitacion{
+    padding: 5px 15px;
+    font-size: 1.1em;
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 5px;
 }

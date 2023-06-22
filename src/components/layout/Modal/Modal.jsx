@@ -5,13 +5,9 @@ const Modal = ({close, pay}) => {
     <>
     <div className={style.modalContainer}>
       <div className={style.modal}>
-        <h2 className={style.title}>Infraestructura de Telecomunicaciones</h2>
-        <p>•	Construcción de torres autosoportadas, riendadas y monopolos<br></br>
-•	Construcción de mástiles autosportados en terrazas.<br></br>
-•	Mantenimiento general de estructuras de elevación.<br></br>
-•	Refuerzos estructurales en cimentaciones y estructura.<br></br>
-</p>
-<button className={style.button} onClick={pay}>Pagar ahora</button>
+        <h2 className={style.title}>¿Estás seguro que deseas agregar este producto al carrito?</h2>
+        <p>Puedes mirar tu carrito dando click en el icono en la esquina superior</p>
+<button className={style.button} onClick={close}>Si estoy seguro</button><br></br>
         <button className={style.button} onClick={close}>Cerrar</button>
       </div>
     </div>
