@@ -12,6 +12,7 @@ const Profile = () => {
     const [page, setPage] = useState(0)
     const navigate = useNavigate()
     const [creator, setCreator] = useState(false)
+    const [pagination, setPagination] = useState(1)
   return(
     <div className={style.profileContainer}>
       <nav className={style.nav}>
@@ -139,13 +140,13 @@ const Profile = () => {
       </div>}
       { page == 2 && <div className={style.view}>
       <div className={style.top}>
-          <select>
-          <option selected>Rol</option>
-          <option>Admin</option>
-          <option>Asesor</option>
-          <option>Usuario</option>
+          <select className={style.select}>
+            <option selected>Rol</option>
+            <option>Admin</option>
+            <option>Asesor</option>
+            <option>Usuario</option>
           </select>
-          <input placeholder='Buscar por email'/>
+          <input className={style.inputFind} placeholder='Buscar por email'/>
         </div>
         <table>
           <tr>
@@ -173,18 +174,23 @@ const Profile = () => {
           <td className={style.td}>Archivar</td>
           </tr>
         </table>
+        <div className={style.pagination}>
+          <span className={style.next} onClick={() => pagination > 1 ? setPagination(pagination-1):""}>Atras</span>
+          <b className={style.page}>{pagination}</b>
+          <span className={style.next} onClick={() => setPagination(pagination+1)}>Siguiente</span>
+        </div>
       </div>}
 
       { (page == 3 && !creator) && <div className={style.view}>
         <div className={style.top}>
           <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear paquete</button>
-          <select>
+          <select className={style.select}>
           <option selected>Estado</option>
           <option>No publicado</option>
           <option>Publicado</option>
           <option>Archivado</option>
           </select>
-          <input placeholder='Buscar paquete'/>
+          <input className={style.inputFind} placeholder='Buscar paquete'/>
         </div>
         <table>
           <tr>
@@ -202,6 +208,11 @@ const Profile = () => {
           <td className={style.td}>Archivar</td>
           </tr>
         </table>
+        <div className={style.pagination}>
+          <span className={style.next} onClick={() => pagination > 1 ? setPagination(pagination-1):""}>Atras</span>
+          <b className={style.page}>{pagination}</b>
+          <span className={style.next} onClick={() => setPagination(pagination+1)}>Siguiente</span>
+        </div>
       </div>}
       { (page == 3 && creator) && 
       <div className={style.view}>
@@ -238,13 +249,14 @@ const Profile = () => {
       </div>}
       { (page == 5 && !creator) && <div className={style.view}>
       <div className={style.top}>
-      <select>
+        <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
+      <select className={style.select}>
           <option selected>Estado</option>
           <option>No publicado</option>
           <option>Publicado</option>
           <option>Archivado</option>
           </select>
-          <input placeholder='Buscar capacitacion'/>
+          <input className={style.inputFind} placeholder='Buscar capacitacion'/>
         </div>
         <table>
           <tr>
@@ -262,7 +274,11 @@ const Profile = () => {
           <td className={style.td}>Archivar</td>
           </tr>
         </table>
-        <button className={style.buttonPromo} onClick={() => setCreator(true)}>Crear capacitacion</button>
+        <div className={style.pagination}>
+          <span className={style.next} onClick={() => pagination > 1 ? setPagination(pagination-1):""}>Atras</span>
+          <b className={style.page}>{pagination}</b>
+          <span className={style.next} onClick={() => setPagination(pagination+1)}>Siguiente</span>
+        </div>
       </div>}
       { (page == 5 && creator) && <div className={style.view}>
         <form className={style.formCapacitacion}>

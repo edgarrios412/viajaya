@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion} from 'framer-motion';
 import { useEffect } from 'react';
+import {Link} from "react-router-dom"
+import {RiRefreshFill} from "react-icons/ri"
 
 const Paquetes = () => {
   const [projectId, setProjectId] = useState(null)
@@ -35,9 +37,15 @@ const Paquetes = () => {
     <Element name="proyectos">
     <motion.div ref={ref} animate={animation} className={style.paquetes} id="proyectos">
       <h2 className={style.titleSection}>Paquetes</h2>
+      <div className={style.selectContainer}>
+        <RiRefreshFill className={style.refresh}/>
+        <select className={style.select}>
+          <option selected>Caracteristicas</option>
+        </select>
+      </div>
       <div className={style.container}>
         <div className={style.paquetesContainer}>
-          <div className={style.paquete}>
+          <Link to="/detail"><div className={style.paquete}>
           <div className={style.planTop}>
                 <img className={style.imgPlan}/>
                 <div className={style.planDetail}>
@@ -58,7 +66,7 @@ const Paquetes = () => {
                   </div>
                 </div>
               </div>
-          </div>
+          </div></Link>
           <div className={style.paquete}>
           <div className={style.planTop}>
                 <img className={style.imgPlan}/>

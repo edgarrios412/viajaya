@@ -10,7 +10,7 @@ import { useRef } from 'react';
 
 
 const Contact = () => {
-  const [state, handleSubmit] = useForm("mdovrwop");
+  const [state, handleSubmit] = useForm("mdovrwo");
   const rname = useRef()
   const rservice = useRef()
   const rmail = useRef()
@@ -61,8 +61,8 @@ const Contact = () => {
           <FiMail className={style.icon}/>
         </div>
         <div className={style.emails}>
-          <h4 className={style.email}>camilo.prieto@pryval.com</h4>
-          <h4 className={style.email}>elena.valderrama@pryval.com</h4>
+          <h4 className={style.email}>EMAIL1</h4>
+          <h4 className={style.email}>EMAIL2</h4>
         </div>
         </div>
         <div className={style.correos}>
@@ -70,8 +70,8 @@ const Contact = () => {
         <FiPhone className={style.icon}/>
         </div>
         <div className={style.numbers}>
-          <a className={style.noLink} target="_blank" href="https://bit.ly/3IY4PGk"><h4 className={style.number}>{"(+57)"} 301 388 2960 </h4></a>
-          <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.number}>{"(+57)"} 301 340 9922</h4></a>
+          <a className={style.noLink} target="_blank" href="https://bit.ly/3IY4PGk"><h4 className={style.number}>{"(+57)"} NUMBER1</h4></a>
+          <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.number}>{"(+57)"} NUMBER2</h4></a>
         </div>
         </div>
         <div className={style.mapouter}>

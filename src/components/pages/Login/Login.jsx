@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import style from './Login.module.css'
 import { Link } from 'react-router-dom';
+import {FcGoogle} from "react-icons/fc"
  
 const Login = () => {
     const [login, setLogin] = useState(true)
@@ -12,6 +13,8 @@ const Login = () => {
                 <input type="email" className={style.input} placeholder="Email"/>
                 <input type="password" className={style.input} placeholder="Contraseña"/>
                 <Link to="/profile"><input type="button" value="Entrar" className={style.button}/></Link>
+                <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Entra con google</span></button>
+
             </form>
             <p className={style.register}>¿Aun no tienes cuenta?<p onClick={() => setLogin(false)} className={style.buttonRegister}>Registrate</p></p>
         </div>:
@@ -25,6 +28,7 @@ const Login = () => {
             <input type="email" className={style.input} placeholder="Contraseña"/>
             <input type="password" className={style.input} placeholder="Repetir contraseña"/>
             <Link to="/profile"><input type="button" value="Registrarme" className={style.button}/></Link>
+            <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Registrate con google</span></button>
         </form>
         <p className={style.register}>¿Ya tienes cuenta?<p onClick={() => setLogin(true)} className={style.buttonRegister}>Ingresa</p></p>
     </div>

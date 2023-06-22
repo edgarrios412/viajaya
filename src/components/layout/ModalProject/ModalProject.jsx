@@ -17,10 +17,9 @@ const ModalProject = ({close, id}) => {
     <>
     <div className={style.modalContainer}>
       <div className={style.modal}>
-        <h2 className={style.title}>TORRE AUTOSOPORTADA DE 60 M</h2>
-        <h5 className={style.cliente}>Cliente: JCP - TIGO</h5>
-        <p className={style.desc}> Construcción de RBS con torre triangular de 60m, cimentación, montaje y pintura de torre, sistema de puesta a tierra, cerramiento en malla eslabonada de 18x12m, acabado final, muro de contención, estabilización de taludes norte y laterales, cunetas. 
-        <br></br><b>Ubicación: El Castillo - Meta</b></p>
+        <h2 className={style.title}>TITULO</h2>
+        <h5 className={style.cliente}>Precio</h5>
+        <p className={style.desc}>Descripcion</p>
         <Slider {...settings}>
         </Slider>
         <button className={style.button} onClick={close}>Cerrar</button>

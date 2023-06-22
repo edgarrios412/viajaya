@@ -8,17 +8,18 @@ const Detail = () => {
     const [open, setOpen] = useState(false)
     const navigate= useNavigate()
     const [count, setCount] = useState(1)
+    const imgs = ["https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"]
   return(
     <>
     <ShortNav/>
     {open && <Modal pay={() => navigate("/pay")}close={() => setOpen(false)}/>}
       <div className={style.detailContainer}>
         <div className={style.sliderImg}>
-            <div className={style.img}></div>
-            <div className={style.img}></div>
-            <div className={style.img}></div>
+            <img src={imgs[0]} className={style.img}></img>
+            <img src={imgs[1]} className={style.img}></img>
+            <img src={imgs[2]} className={style.img}></img>
         </div>
-        <div className={style.bigImg}></div>
+        <img src={imgs[0]} className={style.bigImg}></img>
         <div className={style.detail}>
             <h2 className={style.title}>Santa Marta</h2>
             <p className={style.location}>Hotel maracana - Todo incluido</p>
