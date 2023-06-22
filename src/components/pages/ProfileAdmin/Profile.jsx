@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import style from './Profile.module.css'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import promo from "../../../assets/promo.jpg"
  
 const Profile = () => {
@@ -49,7 +49,7 @@ const Profile = () => {
       </div>}
       { page == 1 && <div className={style.view}>
         <div className={style.planContainer}>
-            <div className={style.plan}>
+            <Link to="/detail"><div className={style.plan}>
               <div className={style.planTop}>
                 <img className={style.imgPlan}/>
                 <div className={style.planDetail}>
@@ -75,7 +75,7 @@ const Profile = () => {
                     <p className={style.date}>COMPRADO EL 25 DE JUNIO DE 2023</p>
                     <p className={style.date}>3 PERSONAS</p>
               </div>
-            </div>
+            </div></Link>
             <div className={style.plan}>
               <div className={style.planTop}>
                 <img className={style.imgPlan}/>
