@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import style from './Profile.module.css'
 import { useNavigate } from 'react-router-dom';
+import promo from "../../../assets/promo.jpg"
  
 const Profile = () => {
     const [page, setPage] = useState(0)
     const navigate = useNavigate()
+    const [creator, setCreator] = useState(false)
   return(
     <div className={style.profileContainer}>
       <nav className={style.nav}>
@@ -47,76 +49,200 @@ const Profile = () => {
       </div>}
       { page == 1 && <div className={style.view}>
         <div className={style.planContainer}>
-            <div className={style.plan}></div>
-            <div className={style.plan}></div>
-            <div className={style.plan}></div>
+            <div className={style.plan}>
+              <div className={style.planTop}>
+                <img className={style.imgPlan}/>
+                <div className={style.planDetail}>
+                  <div className={style.nameAndPrice}>
+                    <b className={style.planName}>SANTA MARTA</b>
+                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                  </div>
+                  <p>Hotel maracana - Todo incluido</p>
+                  <div className={style.tags}>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                  </div>
+                </div>
+              </div>
+              <div className={style.planBottom}>
+                    <p className={style.date}>3 NOV - 7 NOV 2023</p>
+                    <p className={style.date}>COMPRADO EL 25 DE JUNIO DE 2023</p>
+                    <p className={style.date}>3 PERSONAS</p>
+              </div>
+            </div>
+            <div className={style.plan}>
+              <div className={style.planTop}>
+                <img className={style.imgPlan}/>
+                <div className={style.planDetail}>
+                  <div className={style.nameAndPrice}>
+                    <b className={style.planName}>SANTA MARTA</b>
+                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                  </div>
+                  <p>Hotel maracana - Todo incluido</p>
+                  <div className={style.tags}>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                  </div>
+                </div>
+              </div>
+              <div className={style.planBottom}>
+                    <p className={style.date}>3 NOV - 7 NOV 2023</p>
+                    <p className={style.date}>COMPRADO EL 25 DE JUNIO DE 2023</p>
+                    <p className={style.date}>3 PERSONAS</p>
+              </div>
+            </div>
+            <div className={style.plan}>
+              <div className={style.planTop}>
+                <img className={style.imgPlan}/>
+                <div className={style.planDetail}>
+                  <div className={style.nameAndPrice}>
+                    <b className={style.planName}>SANTA MARTA</b>
+                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                  </div>
+                  <p>Hotel maracana - Todo incluido</p>
+                  <div className={style.tags}>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                    <span className={style.tag}>Wifi</span>
+                    <span className={style.tag}>Jacuzzi</span>
+                    <span className={style.tag}>Estacionamiento</span>
+                  </div>
+                </div>
+              </div>
+              <div className={style.planBottom}>
+                    <p className={style.date}>3 NOV - 7 NOV 2023</p>
+                    <p className={style.date}>COMPRADO EL 25 DE JUNIO DE 2023</p>
+                    <p className={style.date}>3 PERSONAS</p>
+              </div>
+            </div>
         </div>
       </div>}
       { page == 2 && <div className={style.view}>
+      <div className={style.top}>
+          <input placeholder='Rol'/>
+          <input placeholder='Buscar por email'/>
+        </div>
         <table>
           <tr>
-          <td>Nombre</td>
-          <td>Email</td>
-          <td>Celular</td>
-          <td>Rol</td>
-          <td>Estado</td>
-          <td>Acciones</td>
+          <td className={style.topTd}>Nombre</td>
+          <td className={style.topTd}>Email</td>
+          <td className={style.topTd}>Celular</td>
+          <td className={style.topTd}>Rol</td>
+          <td className={style.topTd}>Estado</td>
+          <td className={style.topTd}>Acciones</td>
           </tr>
           <tr>
-          <td>Edgar</td>
-          <td>edgarrios412@gmail.com</td>
-          <td>3118268264</td>
-          <td>Admin</td>
-          <td>Publicado</td>
-          <td>Archivar</td>
+          <td className={style.td}>Edgar Vilchez</td>
+          <td className={style.td}>edgarrios412@gmail.com</td>
+          <td className={style.td}>3118268264</td>
+          <td className={style.td}>Admin</td>
+          <td className={style.td}>Publicado</td>
+          <td className={style.td}>Archivar</td>
+          </tr>
+          <tr>
+          <td className={style.td}>Edgar Vilchez</td>
+          <td className={style.td}>edgarrios412@gmail.com</td>
+          <td className={style.td}>3118268264</td>
+          <td className={style.td}>Admin</td>
+          <td className={style.td}>Publicado</td>
+          <td className={style.td}>Archivar</td>
           </tr>
         </table>
       </div>}
 
-      { page == 3 && <div className={style.view}>
+      { (page == 3 && !creator) && <div className={style.view}>
+        <div className={style.top}>
+          <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear paquete</button>
+          <input placeholder='Estado'/>
+          <input placeholder='Buscar paquete'/>
+        </div>
         <table>
           <tr>
-          <td>Nombre del paquete</td>
-          <td>Detalles</td>
-          <td>Creado por</td>
-          <td>Estado</td>
-          <td>Acciones</td>
+          <td className={style.topTd}>Nombre del paquete</td>
+          <td className={style.topTd}>Detalles</td>
+          <td className={style.topTd}>Creado por</td>
+          <td className={style.topTd}>Estado</td>
+          <td className={style.topTd}>Acciones</td>
           </tr>
           <tr>
-          <td>Miami</td>
-          <td>No hay descripcion</td>
-          <td>Admin</td>
-          <td>Publicado</td>
-          <td>Archivar</td>
+          <td className={style.td}>Miami</td>
+          <td className={style.td}>No hay descripcion</td>
+          <td className={style.td}>Admin</td>
+          <td className={style.td}>Publicado</td>
+          <td className={style.td}>Archivar</td>
           </tr>
         </table>
+      </div>}
+      { (page == 3 && creator) && 
+      <div className={style.view}>
+        <div className={style.creator}>
+          <div className={style.formPaquete}>
+            <form>
+              <input className={style.inputForm} placeholder="Nombre del paquete"/>
+              <input className={style.inputForm} placeholder="Fechas disponibles"/>
+              <input className={style.inputForm} placeholder="Caracteristicas"/>
+              <input className={style.inputForm} placeholder="Precio"/>
+              <input className={style.inputForm} placeholder="Direccion del hotel"/>
+              <input className={style.inputForm} placeholder="Ciudad"/>
+              <textarea className={style.inputFormText} placeholder="Descripcion"/>
+              <button className={style.buttonPromo} style={{margin:"20px 0px 0px 100px"}} onClick={() => setCreator(false)}>Crear paquete</button>
+            </form>
+          </div>
+          <div className={style.imgs}>
+            <img src="https://morenoa.com/wp-content/themes/consultix/images/no-image-found-360x250.png"/>
+            <p className={style.tip}>Selecciona al menos 3 imagenes</p>
+            <div className={style.mapa}>
+              Soy un mapa
+            </div>
+          </div>
+        </div>
       </div>}
       { page == 4 && <div className={style.view}>
         <div className={style.editContainer}>
           <div className={style.edit}>
-          <div className={style.imgPromo}></div>
+          <img src={promo} className={style.imgPromo}></img>
           <textarea className={style.detalles}></textarea>
           </div>
-          <button className={style.button}>Guardar</button>
+          <button className={style.buttonPromo}>Guardar</button>
         </div>
       </div>}
       { page == 5 && <div className={style.view}>
+      <div className={style.top}>
+          <input placeholder='Estado'/>
+          <input placeholder='Buscar capacitacion'/>
+        </div>
         <table>
           <tr>
-          <td>Nombre de la capacitacion</td>
-          <td>Link</td>
-          <td>Creado por</td>
-          <td>Estado</td>
-          <td>Acciones</td>
+          <td className={style.topTd}>Nombre de la capacitacion</td>
+          <td className={style.topTd}>Link</td>
+          <td className={style.topTd}>Creado por</td>
+          <td className={style.topTd}>Estado</td>
+          <td className={style.topTd}>Acciones</td>
           </tr>
           <tr>
-          <td>Miami</td>
-          <td>www.xd.com</td>
-          <td>Admin</td>
-          <td>Publicado</td>
-          <td>Archivar</td>
+          <td className={style.td}>Miami</td>
+          <td className={style.td}>www.xd.com</td>
+          <td className={style.td}>Admin</td>
+          <td className={style.td}>Publicado</td>
+          <td className={style.td}>Archivar</td>
           </tr>
         </table>
+        <button className={style.buttonPromo}>Crear capacitacion</button>
       </div>}
     </div>
   )

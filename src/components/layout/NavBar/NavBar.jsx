@@ -1,9 +1,11 @@
 import style from './NavBar.module.css'
 import logo from "../../../assets/logo.jpg" 
 import {Link} from "react-scroll"
+import {useNavigate} from 'react-router-dom'
 
 
 const NavBar = () => {
+  const navigate = useNavigate()
   return(
     <nav className={style.nav}>
       <Link to="home" smooth={true} duration={500}><img className={style.logo} src={logo}/></Link>
@@ -14,7 +16,7 @@ const NavBar = () => {
         <Link to="servicios" smooth={true} duration={500}><li className={style.li}>Destinos</li></Link>
         <Link to="clientes" smooth={true} duration={500}><li className={style.li}>Trabaja con nosotros</li></Link>
         <Link to="clientes" smooth={true} duration={500}><li className={style.li}>Buscar</li></Link>
-        <Link to="contactanos" smooth={true} duration={500}><li className={style.libutton}>Ingresar</li></Link>
+        <li className={style.libutton} onClick={() => navigate("/login")}>Ingresar</li>
       </ul>
     </nav>
   )
