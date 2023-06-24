@@ -1,9 +1,5 @@
 import style from './Home.module.css'
 import {Element} from "react-scroll" 
-import video from "../../../assets/video.mp4"
-import v1 from "../../../assets/v1.mp4"
-import v2 from "../../../assets/v2.mp4"
-import v3 from "../../../assets/v3.mp4"
 
 const Home = () => {
   return(

@@ -7,7 +7,6 @@ import {Element} from "react-scroll"
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
 import { useEffect } from 'react';
-import cliente1 from "../../../assets/cliente1.mp4"
  
 const Clients = () => {
 

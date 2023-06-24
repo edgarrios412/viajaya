@@ -4,9 +4,6 @@ import { useInView } from 'react-intersection-observer';
 import {motion} from "framer-motion"
 import { useEffect } from 'react';
 import { useAnimation } from 'framer-motion';
-import v1 from "../../../assets/v1.mp4"
-import v2 from "../../../assets/v2.mp4"
-import v3 from "../../../assets/v3.mp4"
 
 const About = () => {
 

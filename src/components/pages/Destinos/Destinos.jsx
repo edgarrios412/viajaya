@@ -8,9 +8,6 @@ import Modal from '../../layout/Modal/Modal';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation,motion } from 'framer-motion';
 import { useEffect } from 'react';
-import video from "../../../assets/video.mp4"
-import video2 from "../../../assets/video2.mp4"
-import video3 from "../../../assets/video3.mp4"
  
 const Destinos = () => {
 
@@ -61,18 +58,15 @@ const Destinos = () => {
       </div>
       <div className={style.servicesContainer}>
         <div onClick={() => setServiceId(1)} className={style.service}>
-          <video src={video} className={style.img}/>
-          {/* <h3 className={style.title}>Infraestructura de Telecomunicaciones</h3> */}
+          <img className={style.img}/>
           <button className={style.button}>Nacionales</button>
         </div>
         <div onClick={() => setServiceId(2)} className={style.service}>
-          <video src={video2} className={style.img}/>
-          {/* <h3 className={style.title}>Ingeniería Civil y Construcción</h3> */}
+          <img className={style.img}/>
           <button className={style.button}>Internacionales</button>
         </div>
         <div onClick={() => setServiceId(3)} className={style.service}>
-          <video src={video3} className={style.img}/>
-          {/* <h3 className={style.title}>Mantenimientos Preventivos y Correctivos</h3> */}
+          <img className={style.img}/>
           <button className={style.button}>Cruceros</button>
         </div>
         </div>

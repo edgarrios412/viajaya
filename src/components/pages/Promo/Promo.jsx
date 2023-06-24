@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useAnimation } from 'framer-motion';
 import img from "../../../assets/promo.jpg"
 import ModalProject from '../../layout/ModalProject/ModalProject';
+import axios from 'axios';
 
 const Promo = () => {
 
@@ -14,6 +15,7 @@ const Promo = () => {
   })
   const animation = useAnimation()
   const [modal, setModal] = useState(false)
+  const [promo, setPromo] = useState()
   useEffect(() => {
     if(inView){
       animation.start({
@@ -31,9 +33,13 @@ const Promo = () => {
     }
   },[inView])
 
+  useEffect(() => {
+    axios.get("/promo").then(data => setPromo(data.data))
+  },[])
+
   return(
     <Element name="nosotros">
-      {modal && <ModalProject close={() => setModal(false)}/>}
+      {modal && <ModalProject detail={promo?.details} close={() => setModal(false)}/>}
     <motion.div animate={animation} ref={ref} className={style.Promo} id="nosotros">
       <div className={style.PromoContainer}>
         <h4 className={style.desc}>

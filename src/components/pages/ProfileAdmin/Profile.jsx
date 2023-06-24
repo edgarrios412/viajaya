@@ -8,9 +8,10 @@ import {FiUsers} from "react-icons/fi"
 import {BsBoxSeam} from "react-icons/bs"
 import {FaChalkboardTeacher} from "react-icons/fa"
 import axios from 'axios';
-import { setUser } from '../../../redux/actions/actions';
-import { useDispatch } from 'react-redux';
+import { FIND_USERS, findPaquetes, setPaquetes, findUsers, setUsers, setClass, findClass, setPagina } from '../../../redux/actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import Map from '../../layout/Map/Map';
+import {toast, Toaster} from "react-hot-toast"
  
 const Profile = () => {
     const [page, setPage] = useState(0)
@@ -18,25 +19,36 @@ const Profile = () => {
     const [user, setUser] = useState()
     const [changePass, setChangePass] = useState(false)
     const dispatch = useDispatch()
+
+    const urlReg = /^(http|https):\/\/([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+\.[a-zA-Z]{2,9}(\/[a-zA-Z0-9_#.-]+\/?)*$/
+    const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneReg = /^\d{10}$/;
     
     // ADMIN
     const [creator, setCreator] = useState(false)
     const [pagination, setPagination] = useState(1)
-    const [users, setUsers] = useState()
 
-    const [clases, setClases] = useState()
+    // const [clases, dispatch(setClass] = useStat)e()
     const [clase, setClase] = useState()
 
     const [packs, setPacks] = useState()
     const [pack, setPack] = useState()
+    const paquetes = useSelector(s => s.paquetes)
+    const users = useSelector(s => s.users)
+    const clases = useSelector(s => s.clases)
+    const pagina = useSelector(s => s.pagina)
+    const maxPagesPacks = useSelector(s => s.maxPagesPacks)
+    const maxPagesClass = useSelector(s => s.maxPagesClass)
+    const maxPagesUser = useSelector(s => s.maxPagesUser)
+
 
     const [promo, setPromo] = useState()
     const [promos, setPromos] = useState()
 
     useEffect(() => {
-      axios.get("/user").then((data) => setUsers(data.data))
-      axios.get("/class").then((data) => setClases(data.data))
-      axios.get("/pack").then((data) => setPacks(data.data))
+      axios.get("/user").then((data) => dispatch(setUsers(data.data)))
+      axios.get("/class").then((data) => dispatch(setClass(data.data)))
+      axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))
       axios.get("/promo").then((data) => setPromo(data.data))
       axios.get(`/user/verify/${localStorage.getItem("token")}`).then((data) => axios.get(`/user/${data.data.id}`).then((data) => setUser(data.data)))
     }, [])
@@ -50,7 +62,9 @@ const Profile = () => {
     }
 
     const createClass = () => {
-      axios.post("/class", clase).then(() => {setCreator(false); axios.get("/class").then((data) => setClases(data.data))})
+      if(!clase?.title.length || clase?.title.length < 5) return toast.error("El titulo debe tener al menos 5 caracteres")
+      if(!urlReg.test(clase?.link)) return toast.error("Debes ingresar un link valido")
+      axios.post("/class", clase).then(() => {setCreator(false);toast.success("Capacitación creada exitosamente"); axios.get("/class").then((data) => dispatch(setClass(data.data)))})
     }
 
     const handlePack = (e) => {
@@ -62,7 +76,17 @@ const Profile = () => {
     }
 
     const createPack = () => {
-      axios.post("/pack", pack).then(() => {setCreator(false); axios.get("/pack").then((data) => setPacks(data.data))})
+      if(!pack?.title.length || pack?.title.length < 5) return toast.error("El titulo debe tener al menos 5 caracteres")
+      if(!pack?.detail.length || pack?.detail.length < 2) return toast.error("La descripcion debe tener al menos 2 caracteres")
+      axios.post("/pack", pack).then(() => {setCreator(false);toast.success("Paquete creado exitosamente"); axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))})
+    }
+
+    const findPack = (e) => {
+      dispatch(findPaquetes(e.target.value))
+    }
+
+    const findClase = (e) => {
+      dispatch(findClass(e.target.value))
     }
 
     const handlePromo = (e) => {
@@ -74,7 +98,7 @@ const Profile = () => {
     }
 
     const updatePromo = () => {
-      axios.put("/promo", promo).then(() => axios.get("/promo").then((data) => setPromo(data.data)))
+      axios.put("/promo", promo).then(() => {toast.success("Promocion actualizada exitosamente"); axios.get("/promo").then((data) => setPromo(data.data))})
     }
 
     const handleUser = (e) => {
@@ -85,15 +109,24 @@ const Profile = () => {
       })
     }
 
+    const findUsuarios = (e) => {
+      dispatch(findUsers(e.target.value))
+    }
+
     const updateUser = () => {
       if(changePass){
+        if(!user?.password2.length || user?.password2.length < 8) return toast.error("La contraseña debe tener al menos 8 caracteres")
         if(user.passwordLast == user.password){
           if(user.password2 == user.password3){
-            axios.put("/user", {...user, password:user.password2}).then(() => {alert("Contraseña actualizada"); setChangePass(false)})
-          }else return alert("Las contraseñas no coinciden")
-        }else return alert("Esa no es tu contraseña")
+            axios.put("/user", {...user, password:user.password2}).then(() => {toast.success("Contraseña actualizada"); setChangePass(false)})
+          }else return toast.error("Las contraseñas no coinciden")
+        }else return toast.error("Esa no es tu contraseña")
       }else{
-      axios.put("/user", user).then(() => alert("Actualizado"))
+      if(!user?.name.length || user?.name.length < 2) return toast.error("El nombre debe tener al menos 2 caracteres")
+      if(!user?.lastname.length || user?.lastname.length < 2) return toast.error("El apellido debe tener al menos 2 caracteres")
+      if(!emailReg.test(user?.email)) return toast.error("Ingresa un email valido")
+      if(!phoneReg.test(user?.phone)) return toast.error("Ingresa un numero valido")
+      axios.put("/user", user).then(() => toast.success("Datos actualizados"))
       }
     }
 
@@ -108,16 +141,18 @@ const Profile = () => {
 
   return(
     <div className={style.profileContainer}>
+      <Toaster/>
       <nav className={style.nav}>
         <h3 className={style.title}>Mi perfil</h3>
         <ul className={style.ul}>
         <li onClick={() => setPage(0)} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
         <li onClick={() => setPage(1)} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
-        <li onClick={() => setPage(2)} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>
-        <li onClick={() => setPage(3)} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>
-        <li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>
-        <li onClick={() => setPage(5)} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>
-        <li onClick={() => {navigate("/"); localStorage.removeItem("token"); dispatch(setUser(false))}} className={style.li}><MdExitToApp className={style.icon}/> Salir</li>
+        { user?.name == "Admin" && <li onClick={() => {setPage(2); dispatch(setPagina(1))}} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>}        
+        { user?.name == "Admin" &&<li onClick={() => {setPage(3) ; dispatch(setPagina(1))}} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>}
+        { user?.name == "Admin" &&<li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>}
+        { user?.name == "Admin" &&<li onClick={() => {setPage(5) ; dispatch(setPagina(1))}} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>}
+        <li onClick={() => navigate("/")} className={style.li}><FaChalkboardTeacher className={style.icon}/> Volver</li>
+        <li onClick={() => {navigate("/"); localStorage.removeItem("token"); dispatch(setUser(false))}} className={style.li}><MdExitToApp className={style.icon}/> Cerrar sesion</li>
         </ul>
       </nav>
       { page == 0 && <div className={style.view}>
@@ -239,7 +274,7 @@ const Profile = () => {
             </div>
         </div>
       </div>}
-      { page == 2 && <div className={style.view}>
+      { (page == 2 && user?.name == "Admin") && <div className={style.view}>
       <div className={style.top}>
           <select className={style.select}>
             <option selected>Rol</option>
@@ -247,7 +282,7 @@ const Profile = () => {
             <option>Asesor</option>
             <option>Usuario</option>
           </select>
-          <input className={style.inputFind} placeholder='Buscar por email'/>
+          <input className={style.inputFind} onChange={findUsuarios} placeholder='Buscar por email'/>
         </div>
         <table>
           <tr>
@@ -269,13 +304,13 @@ const Profile = () => {
           </tr>)}
         </table>
         <div className={style.pagination}>
-          <span className={style.next} onClick={() => pagination > 1 ? setPagination(pagination-1):""}>Atras</span>
-          <b className={style.page}>{pagination}</b>
-          <span className={style.next} onClick={() => setPagination(pagination+1)}>Siguiente</span>
+          <span className={style.next} onClick={() => pagina > 1 ? dispatch(setPagina(pagina-1)):""}>Atras</span>
+          <b className={style.page}>{pagina}</b>
+          { maxPagesUser !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
 
-      { (page == 3 && !creator) && <div className={style.view}>
+      { (page == 3 && user?.name == "Admin" && !creator) && <div className={style.view}>
         <div className={style.top}>
           <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear paquete</button>
           <select className={style.select}>
@@ -284,7 +319,7 @@ const Profile = () => {
           <option>Publicado</option>
           <option>Archivado</option>
           </select>
-          <input className={style.inputFind} placeholder='Buscar paquete'/>
+          <input className={style.inputFind} onChange={findPack} placeholder='Buscar paquete'/>
         </div>
         <table>
           <tr>
@@ -294,7 +329,7 @@ const Profile = () => {
           <td className={style.topTd}>Estado</td>
           <td className={style.topTd}>Acciones</td>
           </tr>
-          { packs?.map(p => <tr>
+          { paquetes?.map(p => <tr>
           <td className={style.td}>{p.title}</td>
           <td className={style.td}>{p.detail}</td>
           <td className={style.td}>Admin</td>
@@ -303,12 +338,12 @@ const Profile = () => {
           </tr>)}
         </table>
         <div className={style.pagination}>
-          <span className={style.next} onClick={() => pagination > 1 ? setPagination(pagination-1):""}>Atras</span>
-          <b className={style.page}>{pagination}</b>
-          <span className={style.next} onClick={() => setPagination(pagination+1)}>Siguiente</span>
+          <span className={style.next} onClick={() => pagina > 1 ? dispatch(setPagina(pagina-1)) : ""}>Atras</span>
+          <b className={style.page}>{pagina}</b>
+          { maxPagesPacks !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
-      { (page == 3 && creator) && 
+      { (page == 3 && user?.name == "Admin" && creator) && 
       <div className={style.view}>
         <div className={style.creator}>
           <div className={style.formPaquete}>
@@ -332,7 +367,7 @@ const Profile = () => {
           </div>
         </div>
       </div>}
-      { page == 4 && <div className={style.view}>
+      { (page == 4 && user?.name == "Admin") && <div className={style.view}>
         <div className={style.editContainer}>
           <div className={style.edit}>
           <img src={imgPromo} className={style.imgPromo}></img>
@@ -341,7 +376,7 @@ const Profile = () => {
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>
         </div>
       </div>}
-      { (page == 5 && !creator) && <div className={style.view}>
+      { (page == 5 && user?.name == "Admin" && !creator) && <div className={style.view}>
       <div className={style.top}>
         <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
       <select className={style.select}>
@@ -350,7 +385,7 @@ const Profile = () => {
           <option>Publicado</option>
           <option>Archivado</option>
           </select>
-          <input className={style.inputFind} placeholder='Buscar capacitacion'/>
+          <input className={style.inputFind} onChange={findClase} placeholder='Buscar capacitacion'/>
         </div>
         <table>
           <tr>
@@ -369,12 +404,12 @@ const Profile = () => {
           </tr>)}
         </table>
         <div className={style.pagination}>
-          <span className={style.next} onClick={() => pagination > 1 ? setPagination(pagination-1):""}>Atras</span>
-          <b className={style.page}>{pagination}</b>
-          <span className={style.next} onClick={() => setPagination(pagination+1)}>Siguiente</span>
+          <span className={style.next} onClick={() => pagina > 1 ? dispatch(setPagina(pagina-1)):""}>Atras</span>
+          <b className={style.page}>{pagina}</b>
+          { maxPagesClass !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
-      { (page == 5 && creator) && <div className={style.view}>
+      { (page == 5 && user?.name == "Admin" && creator) && <div className={style.view}>
         <form className={style.formCapacitacion}>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.title} name="title" placeholder="Nombre de la capacitacion"/>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.link} name="link" placeholder="Link"/>

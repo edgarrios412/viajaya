@@ -1,7 +1,7 @@
 import style from './Modal.module.css'
 import Slider from 'react-slick';
  
-const ModalProject = ({close, id}) => {
+const ModalProject = ({close, detail}) => {
   const settings = {
     infinite: true,
     slidesToScroll: 1,
@@ -19,7 +19,7 @@ const ModalProject = ({close, id}) => {
       <div className={style.modal}>
         <h2 className={style.title}>TITULO</h2>
         <h5 className={style.cliente}>Precio</h5>
-        <p className={style.desc}>Descripcion</p>
+        <p className={style.desc}>{detail}</p>
         <Slider {...settings}>
         </Slider>
         <button className={style.button} onClick={close}>Cerrar</button>

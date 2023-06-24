@@ -3,6 +3,7 @@ import style from './Login.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import {FcGoogle} from "react-icons/fc";
 import axios from "axios"
+import {toast, Toaster} from "react-hot-toast"
  
 const Login = () => {
     const [login, setLogin] = useState(true)
@@ -10,11 +11,19 @@ const Login = () => {
     const [user, setUser] = useState()
     const navigate = useNavigate()
 
+    const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneReg = /^\d{10}$/;
+
     const createUser = () => {
-        if(newUser.password !== newUser.password2) return alert("Las contraseñas no coinciden")
+        if(!newUser?.name.length ||newUser?.name.length < 3) return toast.error("El nombre debe tener al menos 3 caracteres")
+        if(newUser?.lastname.length < 3) return toast.error("El apellido debe tener al menos 3 caracteres")
+        if(!phoneReg.test(newUser?.phone)) return toast.error("Debes ingresar un numero valido")
+        if(!emailReg.test(newUser?.email)) return toast.error("Debes ingresar un email valido")
+        if(!newUser?.password.length || newUser?.password.length < 8) return toast.error("La contraseña debe tener al menos 8 caracteres")
+        if(newUser?.password !== newUser?.password2) return toast.error("Las contraseñas no coinciden")
         axios.post("/user", newUser).then(() => {
             //Limpiar form y enviar toast
-            alert("Creado")
+            toast.success("Te has registrado exitosamente")
             setNewUser({
                 name:"",
                 lastname:"",
@@ -30,9 +39,9 @@ const Login = () => {
         const auth = await axios.post("/user/auth", user)
         if(auth.data.message){
             localStorage.setItem("token",auth.data.token)
-            alert("Ingresando")
             navigate(`/profile`)
-        }else return alert("Datos invalidos")
+        }else return toast.error("Datos invalidos")
+
     }
 
     const handleChange = (e) => {
@@ -52,6 +61,10 @@ const Login = () => {
 
   return(
     <div className={style.login}>
+        <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
         {login ? <div className={style.loginContainer}>
             <h2 className={style.title}>Iniciar sesion</h2>
             <form className={style.form}>
