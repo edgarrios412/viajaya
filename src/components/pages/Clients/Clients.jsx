@@ -79,10 +79,10 @@ const Clients = () => {
       <div>
         <h3 className={style.titleSection}>Clientes felices</h3>
         <div className={style.valores}>
+          {/* <div className={style.valor}><video className={style.imgValores} src={cliente1}></video></div>
           <div className={style.valor}><video className={style.imgValores} src={cliente1}></video></div>
           <div className={style.valor}><video className={style.imgValores} src={cliente1}></video></div>
-          <div className={style.valor}><video className={style.imgValores} src={cliente1}></video></div>
-          <div className={style.valor}><video className={style.imgValores} src={cliente1}></video></div>
+          <div className={style.valor}><video className={style.imgValores} src={cliente1}></video></div> */}
         </div>
       </div>
     </motion.div>

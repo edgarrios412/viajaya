@@ -6,7 +6,7 @@
     justify-content: space-between;
     margin: 0;
     height: 10vh;
-    z-index: 100;
+    z-index: 999;
     width: 100%;
     margin-top: -11vh;
     animation: aparecer 1s .5s ease-in-out forwards;

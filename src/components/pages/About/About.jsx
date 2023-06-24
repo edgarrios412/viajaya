@@ -38,7 +38,7 @@ const About = () => {
       <h2 className={style.titleSection}>Quienes somos</h2>
       <div className={style.aboutContainer}>
         {/* <h4 className={style.desc}>VIDEOS</h4> */}
-        <div className={style.row}>
+        {/* <div className={style.row}>
           <div className={style.column}>
           <video src={v2} className={style.video}/>
             <video src={v1} className={style.video}/>
@@ -55,7 +55,7 @@ const About = () => {
             <video src={v2} className={style.video}/>
             <video src={v1} className={style.video}/>
           </div>
-        </div>
+        </div> */}
       </div>
     </motion.div>
       </Element>

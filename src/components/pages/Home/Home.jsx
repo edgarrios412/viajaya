@@ -21,9 +21,9 @@ const Home = () => {
         <button className={style.button}>Reservar ahora</button>
       </div>
       <div className={style.videosContainer}>
-        <video src={v1} className={style.videos}></video>
+        {/* <video src={v1} className={style.videos}></video>
         <video src={v2} className={style.videos}></video>
-        <video src={v3} className={style.videos}></video>
+        <video src={v3} className={style.videos}></video> */}
       </div>
     </div>
     </Element>
