@@ -28,7 +28,12 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path="/" element={<>
+      <Route exact path="/login" element={<Login/>}/>
+      <Route exact path="/profile" element={<ProfileAdmin/>}/>
+      <Route exact path="/pay" element={<Pay/>}/>
+      <Route exact path="/detail" element={<Detail/>}/>
+      <Route exact path="/mapa" element={<Map/>}/>
+      <Route exact path="/" element={<>
         <NavBar/>
       <Home/>
       <Promo/>
@@ -39,11 +44,6 @@ function App() {
       <Contact/>
       <Footer/>
       </>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/profile" element={<ProfileAdmin/>}/>
-      <Route path="/pay" element={<Pay/>}/>
-      <Route path="/detail" element={<Detail/>}/>
-      <Route path="/mapa" element={<Map/>}/>
     </Routes>
     </>
   )
