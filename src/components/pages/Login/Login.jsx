@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import style from './Login.module.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {FcGoogle} from "react-icons/fc";
 import axios from "axios"
 import {toast, Toaster} from "react-hot-toast"
+import { useEffect } from 'react';
  
 const Login = () => {
     const [login, setLogin] = useState(true)
@@ -39,9 +40,8 @@ const Login = () => {
         const auth = await axios.post("/user/auth", user)
         if(auth.data.message){
             localStorage.setItem("token",auth.data.token)
-            navigate(`/profile`)
+            navigate("/profile")
         }else return toast.error("Datos invalidos")
-
     }
 
     const handleChange = (e) => {
@@ -59,6 +59,9 @@ const Login = () => {
         })
     }
 
+    if(localStorage.getItem("token") !== null){
+        return <Navigate to="/profile" replace />
+    }
   return(
     <div className={style.login}>
         <Toaster
@@ -67,10 +70,10 @@ const Login = () => {
 />
         {login ? <div className={style.loginContainer}>
             <h2 className={style.title}>Iniciar sesion</h2>
-            <form className={style.form}>
+            <form className={style.form} onSubmit={(e) => {authUser(); e.preventDefault()}}>
                 <input onChange={handleLogin} value={user?.email} name="email" type="email" className={style.input} placeholder="Email"/>
                 <input onChange={handleLogin} value={user?.password} name="password" type="password" className={style.input} placeholder="Contraseña"/>
-                <button onClick={authUser} type="button" className={style.button}>Entrar</button>
+                <button type="submit" className={style.button}>Entrar</button>
                 <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Entra con google</span></button>
 
             </form>

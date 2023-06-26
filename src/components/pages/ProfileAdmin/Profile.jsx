@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import style from './Profile.module.css'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import imgPromo from "../../../assets/promo.jpg"
 import {AiOutlineUser} from "react-icons/ai"
 import {MdPayment , MdExitToApp, MdOutlineLocalOffer} from "react-icons/md"
@@ -138,6 +138,10 @@ const Profile = () => {
         lng:lng
       })
     }
+
+    if(localStorage.getItem("token") == null){
+      return <Navigate to="/login" replace />
+  }
 
   return(
     <div className={style.profileContainer}>

@@ -8,16 +8,16 @@
     height: 10vh;
     z-index: 999;
     width: 100%;
-    margin-top: -11vh;
-    animation: aparecer 1s .5s ease-in-out forwards;
+    /* margin-top: -11vh; */
+    /* animation: aparecer 1s .5s ease-in-out forwards; */
 
 }
 
-@keyframes aparecer{
+/* @keyframes aparecer{
     100%{
         margin-top: 0vh;
     }
-}
+} */
 
 .logo{
     width: 60px;

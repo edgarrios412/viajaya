@@ -12,8 +12,13 @@ const NavBar = () => {
 
   const [user,setUser] = useState();
 
+  const verify = async () => {
+    const data = await axios.get(`/user/verify/${localStorage.getItem("token")}`)
+    setUser(data.data)
+  }
+
   useEffect(()=>{
-    axios.get(`/user/verify/${localStorage.getItem("token")}`).then((data) => setUser(data.data))
+    verify()
   },[])
 
   return(
