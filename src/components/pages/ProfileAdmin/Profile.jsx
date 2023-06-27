@@ -143,6 +143,14 @@ const Profile = () => {
       return <Navigate to="/login" replace />
   }
 
+  const subirRol = (id,role, bool) => {
+    if(bool){
+      axios.put("/user", { id: id, role: role}).then((data) => axios.get("/user").then((data) => dispatch(setUsers(data.data))))
+    }else{
+      axios.put("/user", { id: id, role: 1}).then((data) => axios.get("/user").then((data) => dispatch(setUsers(data.data))))
+    }
+  }
+
   return(
     <div className={style.profileContainer}>
       <Toaster/>
@@ -151,10 +159,10 @@ const Profile = () => {
         <ul className={style.ul}>
         <li onClick={() => setPage(0)} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
         <li onClick={() => setPage(1)} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
-        { user?.name == "Admin" && <li onClick={() => {setPage(2); dispatch(setPagina(1))}} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>}        
-        { user?.name == "Admin" &&<li onClick={() => {setPage(3) ; dispatch(setPagina(1))}} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>}
-        { user?.name == "Admin" &&<li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>}
-        { user?.name == "Admin" &&<li onClick={() => {setPage(5) ; dispatch(setPagina(1))}} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>}
+        { user?.role == 3 && <li onClick={() => {setPage(2); dispatch(setPagina(1))}} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>}        
+        { user?.role == 3 &&<li onClick={() => {setPage(3) ; dispatch(setPagina(1))}} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>}
+        { user?.role == 3 &&<li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>}
+        { user?.role == 3 &&<li onClick={() => {setPage(5) ; dispatch(setPagina(1))}} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>}
         <li onClick={() => navigate("/")} className={style.li}><FaChalkboardTeacher className={style.icon}/> Volver</li>
         <li onClick={() => {navigate("/"); localStorage.removeItem("token"); dispatch(setUser(false))}} className={style.li}><MdExitToApp className={style.icon}/> Cerrar sesion</li>
         </ul>
@@ -166,6 +174,10 @@ const Profile = () => {
             <div className={style.profileDetail}>
                 <p className={style.profileName}>{user?.name} {user?.lastname}</p>
                 <p className={style.profileEmail}>{user?.email}</p>
+                {user?.role == 1 && <p></p>}
+                {user?.role == 2 && <p>Asesor</p>}
+                {user?.role == 3 && <p>Admin</p>}
+
             </div>
         </div>
         <div className={style.editProfile}>
@@ -278,7 +290,7 @@ const Profile = () => {
             </div>
         </div>
       </div>}
-      { (page == 2 && user?.name == "Admin") && <div className={style.view}>
+      { (page == 2 && user?.role == 3) && <div className={style.view}>
       <div className={style.top}>
           <select className={style.select}>
             <option selected>Rol</option>
@@ -302,9 +314,12 @@ const Profile = () => {
           <td className={style.td}>{u.name} {u.lastname}</td>
           <td className={style.td}>{u.email}</td>
           <td className={style.td}>{u.phone}</td>
-          <td className={style.td}>{u.password}</td>
+          { u.role == 1 && <td className={style.td}>Usuario</td>}
+          {u.role == 2 && <td className={style.td}>Asesor</td>}
+          {u.role == 3 && <td className={style.td}>Admin</td>}
           <td className={style.td}>Publicado</td>
-          <td className={style.td}>Archivar</td>
+          {u.role < 3 && <td className={style.td} onClick={() => subirRol(u.id, u.role+1, true)}>Ascender</td>}
+          {u.role == 3 && <td className={style.td} onClick={() => subirRol(u.id, u.role+1, false)}>Volver usuario</td>}
           </tr>)}
         </table>
         <div className={style.pagination}>
@@ -314,7 +329,7 @@ const Profile = () => {
         </div>
       </div>}
 
-      { (page == 3 && user?.name == "Admin" && !creator) && <div className={style.view}>
+      { (page == 3 && user?.role == 3 && !creator) && <div className={style.view}>
         <div className={style.top}>
           <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear paquete</button>
           <select className={style.select}>
@@ -347,7 +362,7 @@ const Profile = () => {
           { maxPagesPacks !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
-      { (page == 3 && user?.name == "Admin" && creator) && 
+      { (page == 3 && user?.role == 3 && creator) && 
       <div className={style.view}>
         <div className={style.creator}>
           <div className={style.formPaquete}>
@@ -371,7 +386,7 @@ const Profile = () => {
           </div>
         </div>
       </div>}
-      { (page == 4 && user?.name == "Admin") && <div className={style.view}>
+      { (page == 4 && user?.role == 3) && <div className={style.view}>
         <div className={style.editContainer}>
           <div className={style.edit}>
           <img src={imgPromo} className={style.imgPromo}></img>
@@ -380,7 +395,7 @@ const Profile = () => {
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>
         </div>
       </div>}
-      { (page == 5 && user?.name == "Admin" && !creator) && <div className={style.view}>
+      { (page == 5 && user?.role == 3 && !creator) && <div className={style.view}>
       <div className={style.top}>
         <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
       <select className={style.select}>
@@ -413,7 +428,7 @@ const Profile = () => {
           { maxPagesClass !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
-      { (page == 5 && user?.name == "Admin" && creator) && <div className={style.view}>
+      { (page == 5 && user?.role == 3 && creator) && <div className={style.view}>
         <form className={style.formCapacitacion}>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.title} name="title" placeholder="Nombre de la capacitacion"/>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.link} name="link" placeholder="Link"/>

@@ -2,7 +2,7 @@ import style from './Clients.module.css'
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import logo from "../../../assets/logo.jpg"
+// import logo from "../../../assets/logo.jpg"
 import {Element} from "react-scroll"
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
@@ -61,7 +61,7 @@ const Clients = () => {
     <motion.div animate={animation} ref={ref} className={style.clients} id="clientes">
       <h2 className={style.titleSection}>Nuestros aliados</h2>
         <Slider key={Math.random()} {...settings}>
-        <div className={style.client}>
+        {/* <div className={style.client}>
           <img src={logo} className={style.img}></img>
         </div>
         <div className={style.client}>
@@ -72,7 +72,7 @@ const Clients = () => {
         </div>
         <div className={style.client}>
         <img src={logo} className={style.img}></img>
-        </div>
+        </div> */}
         </Slider>
 
       <div>

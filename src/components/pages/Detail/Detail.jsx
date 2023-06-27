@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../../layout/Modal/Modal';
 import style from './Detail.module.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import ShortNav from '../../layout/ShortNav/ShortNav';
+import axios from 'axios';
  
 const Detail = () => {
+    const {id} = useParams()
     const [open, setOpen] = useState(false)
     const navigate= useNavigate()
     const [count, setCount] = useState(1)
+    const [pack, setPack] = useState()
     const imgs = ["https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"]
-  return(
+  
+    useEffect(() => {
+      axios.get(`/pack/${id}`).then(data => setPack(data.data))
+    })
+
+    return(
     <>
     <ShortNav/>
     {open && <Modal pay={() => navigate("/pay")}close={() => setOpen(false)}/>}
@@ -21,7 +29,7 @@ const Detail = () => {
         </div>
         <img src={imgs[0]} className={style.bigImg}></img>
         <div className={style.detail}>
-            <h2 className={style.title}>Santa Marta</h2>
+            <h2 className={style.title}>{pack?.title}</h2>
             <p className={style.location}>Hotel maracana - Todo incluido</p>
             <b className={style.price}>$1.400.000 p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
             <p className={style.fecha}>13-12-2023   14-04-2023</p>
