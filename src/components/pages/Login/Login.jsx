@@ -23,6 +23,7 @@ const Login = () => {
         if(!newUser?.password.length || newUser?.password.length < 8) return toast.error("La contraseña debe tener al menos 8 caracteres")
         if(newUser?.password !== newUser?.password2) return toast.error("Las contraseñas no coinciden")
         axios.post("/user", newUser).then(() => {
+            setLogin(true)
             //Limpiar form y enviar toast
             toast.success("Te has registrado exitosamente")
             setNewUser({
@@ -74,7 +75,7 @@ const Login = () => {
                 <input onChange={handleLogin} value={user?.email} name="email" type="email" className={style.input} placeholder="Email"/>
                 <input onChange={handleLogin} value={user?.password} name="password" type="password" className={style.input} placeholder="Contraseña"/>
                 <button type="submit" className={style.button}>Entrar</button>
-                <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Entra con google</span></button>
+                {/* <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Entra con google</span></button> */}
 
             </form>
             <p className={style.register}>¿Aun no tienes cuenta?<p onClick={() => setLogin(false)} className={style.buttonRegister}>Registrate</p></p>
@@ -89,7 +90,7 @@ const Login = () => {
             <input onChange={handleChange} value={newUser?.password} name="password" type="password" className={style.input} placeholder="Contraseña"/>
             <input onChange={handleChange} value={newUser?.password2} name="password2" type="password" className={style.input} placeholder="Repetir contraseña"/>
             <input onClick={createUser} type="button" value="Registrarme" className={style.button}/>
-            <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Registrate con google</span></button>
+            {/* <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Registrate con google</span></button> */}
         </form>
         <p className={style.register}>¿Ya tienes cuenta?<p onClick={() => setLogin(true)} className={style.buttonRegister}>Ingresa</p></p>
     </div>

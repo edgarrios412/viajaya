@@ -4,6 +4,7 @@ import style from './Detail.module.css'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ShortNav from '../../layout/ShortNav/ShortNav';
 import axios from 'axios';
+import {toast, Toaster} from "react-hot-toast"
  
 const Detail = () => {
     const {id} = useParams()
@@ -11,23 +12,29 @@ const Detail = () => {
     const navigate= useNavigate()
     const [count, setCount] = useState(1)
     const [pack, setPack] = useState()
-    const imgs = ["https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"]
+    const [img, setImg] = useState(0)
+    // const imgs = ["https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://media.gettyimages.com/photos/tropical-beach-background-picture-id1145474071","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"]
   
     useEffect(() => {
       axios.get(`/pack/${id}`).then(data => setPack(data.data))
-    })
+    },[])
 
+    const addCar = () => {
+      setOpen(false);
+      toast.success("Agregado al carrito exitosamente")
+    }
     return(
     <>
     <ShortNav/>
-    {open && <Modal pay={() => navigate("/pay")}close={() => setOpen(false)}/>}
+    <Toaster/>
+    {open && <Modal pay={() => navigate("/pay")}close={addCar}/>}
       <div className={style.detailContainer}>
         <div className={style.sliderImg}>
-            <img src={imgs[0]} className={style.img}></img>
-            <img src={imgs[1]} className={style.img}></img>
-            <img src={imgs[2]} className={style.img}></img>
+            <img src={pack?.images[0]} onClick={() => setImg(0)} className={style.img}></img>
+            <img src={pack?.images[1]} onClick={() => setImg(1)} className={style.img}></img>
+            <img src={pack?.images[2]} onClick={() => setImg(2)} className={style.img}></img>
         </div>
-        <img src={imgs[0]} className={style.bigImg}></img>
+        <img src={pack?.images[img]} className={style.bigImg}></img>
         <div className={style.detail}>
             <h2 className={style.title}>{pack?.title}</h2>
             <p className={style.location}>Hotel maracana - Todo incluido</p>

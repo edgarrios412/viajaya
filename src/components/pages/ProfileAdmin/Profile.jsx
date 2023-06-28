@@ -20,6 +20,8 @@ const Profile = () => {
     const [changePass, setChangePass] = useState(false)
     const dispatch = useDispatch()
 
+    const [loading, setLoading] = useState(true)
+
     const urlReg = /^(http|https):\/\/([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+\.[a-zA-Z]{2,9}(\/[a-zA-Z0-9_#.-]+\/?)*$/
     const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneReg = /^\d{10}$/;
@@ -32,7 +34,9 @@ const Profile = () => {
     const [clase, setClase] = useState()
 
     const [packs, setPacks] = useState()
-    const [pack, setPack] = useState()
+    const [pack, setPack] = useState({
+      images:[]
+    })
     const paquetes = useSelector(s => s.paquetes)
     const users = useSelector(s => s.users)
     const clases = useSelector(s => s.clases)
@@ -46,7 +50,9 @@ const Profile = () => {
     const [promos, setPromos] = useState()
 
     useEffect(() => {
-      axios.get("/user").then((data) => dispatch(setUsers(data.data)))
+      axios.get("/user").then((data) => {dispatch(setUsers(data.data)); setTimeout(() => {
+        setLoading(false)
+      }, 500)})
       axios.get("/class").then((data) => dispatch(setClass(data.data)))
       axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))
       axios.get("/promo").then((data) => setPromo(data.data))
@@ -78,6 +84,7 @@ const Profile = () => {
     const createPack = () => {
       if(!pack?.title.length || pack?.title.length < 5) return toast.error("El titulo debe tener al menos 5 caracteres")
       if(!pack?.detail.length || pack?.detail.length < 2) return toast.error("La descripcion debe tener al menos 2 caracteres")
+      if(!pack?.lat || !pack?.lng) return toast.error("Debes seleccionar una ubicacion en el mapa")
       axios.post("/pack", pack).then(() => {setCreator(false);toast.success("Paquete creado exitosamente"); axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))})
     }
 
@@ -151,7 +158,38 @@ const Profile = () => {
     }
   }
 
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset","viajaya")
+    data.append("api_key","612393625364863")
+    data.append("timestamp", 0)
+    const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", data)
+    // console.log(res.data.secure_url)
+    setPromo({
+      ...promo,
+      image:res.data.secure_url
+    })
+  }
+
+  const uploadImages = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset","viajaya")
+    data.append("api_key","612393625364863")
+    data.append("timestamp", 0)
+    const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", data)
+    setPack({
+      ...pack,
+      images:[...pack.images, res.data.secure_url]
+    })
+  }
+
   return(
+    <>
+    {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
     <div className={style.profileContainer}>
       <Toaster/>
       <nav className={style.nav}>
@@ -379,6 +417,7 @@ const Profile = () => {
           </div>
           <div className={style.imgs}>
             <img src="https://morenoa.com/wp-content/themes/consultix/images/no-image-found-360x250.png"/>
+            <input type="file" onChange={uploadImages}/>
             <p className={style.tip}>Selecciona al menos 3 imagenes</p>
             <div className={style.mapa}>
               <Map height={30} width={26} fn={setLocation}/>
@@ -389,7 +428,8 @@ const Profile = () => {
       { (page == 4 && user?.role == 3) && <div className={style.view}>
         <div className={style.editContainer}>
           <div className={style.edit}>
-          <img src={imgPromo} className={style.imgPromo}></img>
+          <img src={promo?.image} className={style.imgPromo}></img>
+          <input type="file" onChange={uploadImage}/>
           <textarea value={promo?.details} onChange={handlePromo} name="details" className={style.detalles}></textarea>
           </div>
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>
@@ -435,7 +475,8 @@ const Profile = () => {
         </form>
         <button className={style.buttonPromo} onClick={createClass}>Crear capacitacion</button>
       </div>}
-    </div>
+    </div>}
+    </>
   )
 };
 

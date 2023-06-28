@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion} from 'framer-motion';
 import { useEffect } from 'react';
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {RiRefreshFill} from "react-icons/ri"
 import "leaflet/dist/leaflet.css";
 import {
@@ -33,7 +33,7 @@ const Paquetes = () => {
   })
   const animation = useAnimation()
 
-
+  const navigate = useNavigate()
   // MAPA
 
   const [zoom, setZoom] = useState(15)
@@ -77,13 +77,14 @@ const Paquetes = () => {
       <div className={style.container}>
         <div className={style.paquetesContainer}>
           {travels && travels.map( t =>
-          <div className={style.paquete} onClick={() => mapRef.current.flyTo([t.lat,t.lng],15)}>
+          <div className={style.paquete} onClick={() => navigate(`/detail/${t.id}`)}>
           <div className={style.planTop}>
                 <img className={style.imgPlan}/>
                 <div className={style.planDetail}>
                   <div className={style.nameAndPrice}>
                     <b className={style.planName}>{t.title}</b>
                     <b className={style.planPrice}>$1.400.000 p/p</b>
+                    <p onClick={() => mapRef.current.flyTo([t.lat,t.lng],15)}>Ubicacion</p>
                   </div>
                   <p>Hotel maracana - Todo incluido</p>
                   <div className={style.tags}>

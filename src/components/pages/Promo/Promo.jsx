@@ -49,7 +49,7 @@ const Promo = () => {
             <button className={style.button}>Reservar ahora</button>
             </div>
         </h4>
-        <img src={img} className={style.img}/>
+        <img src={promo?.image} className={style.img}/>
       </div>
     </motion.div>
       </Element>

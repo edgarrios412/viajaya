@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const ShortNav = () => {
   return(
     <nav className={style.nav}>
+      <Link to="/">Inicio</Link>
       <Link to="/pay"><BsCart4 className={style.car}/></Link>
       <Link to="/profile">
       <div className={style.profile}>
