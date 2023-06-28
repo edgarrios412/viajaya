@@ -70,7 +70,7 @@ const Profile = () => {
     const createClass = () => {
       if(!clase?.title.length || clase?.title.length < 5) return toast.error("El titulo debe tener al menos 5 caracteres")
       if(!urlReg.test(clase?.link)) return toast.error("Debes ingresar un link valido")
-      axios.post("/class", clase).then(() => {setCreator(false);toast.success("Capacitación creada exitosamente"); axios.get("/class").then((data) => dispatch(setClass(data.data)))})
+      axios.post("/class", {...clase, created:user.name}).then(() => {setCreator(false);toast.success("Capacitación creada exitosamente"); axios.get("/class").then((data) => dispatch(setClass(data.data)))})
     }
 
     const handlePack = (e) => {
@@ -85,7 +85,7 @@ const Profile = () => {
       if(!pack?.title.length || pack?.title.length < 5) return toast.error("El titulo debe tener al menos 5 caracteres")
       if(!pack?.detail.length || pack?.detail.length < 2) return toast.error("La descripcion debe tener al menos 2 caracteres")
       if(!pack?.lat || !pack?.lng) return toast.error("Debes seleccionar una ubicacion en el mapa")
-      axios.post("/pack", pack).then(() => {setCreator(false);toast.success("Paquete creado exitosamente"); axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))})
+      axios.post("/pack", {...pack, created:user.name}).then(() => {setCreator(false);toast.success("Paquete creado exitosamente"); axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))})
     }
 
     const findPack = (e) => {
@@ -187,6 +187,26 @@ const Profile = () => {
     })
   }
 
+  const updatePaquete = (id) => {
+    axios.put("/pack", {id:id, status:"a"})
+    .then(() => axios.get("/pack").then((data) => dispatch(setPaquetes(data.data))))
+  }
+
+  const deletePaquete = (id) => {
+    axios.delete(`/pack/${id}`)
+    .then((data) => {toast.success(data.data.message); axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))})
+  }
+
+  const actualizarClase = (id) => {
+    axios.put("/class", {id:id, status:"a"})
+    .then(() => axios.get("/class").then((data) => dispatch(setClass(data.data))))
+  }
+
+  const eliminarClase = (id) => {
+    axios.delete(`/class/${id}`)
+    .then((data) => {toast.success(data.data.message); axios.get("/class").then((data) => dispatch(setClass(data.data)))})
+  }
+
   return(
     <>
     {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
@@ -196,7 +216,7 @@ const Profile = () => {
         <h3 className={style.title}>Mi perfil</h3>
         <ul className={style.ul}>
         <li onClick={() => setPage(0)} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
-        <li onClick={() => setPage(1)} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
+        <li onClick={() => setPage(1)} style={{color:"red"}} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
         { user?.role == 3 && <li onClick={() => {setPage(2); dispatch(setPagina(1))}} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>}        
         { user?.role == 3 &&<li onClick={() => {setPage(3) ; dispatch(setPagina(1))}} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>}
         { user?.role == 3 &&<li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>}
@@ -330,12 +350,12 @@ const Profile = () => {
       </div>}
       { (page == 2 && user?.role == 3) && <div className={style.view}>
       <div className={style.top}>
-          <select className={style.select}>
+          {/* <select className={style.select}>
             <option selected>Rol</option>
             <option>Admin</option>
             <option>Asesor</option>
             <option>Usuario</option>
-          </select>
+          </select> */}
           <input className={style.inputFind} onChange={findUsuarios} placeholder='Buscar por email'/>
         </div>
         <table>
@@ -344,7 +364,6 @@ const Profile = () => {
           <td className={style.topTd}>Email</td>
           <td className={style.topTd}>Celular</td>
           <td className={style.topTd}>Rol</td>
-          <td className={style.topTd}>Estado</td>
           <td className={style.topTd}>Acciones</td>
           </tr>
           {users?.map( u =>
@@ -355,7 +374,6 @@ const Profile = () => {
           { u.role == 1 && <td className={style.td}>Usuario</td>}
           {u.role == 2 && <td className={style.td}>Asesor</td>}
           {u.role == 3 && <td className={style.td}>Admin</td>}
-          <td className={style.td}>Publicado</td>
           {u.role < 3 && <td className={style.td} onClick={() => subirRol(u.id, u.role+1, true)}>Ascender</td>}
           {u.role == 3 && <td className={style.td} onClick={() => subirRol(u.id, u.role+1, false)}>Volver usuario</td>}
           </tr>)}
@@ -371,8 +389,7 @@ const Profile = () => {
         <div className={style.top}>
           <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear paquete</button>
           <select className={style.select}>
-          <option selected>Estado</option>
-          <option>No publicado</option>
+          <option selected>Todos</option>
           <option>Publicado</option>
           <option>Archivado</option>
           </select>
@@ -389,9 +406,9 @@ const Profile = () => {
           { paquetes?.map(p => <tr>
           <td className={style.td}>{p.title}</td>
           <td className={style.td}>{p.detail}</td>
-          <td className={style.td}>Admin</td>
-          <td className={style.td}>Publicado</td>
-          <td className={style.td}>Archivar</td>
+          <td className={style.td}>{p.created}</td>
+          <td className={style.td} style={{cursor:"pointer"}} onClick={() => updatePaquete(p.id)}>{p.status == false ? "Publicar":"Archivar"}</td>
+          <td className={style.td} style={{cursor:"pointer"}} onClick={() => deletePaquete(p.id)}>Borrar</td>
           </tr>)}
         </table>
         <div className={style.pagination}>
@@ -428,8 +445,10 @@ const Profile = () => {
       { (page == 4 && user?.role == 3) && <div className={style.view}>
         <div className={style.editContainer}>
           <div className={style.edit}>
+            <div className={style.imgPromoContainer}>
           <img src={promo?.image} className={style.imgPromo}></img>
-          <input type="file" onChange={uploadImage}/>
+          <input type="file" className={style.inputFile} onChange={uploadImage}/>
+          </div>
           <textarea value={promo?.details} onChange={handlePromo} name="details" className={style.detalles}></textarea>
           </div>
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>
@@ -439,8 +458,7 @@ const Profile = () => {
       <div className={style.top}>
         <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
       <select className={style.select}>
-          <option selected>Estado</option>
-          <option>No publicado</option>
+          <option selected>Todos</option>
           <option>Publicado</option>
           <option>Archivado</option>
           </select>
@@ -457,9 +475,9 @@ const Profile = () => {
           { clases && clases.map( c => <tr>
           <td className={style.td}>{c.title}</td>
           <td className={style.td}>{c.link}</td>
-          <td className={style.td}>Admin</td>
-          <td className={style.td}>Publicado</td>
-          <td className={style.td}>Archivar</td>
+          <td className={style.td}>{c.created}</td>
+          <td className={style.td} onClick={() => actualizarClase(c.id)}>{c.status == false ? "Publicar":"Archivar"}</td>
+          <td className={style.td} onClick={() => eliminarClase(c.id)}>Borrar</td>
           </tr>)}
         </table>
         <div className={style.pagination}>

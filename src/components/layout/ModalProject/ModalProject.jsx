@@ -17,8 +17,7 @@ const ModalProject = ({close, detail}) => {
     <>
     <div className={style.modalContainer}>
       <div className={style.modal}>
-        <h2 className={style.title}>TITULO</h2>
-        <h5 className={style.cliente}>Precio</h5>
+        <h2 className={style.title}>Promocion ya pa ya</h2>
         <p className={style.desc}>{detail}</p>
         <Slider {...settings}>
         </Slider>
