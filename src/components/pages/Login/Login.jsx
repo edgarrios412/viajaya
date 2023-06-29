@@ -72,8 +72,8 @@ const Login = () => {
         {login ? <div className={style.loginContainer}>
             <h2 className={style.title}>Iniciar sesion</h2>
             <form className={style.form} onSubmit={(e) => {authUser(); e.preventDefault()}}>
-                <input onChange={handleLogin} value={user?.email} name="email" type="email" className={style.input} placeholder="Email"/>
-                <input onChange={handleLogin} value={user?.password} name="password" type="password" className={style.input} placeholder="Contraseña"/>
+                <input onChange={handleLogin} key={1} value={user?.email} name="email" type="email" className={style.input} placeholder="Email"/>
+                <input onChange={handleLogin} key={2} value={user?.password} name="password" type="password" className={style.input} placeholder="Contraseña"/>
                 <button type="submit" className={style.button}>Entrar</button>
                 {/* <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Entra con google</span></button> */}
 
@@ -83,12 +83,12 @@ const Login = () => {
         <div className={style.loginContainer}>
         <h2 className={style.title}>Registrarme</h2>
         <form className={style.form}>
-            <input onChange={handleChange} value={newUser?.name} name="name" type="text" className={style.input} placeholder="Nombre"/>
-            <input onChange={handleChange} value={newUser?.lastname} name="lastname" type="text" className={style.input} placeholder="Apellido"/>
-            <input onChange={handleChange} value={newUser?.phone} name="phone" type="text" className={style.input} placeholder="Telefono"/>
-            <input onChange={handleChange} value={newUser?.email} name="email" type="email" className={style.input} placeholder="Email"/>
-            <input onChange={handleChange} value={newUser?.password} name="password" type="password" className={style.input} placeholder="Contraseña"/>
-            <input onChange={handleChange} value={newUser?.password2} name="password2" type="password" className={style.input} placeholder="Repetir contraseña"/>
+            <input onChange={handleChange} key={3} value={newUser?.name} name="name" type="text" className={style.input} placeholder="Nombre"/>
+            <input onChange={handleChange} key={4} value={newUser?.lastname} name="lastname" type="text" className={style.input} placeholder="Apellido"/>
+            <input onChange={handleChange} key={5} value={newUser?.phone} name="phone" type="text" className={style.input} placeholder="Telefono"/>
+            <input onChange={handleChange} key={8} value={newUser?.email} name="email" type="email" className={style.input} placeholder="Email"/>
+            <input onChange={handleChange} key={6} value={newUser?.password} name="password" type="password" className={style.input} placeholder="Contraseña"/>
+            <input onChange={handleChange} key={7} value={newUser?.password2} name="password2" type="password" className={style.input} placeholder="Repetir contraseña"/>
             <input onClick={createUser} type="button" value="Registrarme" className={style.button}/>
             {/* <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Registrate con google</span></button> */}
         </form>

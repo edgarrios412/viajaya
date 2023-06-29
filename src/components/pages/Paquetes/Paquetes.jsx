@@ -20,6 +20,8 @@ import myIcon from "../../layout/Map/Iconos"
 import { useRef } from "react";
 import { map } from 'leaflet';
 import axios from 'axios';
+import Select from "react-select"
+import {BiCurrentLocation} from "react-icons/bi"
 
 const MAP_LAYER_ATTRIBUTION =
   "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
@@ -62,6 +64,12 @@ const Paquetes = () => {
     axios.get("/pack").then((data) => setTravels(data.data))
   },[])
 
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
+
   return(
     <>
     { projectId && <ModalProject id={projectId} close={() => setProjectId(null)}/>}
@@ -70,21 +78,18 @@ const Paquetes = () => {
       <h2 className={style.titleSection}>Paquetes</h2>
       <div className={style.selectContainer}>
         <RiRefreshFill className={style.refresh}/>
-        <select className={style.select}>
-          <option selected>Caracteristicas</option>
-        </select>
+        <Select isMulti className={style.select} onChange={(e) => console.log(e)} options={options}/>
       </div>
       <div className={style.container}>
         <div className={style.paquetesContainer}>
           {travels && travels.map( t =>
-          <div className={style.paquete} onClick={() => navigate(`/detail/${t.id}`)}>
+          <div className={style.paquete} onMouseOver={() => mapRef.current.flyTo([t.lat,t.lng],15)} onClick={() => navigate(`/detail/${t.id}`)}>
           <div className={style.planTop}>
                 <img className={style.imgPlan}/>
                 <div className={style.planDetail}>
                   <div className={style.nameAndPrice}>
                     <b className={style.planName}>{t.title}</b>
                     <b className={style.planPrice}>$1.400.000 p/p</b>
-                    <p onClick={() => mapRef.current.flyTo([t.lat,t.lng],15)}>Ubicacion</p>
                   </div>
                   <p>Hotel maracana - Todo incluido</p>
                   <div className={style.tags}>

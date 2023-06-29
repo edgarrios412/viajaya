@@ -72,6 +72,7 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 
 .paquete{
     padding: 10px;
+    cursor: pointer;
 }
 
 .planDetail{
@@ -112,7 +113,7 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 }
 
 .select{
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     border: 2px solid var(--primary);
     border-radius: 5px;
 }

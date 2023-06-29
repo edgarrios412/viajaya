@@ -6,6 +6,7 @@ export const SET_USERS = "SET_USERS"
 export const FIND_CLASS = "FIND_CLASS"
 export const SET_CLASS = "SET_CLASS"
 export const SET_PAGINA = "SET_PAGINA"
+export const FILTER_PACKS = "FILTER_PACKS"
 
 export const setUser = (user) => {
   return (dispatch) => {
@@ -52,5 +53,11 @@ export const setClass = (clases) => {
 export const setPagina = (number) => {
   return (dispatch) => {
     dispatch({type:SET_PAGINA, payload:number})
+  }
+}
+
+export const filterPacks = (why, type) => {
+  return (dispatch) => {
+    dispatch({type:FILTER_PACKS, payload:[why, type]})
   }
 }

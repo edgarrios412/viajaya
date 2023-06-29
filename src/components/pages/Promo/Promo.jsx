@@ -7,12 +7,14 @@ import { useAnimation } from 'framer-motion';
 import img from "../../../assets/promo.jpg"
 import ModalProject from '../../layout/ModalProject/ModalProject';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Promo = () => {
 
   const {ref, inView} = useInView({
     threshold:0.05
   })
+  const navigate = useNavigate()
   const animation = useAnimation()
   const [modal, setModal] = useState(false)
   const [promo, setPromo] = useState()
@@ -46,7 +48,7 @@ const Promo = () => {
             <h2 className={style.titleSection}>Promocion ya pa ya</h2>
             <div className={style.buttonContainer}>
             <button className={style.button} onClick={() => setModal(true)}>Detalles</button>
-            <button className={style.button}>Reservar ahora</button>
+            <button className={style.button} onClick={() => navigate("/pay")}>Reservar ahora</button>
             </div>
         </h4>
         <img src={promo?.image} className={style.img}/>

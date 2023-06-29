@@ -8,10 +8,11 @@ import {FiUsers} from "react-icons/fi"
 import {BsBoxSeam} from "react-icons/bs"
 import {FaChalkboardTeacher} from "react-icons/fa"
 import axios from 'axios';
-import { FIND_USERS, findPaquetes, setPaquetes, findUsers, setUsers, setClass, findClass, setPagina } from '../../../redux/actions/actions';
+import { FIND_USERS, findPaquetes, setPaquetes, findUsers, setUsers, setClass, findClass, setPagina, filterPacks } from '../../../redux/actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Map from '../../layout/Map/Map';
 import {toast, Toaster} from "react-hot-toast"
+import Select from "react-select"
  
 const Profile = () => {
     const [page, setPage] = useState(0)
@@ -207,6 +208,16 @@ const Profile = () => {
     .then((data) => {toast.success(data.data.message); axios.get("/class").then((data) => dispatch(setClass(data.data)))})
   }
 
+  const filtrarPaquetes = (e, type) => {
+    dispatch(filterPacks(e.target.value, type))
+  }
+
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ]
+
   return(
     <>
     {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
@@ -233,8 +244,8 @@ const Profile = () => {
                 <p className={style.profileName}>{user?.name} {user?.lastname}</p>
                 <p className={style.profileEmail}>{user?.email}</p>
                 {user?.role == 1 && <p></p>}
-                {user?.role == 2 && <p>Asesor</p>}
-                {user?.role == 3 && <p>Admin</p>}
+                {user?.role == 2 && <p className={style.tagAsesor}>Asesor</p>}
+                {user?.role == 3 && <p className={style.tagAdmin}>Admin</p>}
 
             </div>
         </div>
@@ -388,10 +399,10 @@ const Profile = () => {
       { (page == 3 && user?.role == 3 && !creator) && <div className={style.view}>
         <div className={style.top}>
           <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear paquete</button>
-          <select className={style.select}>
-          <option selected>Todos</option>
-          <option>Publicado</option>
-          <option>Archivado</option>
+          <select className={style.select} onChange={(e) => filtrarPaquetes(e,"pack")}>
+          <option value="all" selected>Todos</option>
+          <option value="true">Publicado</option>
+          <option value="false">Archivado</option>
           </select>
           <input className={style.inputFind} onChange={findPack} placeholder='Buscar paquete'/>
         </div>
@@ -423,19 +434,21 @@ const Profile = () => {
           <div className={style.formPaquete}>
             <form onSubmit={(e) => e.preventDefault()}>
               <input className={style.inputForm} onChange={handlePack} value={pack?.title} name="title" placeholder="Nombre del paquete"/>
-              <input className={style.inputForm} placeholder="Fechas disponibles"/>
-              <input className={style.inputForm} placeholder="Caracteristicas"/>
-              <input className={style.inputForm} placeholder="Precio"/>
-              <input className={style.inputForm} placeholder="Direccion del hotel"/>
-              <input className={style.inputForm} placeholder="Ciudad"/>
+              <input type="number" onChange={handlePack} value={pack?.days} name="days" className={style.inputForm} placeholder="Duracion (dias)"/>
+              <Select className={style.inputForm1} isMulti onChange={(e) => console.log(e)} options={options} />
+              <input className={style.inputForm} onChange={handlePack} value={pack?.price} name="price" placeholder="Precio"/>
+              <input className={style.inputForm} onChange={handlePack} value={pack?.location} name="location" placeholder="Direccion del hotel"/>
+              <input className={style.inputForm} onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
               <textarea className={style.inputFormText} onChange={handlePack} value={pack?.detail} name="detail" placeholder="Descripcion"/>
               <button className={style.buttonPromo} style={{margin:"20px 0px 0px 100px"}} onClick={createPack}>Crear paquete</button>
             </form>
           </div>
           <div className={style.imgs}>
-            <img src="https://morenoa.com/wp-content/themes/consultix/images/no-image-found-360x250.png"/>
-            <input type="file" onChange={uploadImages}/>
-            <p className={style.tip}>Selecciona al menos 3 imagenes</p>
+            <div className={style.imgContainer}>
+            <img className={style.img} src={!pack?.images.length ? "https://morenoa.com/wp-content/themes/consultix/images/no-image-found-360x250.png" : pack?.images.at(-1)}/>
+            { pack?.images.length < 3 && <input type="file" className={style.upload} onChange={uploadImages}/>}
+            </div>
+            <p className={style.tip}>Selecciona al menos 3 imagenes {"("+pack?.images.length+"/3)"}</p>
             <div className={style.mapa}>
               <Map height={30} width={26} fn={setLocation}/>
             </div>
@@ -457,10 +470,10 @@ const Profile = () => {
       { (page == 5 && user?.role == 3 && !creator) && <div className={style.view}>
       <div className={style.top}>
         <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
-      <select className={style.select}>
-          <option selected>Todos</option>
-          <option>Publicado</option>
-          <option>Archivado</option>
+        <select className={style.select} onChange={(e) => filtrarPaquetes(e,"class")}>
+          <option value="all" selected>Todos</option>
+          <option value="true">Publicado</option>
+          <option value="false">Archivado</option>
           </select>
           <input className={style.inputFind} onChange={findClase} placeholder='Buscar capacitacion'/>
         </div>
@@ -476,8 +489,8 @@ const Profile = () => {
           <td className={style.td}>{c.title}</td>
           <td className={style.td}>{c.link}</td>
           <td className={style.td}>{c.created}</td>
-          <td className={style.td} onClick={() => actualizarClase(c.id)}>{c.status == false ? "Publicar":"Archivar"}</td>
-          <td className={style.td} onClick={() => eliminarClase(c.id)}>Borrar</td>
+          <td className={style.td} style={{cursor:"pointer"}} onClick={() => actualizarClase(c.id)}>{c.status == false ? "Publicar":"Archivar"}</td>
+          <td className={style.td} style={{cursor:"pointer"}} onClick={() => eliminarClase(c.id)}>Borrar</td>
           </tr>)}
         </table>
         <div className={style.pagination}>

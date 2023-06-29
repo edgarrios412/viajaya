@@ -60,6 +60,26 @@
     
 }
 
+.img{
+    width:360px;
+    object-fit: cover;
+    height: 250px;
+    position: absolute;
+}
+
+.imgContainer{
+    width:360px;
+    height: 250px;
+}
+
+.upload{
+    background-color: red;
+    position: absolute;
+    width:360px;
+    opacity:0;
+    height: 250px;
+}
+
 .imgProfile{
     width: 150px;
     height: 150px;
@@ -188,6 +208,28 @@
     border-radius: 5px;
 }
 
+.tagAdmin{
+    padding: 5px 10px;
+    font-family: system-ui;
+    border-radius: 6px;
+    background-color: rgb(101, 23, 79);
+    font-weight: 600;
+    font-size: 1em;
+    color: white;
+    width: fit-content;
+}
+
+.tagAsesor{
+    padding: 5px 10px;
+    font-family: system-ui;
+    border-radius: 6px;
+    background-color: rgb(23, 101, 100);
+    font-weight: 600;
+    font-size: 1em;
+    color: white;
+    width: fit-content;
+}
+
 .imgPromoContainer{
     width: 300px;
     height: 400px;
@@ -288,6 +330,7 @@ table{
     padding: 10px 30px;
     color: white;
     font-weight: 500;
+    cursor:pointer;
 }
 
 .top{
@@ -326,15 +369,30 @@ table{
     font-size: 1em;
     padding: 7px 15px;
     margin-bottom: 10px;
+    font-family: system-ui;
+}
+
+.inputForm1{
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 5px;
+    background-color: white;
+    font-size: 1em;
+    max-width: 213px;
+    /* padding: 7px 15px; */
+    margin-bottom: 10px;
+    font-family: system-ui;
 }
 
 .inputFormText{
+    border: 1px solid rgb(200, 200, 200);
     min-height: 160px;
     max-height: 160px;
-    min-width: 215px;
-    max-width: 215px;
+    min-width: 200px;
+    max-width: 200px;
     border-radius: 5px;
     padding: 5px;
+    font-family: system-ui;
+    font-size:1em
 }
 
 .mapa{
