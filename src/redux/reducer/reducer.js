@@ -8,6 +8,8 @@ import {
   SET_CLASS,
   SET_PAGINA,
   FILTER_PACKS,
+  FILTER_PACKSCHARS,
+  DATA_PAY
 } from "../actions/actions";
 
 const perPage = 8;
@@ -25,6 +27,7 @@ const initialState = {
   maxPagesUser:null,
   maxPagesClass: null,
   filter: "all",
+  pay:{}
 };
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -33,6 +36,34 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         user: payload,
       };
+    }
+    case DATA_PAY: {
+      return {
+        ...state,
+        pay: payload,
+      };
+    }
+    case FILTER_PACKSCHARS:{
+      if(payload.length == 0){
+        return{
+          ...state,
+          paquetes: state.paquetesOrigin
+        }}
+      if(payload.length == 1){
+      return{
+        ...state,
+        paquetes: state.paquetesOrigin.filter(p => p.chars.map(c => c.name).includes(payload[0]))
+      }}
+      if(payload.length == 2){
+        return{
+          ...state,
+          paquetes: state.paquetesOrigin.filter(p => p.chars.map(c => c.name).includes(payload[0]) && p.chars.map(c => c.name).includes(payload[1]))
+        }}
+        if(payload.length >= 3){
+          return{
+            ...state,
+            paquetes: state.paquetesOrigin.filter(p => p.chars.map(c => c.name).includes(payload[0]) && p.chars.map(c => c.name).includes(payload[1]) && p.chars.map(c => c.name).includes(payload[2]))
+          }}
     }
     case FILTER_PACKS:{
       if(payload[1] == "pack"){

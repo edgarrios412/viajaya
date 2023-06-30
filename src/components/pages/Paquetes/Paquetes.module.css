@@ -34,11 +34,12 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
     flex-direction: column;
     gap: 20px;
     overflow-y: scroll;
+    padding: 0px 20px;
 }
 
 .paquete{
     width: 95%;
-    min-height: 200px;
+    min-height: fit-content;
     border-radius: 10px;
     background-color: white;
 }
@@ -80,9 +81,13 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 }
 
 .imgPlan{
-    width: 120px;
-    height: 150px;
+    min-width: 120px;
+    min-height: 150px;
+    max-width: 120px;
+    max-height: 150px;
     background-color: violet;
+    border-radius: 5px;
+    object-fit: cover;
 }
 
 .planTop{
@@ -92,12 +97,14 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 .nameAndPrice{
     display: flex;
     justify-content: space-between;
-    width: 350px;
+    width: 330px;
     align-items: center;
 }
 
 .planName{
     font-size: 1.6em;
+    width: 200px;
+    
 }
 
 .planPrice{

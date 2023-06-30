@@ -78,6 +78,7 @@
     width:360px;
     opacity:0;
     height: 250px;
+    cursor: pointer;
 }
 
 .imgProfile{
@@ -378,6 +379,7 @@ table{
     background-color: white;
     font-size: 1em;
     max-width: 213px;
+    max-height: 50px;
     /* padding: 7px 15px; */
     margin-bottom: 10px;
     font-family: system-ui;

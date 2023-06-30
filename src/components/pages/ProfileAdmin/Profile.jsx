@@ -46,7 +46,7 @@ const Profile = () => {
     const maxPagesClass = useSelector(s => s.maxPagesClass)
     const maxPagesUser = useSelector(s => s.maxPagesUser)
 
-
+    const [chars, setChars] = useState()
     const [promo, setPromo] = useState()
     const [promos, setPromos] = useState()
 
@@ -56,6 +56,7 @@ const Profile = () => {
       }, 500)})
       axios.get("/class").then((data) => dispatch(setClass(data.data)))
       axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))
+      axios.get("/pack/chars").then((data) => setChars(data.data))
       axios.get("/promo").then((data) => setPromo(data.data))
       axios.get(`/user/verify/${localStorage.getItem("token")}`).then((data) => axios.get(`/user/${data.data.id}`).then((data) => setUser(data.data)))
     }, [])
@@ -154,8 +155,10 @@ const Profile = () => {
   const subirRol = (id,role, bool) => {
     if(bool){
       axios.put("/user", { id: id, role: role}).then((data) => axios.get("/user").then((data) => dispatch(setUsers(data.data))))
+      toast.success("Usuario ascendido con exito")
     }else{
       axios.put("/user", { id: id, role: 1}).then((data) => axios.get("/user").then((data) => dispatch(setUsers(data.data))))
+      toast.success("Usuario descendido con exito")
     }
   }
 
@@ -191,6 +194,7 @@ const Profile = () => {
   const updatePaquete = (id) => {
     axios.put("/pack", {id:id, status:"a"})
     .then(() => axios.get("/pack").then((data) => dispatch(setPaquetes(data.data))))
+    toast.success("Se ha actualizado el paquete")
   }
 
   const deletePaquete = (id) => {
@@ -201,6 +205,7 @@ const Profile = () => {
   const actualizarClase = (id) => {
     axios.put("/class", {id:id, status:"a"})
     .then(() => axios.get("/class").then((data) => dispatch(setClass(data.data))))
+    toast.success("Se ha actualizado la capacitacion")
   }
 
   const eliminarClase = (id) => {
@@ -212,11 +217,44 @@ const Profile = () => {
     dispatch(filterPacks(e.target.value, type))
   }
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+  const [packChars, setPackChars] = useState([])
+
+  const handleChars = (e) => {
+    setPack({
+      ...pack,
+      chars: e.map(c => c.value)
+    })
+    setPackChars([...packChars, e.at(-1)])
+  }
+
+  const options = chars?.map( c => { return{value:c.id, label:c.name}})
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      maxHeight: '40px',
+      maxWidth: '100%',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      paddingRight: '55px'
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      position: 'relative',
+      maxWidth: '80%',
+      whiteSpace: 'nowrap',
+      overflow: 'auto',
+      textOverflow: 'ellipsis'
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      position: 'absolute',
+      top: '0px',
+      right: '0px',
+      border: 'none'
+    })
+    }
 
   return(
     <>
@@ -385,8 +423,8 @@ const Profile = () => {
           { u.role == 1 && <td className={style.td}>Usuario</td>}
           {u.role == 2 && <td className={style.td}>Asesor</td>}
           {u.role == 3 && <td className={style.td}>Admin</td>}
-          {u.role < 3 && <td className={style.td} onClick={() => subirRol(u.id, u.role+1, true)}>Ascender</td>}
-          {u.role == 3 && <td className={style.td} onClick={() => subirRol(u.id, u.role+1, false)}>Volver usuario</td>}
+          {u.role < 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => subirRol(u.id, u.role+1, true)}>Ascender</td>}
+          {u.role == 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => subirRol(u.id, u.role+1, false)}>Volver usuario</td>}
           </tr>)}
         </table>
         <div className={style.pagination}>
@@ -435,7 +473,7 @@ const Profile = () => {
             <form onSubmit={(e) => e.preventDefault()}>
               <input className={style.inputForm} onChange={handlePack} value={pack?.title} name="title" placeholder="Nombre del paquete"/>
               <input type="number" onChange={handlePack} value={pack?.days} name="days" className={style.inputForm} placeholder="Duracion (dias)"/>
-              <Select className={style.inputForm1} isMulti onChange={(e) => console.log(e)} options={options} />
+              <Select  className={style.inputForm1} styles={customStyles} isMulti placeholder="Caracteristicas" onChange={handleChars} options={options} />
               <input className={style.inputForm} onChange={handlePack} value={pack?.price} name="price" placeholder="Precio"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.location} name="location" placeholder="Direccion del hotel"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>

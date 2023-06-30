@@ -1,24 +1,58 @@
 import ShortNav from '../../layout/ShortNav/ShortNav';
 import style from './Pay.module.css'
 import {Link} from "react-router-dom"
-import {MdPayment} from "react-icons/md"
- 
+import {MdBusAlert, MdPayment} from "react-icons/md"
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useState } from 'react';
+import {Toaster, toast} from "react-hot-toast" 
+
 const Pay = () => {
+
+  const [pack, setPack] = useState()
+
+  const dataPay = useSelector(s => s.pay)
+
+  useEffect(() => {
+    axios.get(`/pack/${dataPay?.id}`).then(data => setPack(data.data))
+  },[])
+
+  const pay = () => {
+    const total = `${dataPay?.person*pack?.price}00`
+    var checkout = new WidgetCheckout({
+      currency: 'COP',
+      amountInCents: total,
+      reference: 'AD002902',
+      publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
+    })
+    checkout.open(function ( result ) {
+      var transaction = result.transaction
+      console.log('Transaction ID: ', transaction.id)
+      console.log('Transaction object: ', transaction)
+      if(transaction.status == "APPROVED") return toast.success("Compra exitosa")
+    })
+  }
+
+  const passengers = Array.from({ length: dataPay?.person }, (_, index) => (
+    <><p className={style.passenger}>Pasajero {index+1}</p>
+    <form className={style.form}>
+      <input className={style.inputForm} placeholder="Nombre completo"/>
+      <input className={style.inputForm} placeholder="Documento"/>
+      <input className={style.inputForm} placeholder="Telefono"/>
+      <input className={style.inputForm} placeholder="Email"/>
+    </form></>))
+
   const img = "https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"
   return(
     <>
     <ShortNav/>
+    <Toaster/>
     <div className={style.detailContainer}>
         <div className={style.detailPay}>
             <div className={style.datosComprador}>
               <h2 className={style.title}>Revisa y confirma tu compra</h2>
-              <p className={style.passenger}>Pasajero 1</p>
-              <form className={style.form}>
-                <input className={style.inputForm} placeholder="Nombre completo"/>
-                <input className={style.inputForm} placeholder="Documento"/>
-                <input className={style.inputForm} placeholder="Telefono"/>
-                <input className={style.inputForm} placeholder="Email"/>
-              </form>
+              {passengers}
             </div>
             <div className={style.resumenCompra}>
               <p className={style.resume}>Resumen de la compra</p>
@@ -27,13 +61,13 @@ const Pay = () => {
               <div>
               <b>Santa Marta</b>
               <p style={{margin:"3px 0px"}}>13 nov 2023</p>
-              <p style={{margin:"3px 0px"}}>2 personas</p>
-              <p className={style.price}>1.450.000 p/p</p>
+              <p style={{margin:"3px 0px"}}>{dataPay?.person} personas</p>
+              <p className={style.price}>${pack?.price} p/p</p>
               </div>
               </div>
-              <p className={style.subtotal}>Subtotal: <b>$2.900.000</b></p>
+              <p className={style.subtotal}>Subtotal: <b>${dataPay?.person*pack?.price}</b></p>
               <div className={style.buttons}>
-                <button className={style.button}><MdPayment className={style.payIcon}/> Pagar ahora</button>
+                <button className={style.button} onClick={pay}><MdPayment className={style.payIcon}/> Pagar ahora</button>
                 <Link to="/"><button style={{width:"200px"}} className={style.button}>Seguir comprando</button></Link>
               </div>
             </div>

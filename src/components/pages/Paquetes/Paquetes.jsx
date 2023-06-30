@@ -22,7 +22,8 @@ import { map } from 'leaflet';
 import axios from 'axios';
 import Select from "react-select"
 import {BiCurrentLocation} from "react-icons/bi"
-
+import {filterPacksChar, setPaquetes} from "../../../redux/actions/actions"
+import { useDispatch, useSelector } from 'react-redux';
 const MAP_LAYER_ATTRIBUTION =
   "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -34,14 +35,14 @@ const Paquetes = () => {
     threshold:0.05
   })
   const animation = useAnimation()
-
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   // MAPA
 
   const [zoom, setZoom] = useState(15)
   const [coord, setCoord] = useState([5.0267284, -74.0093039]);
   const mapRef= useRef()
-  const [travels, setTravels] = useState([])
+  const paquetes = useSelector(s => s.paquetes)
 
   useEffect(() => {
     if(inView){
@@ -60,15 +61,19 @@ const Paquetes = () => {
     }
   },[inView])
 
+  const [chars, setChars] = useState()
+
   useEffect(() => {
-    axios.get("/pack").then((data) => setTravels(data.data))
+    axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))
+    axios.get("/pack/chars").then((data) => setChars(data.data))
   },[])
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+  const filterPacks = (e) => {
+    const chars = e.map(c => c.label)
+    dispatch(filterPacksChar(chars))
+  }
+
+  const options = chars?.map(c => { return {value:c.id,label:c.name}})
 
   return(
     <>
@@ -78,14 +83,14 @@ const Paquetes = () => {
       <h2 className={style.titleSection}>Paquetes</h2>
       <div className={style.selectContainer}>
         <RiRefreshFill className={style.refresh}/>
-        <Select isMulti className={style.select} onChange={(e) => console.log(e)} options={options}/>
+        <Select isMulti className={style.select} onChange={filterPacks} options={options}/>
       </div>
       <div className={style.container}>
         <div className={style.paquetesContainer}>
-          {travels && travels.map( t =>
+          {paquetes?.map( t =>
           <div className={style.paquete} onMouseOver={() => mapRef.current.flyTo([t.lat,t.lng],15)} onClick={() => navigate(`/detail/${t.id}`)}>
           <div className={style.planTop}>
-                <img className={style.imgPlan}/>
+                <img src={t.images[0]} className={style.imgPlan}/>
                 <div className={style.planDetail}>
                   <div className={style.nameAndPrice}>
                     <b className={style.planName}>{t.title}</b>
@@ -93,14 +98,7 @@ const Paquetes = () => {
                   </div>
                   <p>Hotel maracana - Todo incluido</p>
                   <div className={style.tags}>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
+                    {t.chars.map(c => <span className={style.tag}>{c.name}</span>)}
                   </div>
                 </div>
               </div>
@@ -123,7 +121,7 @@ const Paquetes = () => {
             <div>Voy hasta acá</div>
           </Popup>
           </Marker>
-        {travels.map((p,i) => <Marker key={i} position={[p.lat,p.lng]}>
+        {paquetes.map((p,i) => <Marker key={i} position={[p.lat,p.lng]}>
         <Popup>Viaje #{i}</Popup>
       </Marker>)}
       {/* <LocationMarker/> */}
