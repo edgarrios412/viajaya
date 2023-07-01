@@ -34,7 +34,7 @@ const Pay = () => {
     var checkout = new WidgetCheckout({
       currency: 'COP',
       amountInCents: total,
-      reference: 'B',
+      reference: new Date().getTime(),
       publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
     })
     checkout.open(function ( result ) {
