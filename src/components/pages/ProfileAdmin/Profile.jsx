@@ -421,7 +421,10 @@ const Profile = () => {
               <input className={style.inputForm} onChange={handlePack} value={pack?.location} name="location" placeholder="Direccion del hotel"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
               <textarea className={style.inputFormText} onChange={handlePack} value={pack?.detail} name="detail" placeholder="Descripcion"/>
-              <button className={style.buttonPromo} style={{margin:"20px 0px 0px 100px"}} onClick={createPack}>Crear paquete</button>
+              <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
+              <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>
+              <button className={style.buttonCreate} onClick={createPack}>Crear</button>
+              </div>
             </form>
           </div>
           <div className={style.imgs}>
@@ -450,7 +453,7 @@ const Profile = () => {
       </div>}
       { (page == 5 && user?.role >= 2 && !creator) && <div className={style.view}>
       <div className={style.top}>
-        <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
+        { user?.role == 3 && <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>}
         <select className={style.select} onChange={(e) => filtrarPaquetes(e,"class")}>
           <option value="all" selected>Todos</option>
           <option value="true">Publicado</option>
@@ -463,15 +466,15 @@ const Profile = () => {
           <td className={style.topTd}>Nombre de la capacitacion</td>
           <td className={style.topTd}>Link</td>
           <td className={style.topTd}>Creado por</td>
-          <td className={style.topTd}>Estado</td>
-          <td className={style.topTd}>Acciones</td>
+          {user?.role == 3 && <td className={style.topTd}>Estado</td>}
+          {user?.role == 3 && <td className={style.topTd}>Acciones</td>}
           </tr>
           { clases && clases.map( c => <tr>
           <td className={style.td}>{c.title}</td>
           <td className={style.td}>{c.link}</td>
           <td className={style.td}>{c.created}</td>
-          <td className={style.td} style={{cursor:"pointer"}} onClick={() => actualizarClase(c.id)}>{c.status == false ? "Publicar":"Archivar"}</td>
-          <td className={style.td} style={{cursor:"pointer"}} onClick={() => eliminarClase(c.id)}>Borrar</td>
+          {user?.role == 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => actualizarClase(c.id)}>{c.status == false ? "Publicar":"Archivar"}</td>}
+          {user?.role == 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => eliminarClase(c.id)}>Borrar</td>}
           </tr>)}
         </table>
         <div className={style.pagination}>
@@ -480,12 +483,13 @@ const Profile = () => {
           { maxPagesClass !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
-      { (page == 5 && user?.role >= 2 && creator) && <div className={style.view}>
+      { (page == 5 && user?.role == 3 && creator) && <div className={style.view}>
         <form className={style.formCapacitacion}>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.title} name="title" placeholder="Nombre de la capacitacion"/>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.link} name="link" placeholder="Link"/>
         </form>
         <button className={style.buttonPromo} onClick={createClass}>Crear capacitacion</button>
+        <button className={style.buttonPromo} onClick={() => setCreator(false)}>Volver</button>
       </div>}
     </div>}
     </>

@@ -281,6 +281,22 @@
     font-weight: 500;
 }
 
+.buttonCreate{
+    margin-top: 20px;
+    cursor:pointer;
+    /* transform: translateX(-50%); */
+    width: 190px;
+    border-radius: 5px;
+    background-color: var(--primary);
+    border: 0;
+    margin-right: 20px;
+    border-radius: 15px;
+    font-size: 1.1em;
+    padding: 10px 25px;
+    color: white;
+    font-weight: 500;
+}
+
 .detalles{
     min-height: 370px;
     max-height: 370px;

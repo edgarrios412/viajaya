@@ -80,7 +80,7 @@ const Detail = () => {
             <b className={style.price}>${pack?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
             <Flatpickr
           value={fecha}
-          style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"75px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
+          style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
           options={flatpickrOptions}
           // ref={refCalendar}
           placeholder='Fecha inicio'

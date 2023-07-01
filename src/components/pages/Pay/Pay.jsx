@@ -1,6 +1,6 @@
 import ShortNav from '../../layout/ShortNav/ShortNav';
 import style from './Pay.module.css'
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {MdBusAlert, MdPayment} from "react-icons/md"
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ const Pay = () => {
   const dataPay = JSON.parse(localStorage.getItem("pay"))
   const [user,setUser]= useState()
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios.get(`/pack/${dataPay?.id}`).then(data => setPack(data.data))
@@ -41,15 +42,22 @@ const Pay = () => {
       var transaction = result.transaction
       console.log('Transaction ID: ', transaction.id)
       console.log('Transaction object: ', transaction)
-      axios.post("/buy",{
-        userId:user.id,
-        packId:pack.id,
-        person: dataPay.person,
-        inicio:dataPay.inicio,
-        fin:dataPay.fin,
-        comprado: dayjs().format('YYYY-MM-DD'),
-      })
-      if(transaction.status == "APPROVED") return toast.success("Compra exitosa")
+      if(transaction.status == "APPROVED"){
+        toast.success("Compra exitosa")
+        axios.post("/buy",{
+          userId:user.id,
+          packId:pack.id,
+          person: dataPay.person,
+          inicio:dataPay.inicio,
+          fin:dataPay.fin,
+          email: user.email,
+          comprado: dayjs().format('YYYY-MM-DD'),
+        })
+        // TODO: ENVIAR COMPROBANTE Y DATOS DE LOS PASAJEROS AL CORREO DE VIAJAYA
+        setTimeout(() => {
+          navigate("/profile")
+        },2000)
+      }
     })
   }
 
@@ -77,10 +85,10 @@ const Pay = () => {
             <div className={style.resumenCompra}>
               <p className={style.resume}>Resumen de la compra</p>
               <div className={style.details}>
-              <img src={img} className={style.imgProduct}/>
+              <img src={pack?.images[0]} className={style.imgProduct}/>
               <div>
-              <b>Santa Marta</b>
-              <p style={{margin:"3px 0px"}}>13 nov 2023</p>
+              <b>{pack?.title}</b>
+              <p style={{margin:"3px 0px"}}>{dataPay?.inicio}</p>
               <p style={{margin:"3px 0px"}}>{dataPay?.person} personas</p>
               <p className={style.price}>${pack?.price} p/p</p>
               </div>
