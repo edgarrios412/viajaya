@@ -7,7 +7,7 @@ import {
   useMapEvents,
   Tooltip
 } from "react-leaflet";
-import myIcon from "./Iconos"
+import {myIcon, iconLogo} from "./Iconos"
 import style from "./Map.module.css"
 import { useState, useEffect, useRef } from "react";
 
@@ -63,7 +63,7 @@ function Map({height, width, fn}) {
             <div>Aca estas tu</div>
           </Popup>
           </Marker>
-        {travels.map((p,i) => { return(<Marker key={p} position={p}>
+        {travels.map((p,i) => { return(<Marker icon={iconLogo} key={p} position={p}>
         <Popup>Viaje #{i}</Popup>
       </Marker>)})}
       <LocationMarker/>

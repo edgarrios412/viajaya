@@ -16,7 +16,7 @@ import {
   useMapEvents,
   Tooltip
 } from "react-leaflet";
-import myIcon from "../../layout/Map/Iconos"
+import {myIcon, iconLogo} from "../../layout/Map/Iconos"
 import { useRef } from "react";
 import { map } from 'leaflet';
 import axios from 'axios';
@@ -121,7 +121,7 @@ const Paquetes = () => {
             <div>Voy hasta acá</div>
           </Popup>
           </Marker>
-        {paquetes.map((p,i) => <Marker key={i} position={[p.lat,p.lng]}>
+        {paquetes.map((p,i) => <Marker key={i} icon={iconLogo} position={[p.lat,p.lng]}>
         <Popup>Viaje #{i}</Popup>
       </Marker>)}
       {/* <LocationMarker/> */}

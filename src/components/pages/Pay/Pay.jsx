@@ -13,7 +13,7 @@ import {Navigate} from "react-router-dom"
 const Pay = () => {
 
   const [pack, setPack] = useState()
-
+  const refe = new Date().getTime().toString()
   const dataPay = JSON.parse(localStorage.getItem("pay"))
   const [user,setUser]= useState()
   const [loading, setLoading] = useState(true)
@@ -34,7 +34,7 @@ const Pay = () => {
     var checkout = new WidgetCheckout({
       currency: 'COP',
       amountInCents: total,
-      reference: new Date().getTime().toString(),
+      reference: refe,
       publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
     })
     checkout.open(function ( result ) {
