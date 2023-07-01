@@ -16,7 +16,8 @@ import {
   useMapEvents,
   Tooltip
 } from "react-leaflet";
-import {myIcon, iconLogo} from "../../layout/Map/Iconos"
+import myIcon from "../../layout/Map/Iconos"
+import iconLogo from "../../layout/Map/Icono"
 import { useRef } from "react";
 import { map } from 'leaflet';
 import axios from 'axios';

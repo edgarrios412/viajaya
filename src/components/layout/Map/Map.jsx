@@ -7,7 +7,8 @@ import {
   useMapEvents,
   Tooltip
 } from "react-leaflet";
-import {myIcon, iconLogo} from "./Iconos"
+import myIcon from "./Iconos"
+import iconLogo from "./Icono"
 import style from "./Map.module.css"
 import { useState, useEffect, useRef } from "react";
 
