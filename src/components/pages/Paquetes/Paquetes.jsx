@@ -82,8 +82,8 @@ const Paquetes = () => {
     <motion.div ref={ref} animate={animation} className={style.paquetes} id="proyectos">
       <h2 className={style.titleSection}>Paquetes</h2>
       <div className={style.selectContainer}>
-        <RiRefreshFill className={style.refresh}/>
-        <Select isMulti className={style.select} onChange={filterPacks} options={options}/>
+        {/* <RiRefreshFill className={style.refresh}/> */}
+        <Select placeholder="Caracteristicas" isMulti className={style.select} onChange={filterPacks} options={options}/>
       </div>
       <div className={style.container}>
         <div className={style.paquetesContainer}>
@@ -94,7 +94,7 @@ const Paquetes = () => {
                 <div className={style.planDetail}>
                   <div className={style.nameAndPrice}>
                     <b className={style.planName}>{t.title}</b>
-                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                    <b className={style.planPrice}>${t.price} p/p</b>
                   </div>
                   <p>Hotel maracana - Todo incluido</p>
                   <div className={style.tags}>

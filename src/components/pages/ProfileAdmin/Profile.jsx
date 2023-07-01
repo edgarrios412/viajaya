@@ -49,6 +49,7 @@ const Profile = () => {
     const [chars, setChars] = useState()
     const [promo, setPromo] = useState()
     const [promos, setPromos] = useState()
+    const [buy, setBuy] = useState()
 
     useEffect(() => {
       axios.get("/user").then((data) => {dispatch(setUsers(data.data)); setTimeout(() => {
@@ -58,7 +59,7 @@ const Profile = () => {
       axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))
       axios.get("/pack/chars").then((data) => setChars(data.data))
       axios.get("/promo").then((data) => setPromo(data.data))
-      axios.get(`/user/verify/${localStorage.getItem("token")}`).then((data) => axios.get(`/user/${data.data.id}`).then((data) => setUser(data.data)))
+      axios.get(`/user/verify/${localStorage.getItem("token")}`).then((data) => {axios.get(`/user/${data.data.id}`).then((data) => setUser(data.data)); axios.get(`/buy/${data.data.id}`).then((data) => setBuy(data.data))})
     }, [])
 
     const handleClass = (e) => {
@@ -256,6 +257,8 @@ const Profile = () => {
     })
     }
 
+    console.log(buy)
+
   return(
     <>
     {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
@@ -265,11 +268,11 @@ const Profile = () => {
         <h3 className={style.title}>Mi perfil</h3>
         <ul className={style.ul}>
         <li onClick={() => setPage(0)} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
-        <li onClick={() => setPage(1)} style={{color:"red"}} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
+        <li onClick={() => setPage(1)} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
         { user?.role == 3 && <li onClick={() => {setPage(2); dispatch(setPagina(1))}} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>}        
         { user?.role == 3 &&<li onClick={() => {setPage(3) ; dispatch(setPagina(1))}} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>}
         { user?.role == 3 &&<li onClick={() => setPage(4)} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>}
-        { user?.role == 3 &&<li onClick={() => {setPage(5) ; dispatch(setPagina(1))}} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>}
+        { user?.role >= 2 &&<li onClick={() => {setPage(5) ; dispatch(setPagina(1))}} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>}
         <li onClick={() => navigate("/")} className={style.li}><FaChalkboardTeacher className={style.icon}/> Volver</li>
         <li onClick={() => {navigate("/"); localStorage.removeItem("token"); dispatch(setUser(false))}} className={style.li}><MdExitToApp className={style.icon}/> Cerrar sesion</li>
         </ul>
@@ -314,87 +317,27 @@ const Profile = () => {
       </div>}
       { page == 1 && <div className={style.view}>
         <div className={style.planContainer}>
-            <Link to="/detail"><div className={style.plan}>
+          {buy?.length == 0 && <h1>No has comprado nada aún</h1>}
+            {buy?.map( b => <div className={style.plan}>
               <div className={style.planTop}>
-                <img className={style.imgPlan}/>
+                <img src={b.pack.images[0]} className={style.imgPlan}/>
                 <div className={style.planDetail}>
                   <div className={style.nameAndPrice}>
-                    <b className={style.planName}>SANTA MARTA</b>
-                    <b className={style.planPrice}>$1.400.000 p/p</b>
+                    <b className={style.planName}>{b.pack.title}</b>
+                    <b className={style.planPrice}>${b.pack.price} p/p</b>
                   </div>
-                  <p>Hotel maracana - Todo incluido</p>
+                  <p>{b.pack.location} - Todo incluido</p>
                   <div className={style.tags}>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
+                    {b.pack.chars.map( c => <span className={style.tag}>{c.name}</span>)}
                   </div>
                 </div>
               </div>
               <div className={style.planBottom}>
-                    <p className={style.date}>3 NOV - 7 NOV 2023</p>
-                    <p className={style.date}>COMPRADO EL 25 DE JUNIO DE 2023</p>
-                    <p className={style.date}>3 PERSONAS</p>
+                    <p className={style.date}>{b.inicio} - {b.fin}</p>
+                    <p className={style.date}>COMPRADO EL {b.comprado}</p>
+                    <p className={style.date}>{b.person} PERSONAS</p>
               </div>
-            </div></Link>
-            <div className={style.plan}>
-              <div className={style.planTop}>
-                <img className={style.imgPlan}/>
-                <div className={style.planDetail}>
-                  <div className={style.nameAndPrice}>
-                    <b className={style.planName}>SANTA MARTA</b>
-                    <b className={style.planPrice}>$1.400.000 p/p</b>
-                  </div>
-                  <p>Hotel maracana - Todo incluido</p>
-                  <div className={style.tags}>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                  </div>
-                </div>
-              </div>
-              <div className={style.planBottom}>
-                    <p className={style.date}>3 NOV - 7 NOV 2023</p>
-                    <p className={style.date}>COMPRADO EL 25 DE JUNIO DE 2023</p>
-                    <p className={style.date}>3 PERSONAS</p>
-              </div>
-            </div>
-            <div className={style.plan}>
-              <div className={style.planTop}>
-                <img className={style.imgPlan}/>
-                <div className={style.planDetail}>
-                  <div className={style.nameAndPrice}>
-                    <b className={style.planName}>SANTA MARTA</b>
-                    <b className={style.planPrice}>$1.400.000 p/p</b>
-                  </div>
-                  <p>Hotel maracana - Todo incluido</p>
-                  <div className={style.tags}>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                    <span className={style.tag}>Wifi</span>
-                    <span className={style.tag}>Jacuzzi</span>
-                    <span className={style.tag}>Estacionamiento</span>
-                  </div>
-                </div>
-              </div>
-              <div className={style.planBottom}>
-                    <p className={style.date}>3 NOV - 7 NOV 2023</p>
-                    <p className={style.date}>COMPRADO EL 25 DE JUNIO DE 2023</p>
-                    <p className={style.date}>3 PERSONAS</p>
-              </div>
-            </div>
+            </div>)}
         </div>
       </div>}
       { (page == 2 && user?.role == 3) && <div className={style.view}>
@@ -505,7 +448,7 @@ const Profile = () => {
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>
         </div>
       </div>}
-      { (page == 5 && user?.role == 3 && !creator) && <div className={style.view}>
+      { (page == 5 && user?.role >= 2 && !creator) && <div className={style.view}>
       <div className={style.top}>
         <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
         <select className={style.select} onChange={(e) => filtrarPaquetes(e,"class")}>
@@ -537,7 +480,7 @@ const Profile = () => {
           { maxPagesClass !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
-      { (page == 5 && user?.role == 3 && creator) && <div className={style.view}>
+      { (page == 5 && user?.role >= 2 && creator) && <div className={style.view}>
         <form className={style.formCapacitacion}>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.title} name="title" placeholder="Nombre de la capacitacion"/>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.link} name="link" placeholder="Link"/>

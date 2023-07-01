@@ -176,7 +176,8 @@
 .imgPlan{
     width: 120px;
     height: 150px;
-    background-color: violet;
+    /* background-color: violet; */
+    border-radius: 5px;
 }
 
 .planTop{

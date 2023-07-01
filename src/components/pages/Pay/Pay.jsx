@@ -7,29 +7,48 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useState } from 'react';
 import {Toaster, toast} from "react-hot-toast" 
+import dayjs from "dayjs"
+import {Navigate} from "react-router-dom"
 
 const Pay = () => {
 
   const [pack, setPack] = useState()
 
-  const dataPay = useSelector(s => s.pay)
+  const dataPay = JSON.parse(localStorage.getItem("pay"))
+  const [user,setUser]= useState()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     axios.get(`/pack/${dataPay?.id}`).then(data => setPack(data.data))
+    axios.get(`/user/verify/${localStorage.getItem("token")}`).then(data => {setUser(data.data); setTimeout(() => {
+      setLoading(false)
+    }, 500)})
   },[])
+
+  if(localStorage.getItem("token") == null){
+    return <Navigate to="/login" replace />
+}
 
   const pay = () => {
     const total = `${dataPay?.person*pack?.price}00`
     var checkout = new WidgetCheckout({
       currency: 'COP',
       amountInCents: total,
-      reference: 'AD002902',
+      reference: 'B',
       publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
     })
     checkout.open(function ( result ) {
       var transaction = result.transaction
       console.log('Transaction ID: ', transaction.id)
       console.log('Transaction object: ', transaction)
+      axios.post("/buy",{
+        userId:user.id,
+        packId:pack.id,
+        person: dataPay.person,
+        inicio:dataPay.inicio,
+        fin:dataPay.fin,
+        comprado: dayjs().format('YYYY-MM-DD'),
+      })
       if(transaction.status == "APPROVED") return toast.success("Compra exitosa")
     })
   }
@@ -48,6 +67,7 @@ const Pay = () => {
     <>
     <ShortNav/>
     <Toaster/>
+    {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
     <div className={style.detailContainer}>
         <div className={style.detailPay}>
             <div className={style.datosComprador}>
@@ -72,7 +92,7 @@ const Pay = () => {
               </div>
             </div>
         </div>
-      </div>
+      </div>}
       </>
   )
 };

@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/es";
 import { useDispatch } from 'react-redux';
 import { setDataPay } from '../../../redux/actions/actions';
+import {Navigate} from "react-router-dom"
 
 dayjs.locale("es");
  
@@ -24,26 +25,31 @@ const Detail = () => {
     const [img, setImg] = useState(0)
     const [disable, setDisable] = useState(["2023-06-10", "2023-06-11"]);
     const [dateFinal, setDateFinal] = useState()
+    const [loading, setLoading] = useState(true)
     // const imgs = ["https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://media.gettyimages.com/photos/tropical-beach-background-picture-id1145474071","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"]
   
     useEffect(() => {
-      axios.get(`/pack/${id}`).then(data => setPack(data.data))
+      axios.get(`/pack/${id}`).then(data => {setPack(data.data); setTimeout(() => {
+        setLoading(false)
+      }, 500)})
     },[])
 
     const [fecha, setFecha] = useState()
     const dispatch = useDispatch()
 
     const addCar = () => {
-      setOpen(false);
+      if(!fecha) return toast.error("Debes seleccionar una fecha")
+      localStorage.setItem("pay", JSON.stringify({id:pack?.id, person: count, inicio:fecha, fin:dateFinal}))
       dispatch(setDataPay({id:pack?.id, person: count, inicio:fecha, fin:dateFinal}))
-      toast.success("Agregado al carrito exitosamente")
+      navigate("/pay")
     }
 
     const flatpickrOptions = {
       locale: Spanish,
       minDate: dayjs(new Date()).format("YYYY-MM-DD"),
       enableTime: false,
-      disable: disable
+      disable: disable,
+      defaultDate: "Hola",
     };
 
     const selectDate = (date) => {
@@ -52,12 +58,15 @@ const Detail = () => {
       fechaFinal.setDate(fechaFinal.getDate() + pack?.days);
       setDateFinal(fechaFinal.toISOString().split('T')[0])
     }
+    if(localStorage.getItem("token") == null){
+      return <Navigate to="/login" replace />
+  }
 
     return(
     <>
     <ShortNav/>
     <Toaster/>
-    {open && <Modal pay={() => navigate("/pay")}close={addCar}/>}
+    {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
       <div className={style.detailContainer}>
         <div className={style.sliderImg}>
             <img src={pack?.images[0]} onClick={() => setImg(0)} className={style.img}></img>
@@ -67,22 +76,24 @@ const Detail = () => {
         <img src={pack?.images[img]} className={style.bigImg}></img>
         <div className={style.detail}>
             <h2 className={style.title}>{pack?.title}</h2>
-            <p className={style.location}>Hotel maracana - Todo incluido</p>
-            <b className={style.price}>$1.400.000 p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
+            <p className={style.location}>{pack?.location} - Todo incluido</p>
+            <b className={style.price}>${pack?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
             <Flatpickr
           value={fecha}
-          style={{ padding: "5px 15px", borderRadius: "10px", border: "none" }}
+          style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"75px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
           options={flatpickrOptions}
           // ref={refCalendar}
+          placeholder='Fecha inicio'
           onChange={([date]) => selectDate(date)}
             />
-            <p>{dateFinal}</p>
+            <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span>
+            <p style={{width:"400px"}}>{pack?.detail}</p>
             <div className={style.tags}>
               {pack?.chars.map(c => <span className={style.tag}>{c.name}</span>)}
                   </div>
-            <button onClick={() => setOpen(true)} className={style.addCar}>Agregar al carrito</button>
+            <button onClick={addCar} className={style.addCar}>Comprar paquete</button>
         </div>
-      </div>
+      </div>}
     </>
   )
 };

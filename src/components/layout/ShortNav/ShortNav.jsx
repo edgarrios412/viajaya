@@ -20,7 +20,6 @@ const ShortNav = () => {
   return(
     <nav className={style.nav}>
       <Link className={style.noLink} to="/"><p className={style.inicio}>Inicio</p></Link>
-      <Link to="/pay"><BsCart4 className={style.car}/></Link>
       <Link className={style.noLink} to="/profile">
       <div className={style.profile}>
       <FaRegUserCircle className={style.user}/>
