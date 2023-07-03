@@ -1,30 +1,16 @@
 import style from './Contact.module.css'
 import {FiMail, FiPhone} from "react-icons/fi"
 import {Element} from "react-scroll" 
-import { useForm, ValidationError } from '@formspree/react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation,motion } from 'framer-motion';
-import { useEffect } from 'react';
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 const Contact = () => {
-  const [state, handleSubmit] = useForm("mdovrwo");
-  const rname = useRef()
-  const rservice = useRef()
-  const rmail = useRef()
-  const rtel = useRef()
-  const rmsg = useRef()
-  if (state.succeeded) {
-      toast.success("Email enviado satisfactoriamente");
-      rtel.current.value = ""
-    rmsg.current.value = ""
-    rservice.current.value = ""
-    rname.current.value = ""
-    rmail.current.value = ""
-  }
-
+  
+  const [contact, setContact] = useState()
 
   const {ref, inView} = useInView({
     // threshold:0.1
@@ -47,6 +33,18 @@ const Contact = () => {
       })
     }
   },[inView])
+
+  const changeContact = (e) => {
+    setContact({
+      ...contact,
+      [e.target.name] : e.target.value
+    })
+  }
+
+  const sendMail = (e) => {
+    e.preventDefault()
+    axios.post("/user/contact", contact).then((data) => toast.success(data.data.message))
+  }
 
   return(
   <Element name="contactanos">
@@ -80,17 +78,17 @@ const Contact = () => {
           </div>
         </div>
         </div>
-        <form onSubmit={handleSubmit} method="POST" className={style.formContacto}>
+        <form className={style.formContacto}>
           <div className={style.divisores}>
-          <input className={style.input} ref={rname} name="nombre" placeholder="Nombre"/>
-          <input className={style.input} ref={rtel} name="telefono" placeholder="Telefono"/>
+          <input className={style.input} onChange={changeContact} value={contact?.name} name="name" placeholder="Nombre"/>
+          <input className={style.input} onChange={changeContact} value={contact?.phone} name="phone" placeholder="Telefono"/>
           </div>
           <div className={style.divisores}>
-          <input className={style.input} ref={rmail} name="correo" placeholder="Correo"/>
-          <input className={style.input} ref={rservice} name="servicio" placeholder="Tipo de servicio que require"/>
+          <input className={style.input} onChange={changeContact} value={contact?.mail} name="mail" placeholder="Correo"/>
+          <input className={style.input} onChange={changeContact} value={contact?.subject} name="subject" placeholder="Asunto"/>
           </div>
-          <textarea className={style.inputsms} ref={rmsg} name="mensaje" placeholder="Mensaje"/>
-          <button type="submit" className={style.button}>Enviar</button>
+          <textarea className={style.inputsms} onChange={changeContact} value={contact?.message} name="message" placeholder="Mensaje"/>
+          <button onClick={sendMail} className={style.button}>Enviar</button>
         </form>
       </div>
     </motion.div>

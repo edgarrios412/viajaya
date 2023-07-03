@@ -279,7 +279,7 @@ const Profile = () => {
       </nav>
       { page == 0 && <div className={style.view}>
         <div className={style.profile}>
-            <img className={style.imgProfile} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkzpwts1u7OsADocIJpyR-PAoLVHYLfGuU9gwHobM&s">
+            <img className={style.imgProfile} src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png">
             </img>
             <div className={style.profileDetail}>
                 <p className={style.profileName}>{user?.name} {user?.lastname}</p>

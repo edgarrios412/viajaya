@@ -12,6 +12,7 @@ import {Navigate} from "react-router-dom"
 
 const Pay = () => {
 
+  const [passenger, setPassenger] = useState()
   const [pack, setPack] = useState()
   const refe = new Date().getTime().toString()
   const dataPay = JSON.parse(localStorage.getItem("pay"))
@@ -40,37 +41,45 @@ const Pay = () => {
     })
     checkout.open(function ( result ) {
       var transaction = result.transaction
-      console.log('Transaction ID: ', transaction.id)
-      console.log('Transaction object: ', transaction)
       if(transaction.status == "APPROVED"){
         toast.success("Compra exitosa")
         axios.post("/buy",{
+          transaction: transaction,
           userId:user.id,
           packId:pack.id,
           person: dataPay.person,
           inicio:dataPay.inicio,
           fin:dataPay.fin,
           email: user.email,
+          passenger: passenger,
           comprado: dayjs().format('YYYY-MM-DD'),
         })
         // TODO: ENVIAR COMPROBANTE Y DATOS DE LOS PASAJEROS AL CORREO DE VIAJAYA
         setTimeout(() => {
           navigate("/profile")
         },2000)
+      }else{
+        toast.error("No pudimos realizar el pago")
       }
+    })
+  }
+
+  const handlePassengers = (e) => {
+    setPassenger({
+      ...passenger,
+      [e.target.name] : e.target.value
     })
   }
 
   const passengers = Array.from({ length: dataPay?.person }, (_, index) => (
     <><p className={style.passenger}>Pasajero {index+1}</p>
     <form className={style.form}>
-      <input className={style.inputForm} placeholder="Nombre completo"/>
-      <input className={style.inputForm} placeholder="Documento"/>
-      <input className={style.inputForm} placeholder="Telefono"/>
-      <input className={style.inputForm} placeholder="Email"/>
+      <input className={style.inputForm} name={`name${index+1}`} value={passenger && passenger[`name${index+1}`]} onChange={handlePassengers} placeholder="Nombre completo"/>
+      <input className={style.inputForm} name={`doc${index+1}`} value={passenger &&passenger[`doc${index+1}`]} onChange={handlePassengers} placeholder="Documento"/>
+      <input className={style.inputForm} name={`phone${index+1}`} value={passenger &&passenger[`phone${index+1}`]} onChange={handlePassengers} placeholder="Telefono"/>
+      <input className={style.inputForm} name={`mail${index+1}`} value={passenger &&passenger[`mail${index+1}`]} onChange={handlePassengers} placeholder="Email"/>
     </form></>))
 
-  const img = "https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"
   return(
     <>
     <ShortNav/>
