@@ -55,18 +55,18 @@ const Destinos = () => {
     <motion.div animate={animation} ref={ref} className={style.services} id="servicios">
       <div className={style.header}>
       <h2 className={style.titleSection}>Destinos</h2>
-      <button className={style.button2}>Hablar con un asesor</button>
+      <button className={style.button2}><a target="_blank" className={style.noLink} href="https://w.app/Viajaya">Hablar con un asesor</a></button>
       </div>
       <div className={style.servicesContainer}>
-        <div onClick={() => setServiceId(1)} className={style.service}>
+        <div className={style.service}>
           <img src={nacionales} className={style.img}/>
           <button className={style.button}>Nacionales</button>
         </div>
-        <div onClick={() => setServiceId(2)} className={style.service}>
+        <div className={style.service}>
           <img src="https://tipsparatuviaje.com/wp-content/uploads/2017/05/1.-Cuba.jpg" className={style.img}/>
           <button className={style.button}>Internacionales</button>
         </div>
-        <div onClick={() => setServiceId(3)} className={style.service}>
+        <div className={style.service}>
           <img src="https://elcomercio.pe/resizer/oxPDjKIAr2KW2fb4Eof6FteJ99Q=/980x0/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/XRPSNHBEQZH3RFI6CAEPYHKBAQ.jpg" className={style.img}/>
           <button className={style.button}>Cruceros</button>
         </div>

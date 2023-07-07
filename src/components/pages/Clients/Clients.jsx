@@ -84,6 +84,7 @@ const Clients = () => {
           <div className={style.valor}><img className={style.imgValores} src={logo}></img></div>
         </div>
       </div>
+      <div><button className={style.button}><a className={style.noLink} target="_blank" href="https://www.instagram.com/viajaya_pagina_oficial/">Mas testimonios</a></button></div>
     </motion.div>
     </Element>
   )

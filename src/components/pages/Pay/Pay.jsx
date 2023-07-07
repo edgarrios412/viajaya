@@ -76,7 +76,9 @@ const Pay = () => {
     <form className={style.form}>
       <input className={style.inputForm} name={`name${index+1}`} value={passenger && passenger[`name${index+1}`]} onChange={handlePassengers} placeholder="Nombre completo"/>
       <input className={style.inputForm} name={`doc${index+1}`} value={passenger &&passenger[`doc${index+1}`]} onChange={handlePassengers} placeholder="Documento"/>
-      <input className={style.inputForm} name={`phone${index+1}`} value={passenger &&passenger[`phone${index+1}`]} onChange={handlePassengers} placeholder="Telefono"/>
+      <input className={style.inputForm} name={`phone${index+1}`} value={passenger &&passenger[`phone${index+1}`]} onChange={handlePassengers} placeholder="Numero de contacto"/>
+      <input className={style.inputForm} name={`phone2${index+1}`} value={passenger &&passenger[`phone2${index+1}`]} onChange={handlePassengers} placeholder="Numero de contacto 2"/>
+      <input className={style.inputForm} name={`date${index+1}`} value={passenger &&passenger[`date${index+1}`]} onChange={handlePassengers} placeholder="Fecha de nacimiento"/>
       <input className={style.inputForm} name={`mail${index+1}`} value={passenger &&passenger[`mail${index+1}`]} onChange={handlePassengers} placeholder="Email"/>
     </form></>))
 
@@ -85,7 +87,7 @@ const Pay = () => {
     <ShortNav/>
     <Toaster/>
     {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
-    <div className={style.detailContainer}>
+    dataPay ? <div className={style.detailContainer}>
         <div className={style.detailPay}>
             <div className={style.datosComprador}>
               <h2 className={style.title}>Revisa y confirma tu compra</h2>
@@ -109,7 +111,7 @@ const Pay = () => {
               </div>
             </div>
         </div>
-      </div>}
+      </div>: <h1 className={style.clearCar}>Aún no has agregado nada al carrito</h1>}
       </>
   )
 };

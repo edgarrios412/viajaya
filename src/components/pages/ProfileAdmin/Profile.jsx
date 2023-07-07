@@ -442,11 +442,14 @@ const Profile = () => {
       { (page == 4 && user?.role == 3) && <div className={style.view}>
         <div className={style.editContainer}>
           <div className={style.edit}>
-            <div className={style.imgPromoContainer}>
+          <div className={style.imgPromoContainer}>
           <img src={promo?.image} className={style.imgPromo}></img>
           <input type="file" className={style.inputFile} onChange={uploadImage}/>
           </div>
+          <div className={style.containerRight}>
           <textarea value={promo?.details} onChange={handlePromo} name="details" className={style.detalles}></textarea>
+          <input className={style.inputPrice} type="text" placeholder="Precio p/p"/>
+          </div>
           </div>
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>
         </div>
@@ -471,7 +474,7 @@ const Profile = () => {
           </tr>
           { clases && clases.map( c => <tr>
           <td className={style.td}>{c.title}</td>
-          <td className={style.td}>{c.link}</td>
+          <td className={style.td}><a target="_blank" href={c.link}>Link</a></td>
           <td className={style.td}>{c.created}</td>
           {user?.role == 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => actualizarClase(c.id)}>{c.status == false ? "Publicar":"Archivar"}</td>}
           {user?.role == 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => eliminarClase(c.id)}>Borrar</td>}

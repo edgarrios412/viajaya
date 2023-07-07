@@ -1,5 +1,5 @@
 .nav{
-    background-color: rgb(255, 255, 255);
+    background-color: #370861ed;
     display: flex;
     position: fixed;
     align-items: center;
@@ -35,7 +35,8 @@
 
 .li{
     font-size: 1.25em;
-    cursor:pointer
+    cursor:pointer;
+    color:white;
 }
 
 .libutton{

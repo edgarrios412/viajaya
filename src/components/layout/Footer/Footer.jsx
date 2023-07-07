@@ -1,6 +1,7 @@
 import style from './Footer.module.css'
-import {AiOutlineWhatsApp, AiFillLinkedin} from "react-icons/ai"
-import {FiTwitter} from "react-icons/fi"
+import {AiOutlineWhatsApp} from "react-icons/ai"
+import {BiLogoFacebookCircle} from "react-icons/bi"
+import {FiInstagram} from "react-icons/fi"
  
 const Footer = () => {
   return(
@@ -8,8 +9,9 @@ const Footer = () => {
       <div className={style.footerContent}>
       <a className={style.noLink} href="https://www.codeandcoffee.tech" target="_blank"><h5 className={style.createdBy}>Hecho con ☕ por Code & Coffee</h5></a>
       <div className={style.redes}>
-        <a className={style.noLink} href="https://bit.ly/3MQvqXe" target="_blank"><div className={style.facebook}><AiOutlineWhatsApp className={style.icons} /></div></a>
-        <a className={style.noLink} href="https://www.linkedin.com/company/pryval-ingenieria-sas/" target="_blank"><div className={style.facebook}><AiFillLinkedin className={style.icons}/></div></a>
+        <a className={style.noLink} href="https://w.app/Viajaya" target="_blank"><div className={style.facebook}><AiOutlineWhatsApp className={style.icons} /></div></a>
+        <a className={style.noLink} href="https://www.facebook.com/oficialviajaya/" target="_blank"><div className={style.facebook}><BiLogoFacebookCircle className={style.icons}/></div></a>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.facebook}><FiInstagram className={style.icons}/></div></a>
       </div>
       </div>
     </footer>

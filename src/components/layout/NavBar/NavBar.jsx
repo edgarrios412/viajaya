@@ -1,5 +1,5 @@
 import style from './NavBar.module.css'
-import logo from "../../../assets/logo2.jpg" 
+import logo from "../../../assets/logo2.png" 
 import {Link} from "react-scroll"
 import {useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux';

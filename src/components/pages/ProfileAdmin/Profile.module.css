@@ -297,9 +297,22 @@
     font-weight: 500;
 }
 
+.containerRight{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputPrice{
+    border-radius: 5px;
+    border: 1px solid rgb(187, 187, 187);
+    margin-top:10px;
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
 .detalles{
-    min-height: 370px;
-    max-height: 370px;
+    min-height: 320px;
+    max-height: 320px;
     min-width: 240px;
     max-width: 240px;
     border-radius: 15px;
