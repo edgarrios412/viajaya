@@ -18,8 +18,9 @@
     margin: 0 auto;
     width: 150px;
     height: 100%;
-    border-radius: 50%;
-    background-color: black;
+    /* border-radius: 50%; */
+    background-color: rgb(255, 255, 255);
+    object-fit: contain;
 }
 
 .imgjelpit{

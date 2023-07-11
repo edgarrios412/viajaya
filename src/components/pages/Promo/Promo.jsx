@@ -42,7 +42,7 @@ const Promo = () => {
 
   return(
     <Element name="nosotros">
-      {modal && <ModalProject detail={promo?.details} close={() => setModal(false)}/>}
+    {modal && <ModalProject detail={promo?.details} close={() => setModal(false)}/>}
     <motion.div animate={animation} ref={ref} className={style.Promo} id="nosotros">
       <div className={style.PromoContainer}>
         <h4 className={style.desc}>
@@ -52,13 +52,13 @@ const Promo = () => {
             </div>
             <div className={style.buttonContainer}>
             <button className={style.button} onClick={() => setModal(true)}>Detalles</button>
-            <button className={style.button} onClick={() => navigate("/pay")}>Reservar ahora</button>
+            <button className={style.button} onClick={() => navigate("/detail/promo")}>Reservar ahora</button>
             </div>
         </h4>
         <img src={promo?.image} className={style.img}/>
       </div>
     </motion.div>
-      </Element>
+    </Element>
   )
 };
 

@@ -9,6 +9,7 @@ import Destinos from "../Destinos/Destinos"
 import Clients from "../Clients/Clients"
 import Contact from "../Contact/Contact"
 import Promo from "../Promo/Promo"
+import Operador from "../Operador/Operador"
 
 const Landing = () => {
   return(
@@ -17,6 +18,7 @@ const Landing = () => {
       <Home/>
       <Promo/>
       <About/>
+      <Operador/>
       <Paquetes/>
       <Destinos/>
       <Clients/>

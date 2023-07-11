@@ -27,7 +27,7 @@ const NavBar = () => {
       <ul className={style.ul}>
       <Link to="home" smooth={true} duration={500}><li className={style.li}>Inicio</li></Link>
         <Link to="nosotros" smooth={true} duration={500}><li className={style.li}>Quienes somos</li></Link>
-        <Link to="proyectos" smooth={true} duration={500}><li className={style.li}>Paquetes</li></Link>
+        <Link to="proyectos" smooth={true} duration={500}><li className={style.li}>Promociones</li></Link>
         <Link to="servicios" smooth={true} duration={500}><li className={style.li}>Destinos</li></Link>
         <Link to="clientes" smooth={true} duration={500}><li className={style.li}>Aliados</li></Link>
         <Link to="contactanos" smooth={true} duration={500}><li className={style.li}>Trabaja con nosotros</li></Link>

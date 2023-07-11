@@ -7,8 +7,8 @@ import {
   useMapEvents,
   Tooltip
 } from "react-leaflet";
-import myIcon from "./Iconos"
-import iconLogo from "./Icono"
+import myIcon from "./Iconos.jsx"
+import iconLogo from "./Icono.jsx"
 import style from "./Map.module.css"
 import { useState, useEffect, useRef } from "react";
 
@@ -26,7 +26,6 @@ function Map({height, width, fn}) {
   function LocationMarker() {
     const map = useMapEvents({
       click: (e) => {
-        console.log(e.latlng)
         setPosition(e.latlng)
         // setCoord([e.latlng.lat,e.latlng.lng])
         // setTravels([...travels, e.latlng])

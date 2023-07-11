@@ -8,6 +8,7 @@ export const SET_CLASS = "SET_CLASS"
 export const SET_PAGINA = "SET_PAGINA"
 export const FILTER_PACKS = "FILTER_PACKS"
 export const FILTER_PACKSCHARS = "FILTER_PACKSCHARS"
+export const FILTER_PACKSTITLE = "FILTER_PACKSTITLE"
 export const DATA_PAY = "DATA_PAY"
 
 export const setUser = (user) => {
@@ -73,5 +74,11 @@ export const filterPacks = (why, type) => {
 export const filterPacksChar = (chars) => {
   return (dispatch) => {
     dispatch({type:FILTER_PACKSCHARS, payload:chars})
+  }
+}
+
+export const filterPacksTitle = (word) => {
+  return (dispatch) => {
+    dispatch({type:FILTER_PACKSTITLE, payload:word})
   }
 }

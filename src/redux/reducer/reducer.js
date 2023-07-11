@@ -9,6 +9,7 @@ import {
   SET_PAGINA,
   FILTER_PACKS,
   FILTER_PACKSCHARS,
+  FILTER_PACKSTITLE,
   DATA_PAY
 } from "../actions/actions";
 
@@ -42,6 +43,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         pay: payload,
       };
+    }
+    case FILTER_PACKSTITLE:{
+      if(payload.length == 0){
+        return{
+          ...state,
+          paquetes: state.paquetesOrigin
+        }}else{
+          return{
+            ...state,
+            paquetes: state.paquetesOrigin.filter(p => p.title.toLowerCase().includes(payload.toLowerCase()))
+          }
+        }
     }
     case FILTER_PACKSCHARS:{
       if(payload.length == 0){

@@ -14,6 +14,7 @@ const Pay = () => {
 
   const [passenger, setPassenger] = useState()
   const [pack, setPack] = useState()
+  const [promo, setPromo] = useState()
   const refe = new Date().getTime().toString()
   const dataPay = JSON.parse(localStorage.getItem("pay"))
   const [user,setUser]= useState()
@@ -21,10 +22,17 @@ const Pay = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    if(dataPay?.id !== "promo"){
     axios.get(`/pack/${dataPay?.id}`).then(data => setPack(data.data))
     axios.get(`/user/verify/${localStorage.getItem("token")}`).then(data => {setUser(data.data); setTimeout(() => {
       setLoading(false)
     }, 500)})
+  }else{
+    axios.get(`/promo`).then(data => setPromo(data.data))
+    axios.get(`/user/verify/${localStorage.getItem("token")}`).then(data => {setUser(data.data); setTimeout(() => {
+      setLoading(false)
+    }, 500)})
+  }
   },[])
 
   if(localStorage.getItem("token") == null){
@@ -89,6 +97,7 @@ const Pay = () => {
     {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
     dataPay ? <div className={style.detailContainer}>
         <div className={style.detailPay}>
+        {dataPay?.id !== "promo" ? <>
             <div className={style.datosComprador}>
               <h2 className={style.title}>Revisa y confirma tu compra</h2>
               {passengers}
@@ -109,7 +118,28 @@ const Pay = () => {
                 <button className={style.button} onClick={pay}><MdPayment className={style.payIcon}/> Pagar ahora</button>
                 <Link to="/"><button style={{width:"200px"}} className={style.button}>Seguir comprando</button></Link>
               </div>
+            </div></>:<>
+            <div className={style.datosComprador}>
+              <h2 className={style.title}>Revisa y confirma tu compra</h2>
+              {passengers}
             </div>
+            <div className={style.resumenCompra}>
+              <p className={style.resume}>Resumen de la compra</p>
+              <div className={style.details}>
+              <img src={promo?.image} className={style.imgProduct}/>
+              <div>
+              <b>Promocion YA PA YA</b>
+              <p style={{margin:"3px 0px"}}>{dataPay?.inicio}</p>
+              <p style={{margin:"3px 0px"}}>{dataPay?.person} personas</p>
+              <p className={style.price}>${promo?.price} p/p</p>
+              </div>
+              </div>
+              <p className={style.subtotal}>Subtotal: <b>${dataPay?.person*promo?.price}</b></p>
+              <div className={style.buttons}>
+                <button className={style.button} onClick={pay}><MdPayment className={style.payIcon}/> Pagar ahora</button>
+                <Link to="/"><button style={{width:"200px"}} className={style.button}>Seguir comprando</button></Link>
+              </div>
+            </div></>}
         </div>
       </div>: <h1 className={style.clearCar}>Aún no has agregado nada al carrito</h1>}
       </>

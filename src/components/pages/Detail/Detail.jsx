@@ -19,6 +19,7 @@ dayjs.locale("es");
 const Detail = () => {
     const {id} = useParams()
     const [open, setOpen] = useState(false)
+    const [promo, setPromo] = useState()
     const navigate= useNavigate()
     const [count, setCount] = useState(1)
     const [pack, setPack] = useState()
@@ -29,9 +30,15 @@ const Detail = () => {
     // const imgs = ["https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000","https://media.gettyimages.com/photos/tropical-beach-background-picture-id1145474071","https://img.freepik.com/fotos-premium/impresionante-fondo-playa-verano-paisaje-al-atardecer-formato-cuadrado-banner-icono-pareja-luna-miel_663265-6789.jpg?w=2000"]
   
     useEffect(() => {
+      if(id !== "promo"){
       axios.get(`/pack/${id}`).then(data => {setPack(data.data); setTimeout(() => {
         setLoading(false)
       }, 500)})
+      }else{
+        axios.get(`/promo`).then(data => {setPromo(data.data); setTimeout(() => {
+          setLoading(false)
+        }, 500)})
+      }      
     },[])
 
     const [fecha, setFecha] = useState()
@@ -39,8 +46,13 @@ const Detail = () => {
 
     const addCar = () => {
       if(!fecha) return toast.error("Debes seleccionar una fecha")
+      if(id !== "promo"){
       localStorage.setItem("pay", JSON.stringify({id:pack?.id, person: count, inicio:fecha, fin:dateFinal}))
       dispatch(setDataPay({id:pack?.id, person: count, inicio:fecha, fin:dateFinal}))
+      }else{
+        localStorage.setItem("pay", JSON.stringify({id:"promo", person: count, inicio:fecha, fin:dateFinal}))
+      dispatch(setDataPay({id:"promo", person: count, inicio:fecha, fin:dateFinal}))
+      }
       navigate("/pay")
     }
 
@@ -68,6 +80,7 @@ const Detail = () => {
     <Toaster/>
     {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
       <div className={style.detailContainer}>
+        {id !== "promo" ? <>
         <div className={style.sliderImg}>
             <img src={pack?.images[0]} onClick={() => setImg(0)} className={style.img}></img>
             <img src={pack?.images[1]} onClick={() => setImg(1)} className={style.img}></img>
@@ -92,7 +105,25 @@ const Detail = () => {
               {pack?.chars.map(c => <span className={style.tag}>{c.name}</span>)}
                   </div>
             <button onClick={addCar} className={style.addCar}>Comprar paquete</button>
-        </div>
+        </div></>:<>
+        <img src={promo?.image} className={style.bigImg}></img>
+        <div className={style.detail}>
+            <h2 className={style.title}>Promocion YA PA YA</h2>
+            {/* <p className={style.location}>{pack?.location} - Todo incluido</p> */}
+            <b className={style.price}>${promo?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
+            <Flatpickr
+          value={fecha}
+          style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
+          options={flatpickrOptions}
+          // ref={refCalendar}
+          placeholder='Fecha inicio'
+          onChange={([date]) => selectDate(date)}
+            />
+            <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span>
+            <p style={{width:"400px"}}>{promo?.details}</p>
+            <button onClick={addCar} className={style.addCar}>Comprar paquete</button>
+        </div></>
+        }
       </div>}
     </>
   )

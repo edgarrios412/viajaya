@@ -81,9 +81,32 @@
     cursor: pointer;
 }
 
+.containerCapacita{
+    margin-top: -100px;
+    /* background-color: red; */
+    height:200px;
+}
+
+.imgContainer2{
+    width:150px;
+    height: 150px;
+}
+
+.upload2{
+    background-color: red;
+    position: absolute;
+    width:150px;
+    opacity:0;
+    height: 150px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 .imgProfile{
+    position: absolute;
     width: 150px;
     height: 150px;
+    min-width: 150px;
     border-radius: 50%;
     border: 2px solid grey;
 }
@@ -486,6 +509,44 @@ table{
 
 .page{
     font-size: 1.6em;
+}
+
+.capaContainer{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    /* background-color: red; */
+    margin: 50px auto;
+    width: 800px;
+    height: 600px;
+    row-gap: 50px;
+    overflow-x: scroll;
+    padding: 0px 20px;
+
+}
+
+.noLink{
+    text-decoration: none;
+    color: black;
+}
+
+.capa{
+    /* background-colo1r: blue; */
+    width: 220px;
+    height: 250px;
+}
+
+.imgCapa{
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    background-color: green;
+}
+
+.titleCapa{
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
 }
 
 

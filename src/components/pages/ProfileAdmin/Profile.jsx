@@ -23,7 +23,7 @@ const Profile = () => {
 
     const [loading, setLoading] = useState(true)
 
-    const urlReg = /^(http|https):\/\/([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+\.[a-zA-Z]{2,9}(\/[a-zA-Z0-9_#.-]+\/?)*$/
+    const urlReg = /^(http|https):\/\/([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+\.[a-zA-Z]{2,9}(\/[a-zA-Z0-9_#.-]+\/?)*(\?[a-zA-Z0-9_\-&%=]*)?$/
     const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneReg = /^\d{10}$/;
     
@@ -70,6 +70,12 @@ const Profile = () => {
       })
     }
 
+    const [packDetail, setPackDetail] = useState(null)
+
+    const getPackDetail = (id) => {
+      axios.get(`/pack/${id}`).then(data => {setPackDetail(data.data); setCreator(true)})
+    }
+
     const createClass = () => {
       if(!clase?.title.length || clase?.title.length < 5) return toast.error("El titulo debe tener al menos 5 caracteres")
       if(!urlReg.test(clase?.link)) return toast.error("Debes ingresar un link valido")
@@ -80,6 +86,14 @@ const Profile = () => {
       const {name, value} = e.target
       setPack({
         ...pack,
+        [name]:value
+      })
+    }
+
+    const handlePackDetail = (e) => {
+      const {name, value} = e.target
+      setPackDetail({
+        ...packDetail,
         [name]:value
       })
     }
@@ -153,14 +167,9 @@ const Profile = () => {
       return <Navigate to="/login" replace />
   }
 
-  const subirRol = (id,role, bool) => {
-    if(bool){
+  const subirRol = (id,role) => {
       axios.put("/user", { id: id, role: role}).then((data) => axios.get("/user").then((data) => dispatch(setUsers(data.data))))
-      toast.success("Usuario ascendido con exito")
-    }else{
-      axios.put("/user", { id: id, role: 1}).then((data) => axios.get("/user").then((data) => dispatch(setUsers(data.data))))
-      toast.success("Usuario descendido con exito")
-    }
+      toast.success("Usuario modificado con exito")
   }
 
   const uploadImage = async (e) => {
@@ -174,6 +183,21 @@ const Profile = () => {
     // console.log(res.data.secure_url)
     setPromo({
       ...promo,
+      image:res.data.secure_url
+    })
+  }
+
+  const uploadUserImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset","viajaya")
+    data.append("api_key","612393625364863")
+    data.append("timestamp", 0)
+    const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", data)
+    // console.log(res.data.secure_url)
+    setUser({
+      ...user,
       image:res.data.secure_url
     })
   }
@@ -192,15 +216,33 @@ const Profile = () => {
     })
   }
 
-  const updatePaquete = (id) => {
-    axios.put("/pack", {id:id, status:"a"})
+  const uploadCapaImg = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset","viajaya")
+    data.append("api_key","612393625364863")
+    data.append("timestamp", 0)
+    const res = await axios.post("https://api.cloudinary.com/v1_1/dftvenl2z/image/upload", data)
+    setClase({
+      ...clase,
+      image:res.data.secure_url,
+    })
+  }
+
+  const updatePaquete = () => {
+    axios.put("/pack", packDetail)
     .then(() => axios.get("/pack").then((data) => dispatch(setPaquetes(data.data))))
     toast.success("Se ha actualizado el paquete")
+    setPackDetail(null)
+    setCreator(false)
   }
 
   const deletePaquete = (id) => {
     axios.delete(`/pack/${id}`)
     .then((data) => {toast.success(data.data.message); axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))})
+    setPackDetail(null)
+    setCreator(false)
   }
 
   const actualizarClase = (id) => {
@@ -257,7 +299,6 @@ const Profile = () => {
     })
     }
 
-    console.log(buy)
 
   return(
     <>
@@ -279,8 +320,11 @@ const Profile = () => {
       </nav>
       { page == 0 && <div className={style.view}>
         <div className={style.profile}>
-            <img className={style.imgProfile} src="https://cdn.landesa.org/wp-content/uploads/default-user-image.png">
+            <div className={style.imgContainer2}>
+            <img className={style.imgProfile} src={user?.image ? user.image : "https://cdn.landesa.org/wp-content/uploads/default-user-image.png"}>
             </img>
+            <input type="file" className={style.upload2} onChange={uploadUserImage}/>
+            </div>
             <div className={style.profileDetail}>
                 <p className={style.profileName}>{user?.name} {user?.lastname}</p>
                 <p className={style.profileEmail}>{user?.email}</p>
@@ -356,18 +400,20 @@ const Profile = () => {
           <td className={style.topTd}>Email</td>
           <td className={style.topTd}>Celular</td>
           <td className={style.topTd}>Rol</td>
-          <td className={style.topTd}>Acciones</td>
+          {/* <td className={style.topTd}>Acciones</td> */}
           </tr>
           {users?.map( u =>
           <tr>
           <td className={style.td}>{u.name} {u.lastname}</td>
           <td className={style.td}>{u.email}</td>
           <td className={style.td}>{u.phone}</td>
-          { u.role == 1 && <td className={style.td}>Usuario</td>}
-          {u.role == 2 && <td className={style.td}>Asesor</td>}
-          {u.role == 3 && <td className={style.td}>Admin</td>}
-          {u.role < 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => subirRol(u.id, u.role+1, true)}>Ascender</td>}
-          {u.role == 3 && <td className={style.td} style={{cursor:"pointer"}} onClick={() => subirRol(u.id, u.role+1, false)}>Volver usuario</td>}
+          <td className={style.td}>
+            <select onChange={(e) => subirRol(u.id, e.target.value)}>
+              <option value={1} selected={u.role == 1}>Usuario</option>
+              <option value={2} selected={u.role == 2}>Asesor</option>
+              <option value={3} selected={u.role == 3}>Admin</option>
+            </select>
+          </td>
           </tr>)}
         </table>
         <div className={style.pagination}>
@@ -392,15 +438,15 @@ const Profile = () => {
           <td className={style.topTd}>Nombre del paquete</td>
           <td className={style.topTd}>Detalles</td>
           <td className={style.topTd}>Creado por</td>
-          <td className={style.topTd}>Estado</td>
+          {/* <td className={style.topTd}>Estado</td> */}
           <td className={style.topTd}>Acciones</td>
           </tr>
           { paquetes?.map(p => <tr>
           <td className={style.td}>{p.title}</td>
           <td className={style.td}>{p.detail}</td>
           <td className={style.td}>{p.created}</td>
-          <td className={style.td} style={{cursor:"pointer"}} onClick={() => updatePaquete(p.id)}>{p.status == false ? "Publicar":"Archivar"}</td>
-          <td className={style.td} style={{cursor:"pointer"}} onClick={() => deletePaquete(p.id)}>Borrar</td>
+          {/* <td className={style.td} style={{cursor:"pointer"}} onClick={() => updatePaquete(p.id)}>{p.status == false ? "Publicar":"Archivar"}</td> */}
+          <td className={style.td} style={{cursor:"pointer"}} onClick={() => getPackDetail(p.id)}>Editar</td>
           </tr>)}
         </table>
         <div className={style.pagination}>
@@ -409,7 +455,38 @@ const Profile = () => {
           { maxPagesPacks !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
         </div>
       </div>}
-      { (page == 3 && user?.role == 3 && creator) && 
+      { (page == 3 && user?.role == 3 && creator && packDetail) && 
+      <div className={style.view}>
+        <div className={style.creator}>
+          <div className={style.formPaquete}>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <input className={style.inputForm} onChange={handlePackDetail} value={packDetail.title} name="title" placeholder="Nombre del paquete"/>
+              <input type="number" onChange={handlePackDetail} value={packDetail.days} name="days" className={style.inputForm} placeholder="Duracion (dias)"/>
+              {/* <Select  className={style.inputForm1} styles={customStyles} isMulti placeholder="Caracteristicas" onChange={handleChars} options={options} /> */}
+              <input className={style.inputForm} onChange={handlePackDetail} value={packDetail.price} name="price" placeholder="Precio"/>
+              <input className={style.inputForm} onChange={handlePackDetail} value={packDetail.location} name="location" placeholder="Direccion del hotel"/>
+              <input className={style.inputForm} onChange={handlePackDetail} value={packDetail.city} name="city" placeholder="Ciudad"/>
+              <textarea className={style.inputFormText} onChange={handlePackDetail} value={packDetail.detail} name="detail" placeholder="Descripcion"/>
+              <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
+              <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>
+              <button className={style.buttonCreate} onClick={updatePaquete}>Editar</button>
+              <button className={style.buttonCreate} onClick={() => deletePaquete(packDetail.id)}>Borrar</button>
+              </div>
+            </form>
+          </div>
+          {/* <div className={style.imgs}>
+            <div className={style.imgContainer}>
+            <img className={style.img} src={!pack?.images.length ? "https://morenoa.com/wp-content/themes/consultix/images/no-image-found-360x250.png" : pack?.images.at(-1)}/>
+            { pack?.images.length < 3 && <input type="file" className={style.upload} onChange={uploadImages}/>}
+            </div>
+            <p className={style.tip}>Selecciona al menos 3 imagenes {"("+pack?.images.length+"/3)"}</p>
+            <div className={style.mapa}>
+              <Map height={30} width={26} fn={setLocation}/>
+            </div>
+          </div> */}
+        </div>
+      </div>}
+      { (page == 3 && user?.role == 3 && creator && !packDetail) && 
       <div className={style.view}>
         <div className={style.creator}>
           <div className={style.formPaquete}>
@@ -448,15 +525,15 @@ const Profile = () => {
           </div>
           <div className={style.containerRight}>
           <textarea value={promo?.details} onChange={handlePromo} name="details" className={style.detalles}></textarea>
-          <input className={style.inputPrice} type="text" placeholder="Precio p/p"/>
+          <input className={style.inputPrice} onChange={handlePromo} value={promo?.price} name="price" type="text" placeholder="Precio p/p"/>
           </div>
           </div>
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>
         </div>
       </div>}
       { (page == 5 && user?.role >= 2 && !creator) && <div className={style.view}>
-      <div className={style.top}>
-        { user?.role == 3 && <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>}
+      { user?.role == 3 ? <><div className={style.top}>
+       <button className={style.newPaquete} onClick={() => setCreator(true)}>Crear capacitacion</button>
         <select className={style.select} onChange={(e) => filtrarPaquetes(e,"class")}>
           <option value="all" selected>Todos</option>
           <option value="true">Publicado</option>
@@ -484,10 +561,21 @@ const Profile = () => {
           <span className={style.next} onClick={() => pagina > 1 ? dispatch(setPagina(pagina-1)):""}>Atras</span>
           <b className={style.page}>{pagina}</b>
           { maxPagesClass !== pagina && <span className={style.next} onClick={() => dispatch(setPagina(pagina+1))}>Siguiente</span>}
+        </div></>: 
+        <div className={style.capaContainer}>
+          {clases && clases.map( c => <a href={c.link} target="_blank" className={style.noLink}><div className={style.capa}>
+            <img className={style.imgCapa} src={c.image}/>
+            <p className={style.titleCapa}>{c.title}</p>
+          </div></a>)}
         </div>
+        }
       </div>}
       { (page == 5 && user?.role == 3 && creator) && <div className={style.view}>
         <form className={style.formCapacitacion}>
+        <div className={style.containerCapacita}>
+          <img className={style.imgCapa} src={clase?.image} style={{position:"absolute", width:"300px"}}/>
+          <input type="file" onChange={uploadCapaImg} className={style.upload} style={{opacity:"0", width:"300px", height:"200px"}}/>
+        </div>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.title} name="title" placeholder="Nombre de la capacitacion"/>
         <input className={style.inputCapacitacion} onChange={handleClass} value={clase?.link} name="link" placeholder="Link"/>
         </form>

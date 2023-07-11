@@ -7,6 +7,19 @@ import {Element} from "react-scroll"
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
 import { useEffect } from 'react';
+
+import l1 from "../../../assets/aliados/1.jpg"
+import l2 from "../../../assets/aliados/2.png"
+import l3 from "../../../assets/aliados/3.png"
+import l4 from "../../../assets/aliados/4.png"
+import l5 from "../../../assets/aliados/5.png"
+import l6 from "../../../assets/aliados/6.png"
+import l7 from "../../../assets/aliados/7.jpg"
+import l8 from "../../../assets/aliados/8.png"
+import l9 from "../../../assets/aliados/9.png"
+import l10 from "../../../assets/aliados/10.jpg"
+import l11 from "../../../assets/aliados/11.png"
+// import l4 from "../../../assets/aliados/4.png"
  
 const Clients = () => {
 
@@ -62,29 +75,50 @@ const Clients = () => {
       <h2 className={style.titleSection}>Nuestros aliados</h2>
         <Slider key={Math.random()} {...settings}>
         <div className={style.client}>
-          <img src={logo} className={style.img}></img>
+          <img src={l1} className={style.img}></img>
         </div>
         <div className={style.client}>
-        <img src={logo} className={style.img}></img>
+        <img src={l2} className={style.img}></img>
         </div>
         <div className={style.client}>
-        <img src={logo} className={style.img}></img>
+        <img src={l3} className={style.img}></img>
         </div>
         <div className={style.client}>
-        <img src={logo} className={style.img}></img>
+        <img src={l4} className={style.img}></img>
+        </div>
+        <div className={style.client}>
+        <img src={l5} className={style.img}></img>
+        </div>
+        <div className={style.client}>
+        <img src={l6} className={style.img}></img>
+        </div>
+        <div className={style.client}>
+        <img src={l7} className={style.img}></img>
+        </div>
+        <div className={style.client}>
+        <img src={l8} className={style.img}></img>
+        </div>
+        <div className={style.client}>
+        <img src={l9} className={style.img}></img>
+        </div>
+        <div className={style.client}>
+        <img src={l10} className={style.img}></img>
+        </div>
+        <div className={style.client}>
+        <img src={l11} className={style.img}></img>
         </div>
         </Slider>
 
       <div>
         <h3 className={style.titleSection}>Clientes felices</h3>
         <div className={style.valores}>
-          <div className={style.valor}><img className={style.imgValores} src={logo}></img></div>
-          <div className={style.valor}><img className={style.imgValores} src={logo}></img></div>
-          <div className={style.valor}><img className={style.imgValores} src={logo}></img></div>
-          <div className={style.valor}><img className={style.imgValores} src={logo}></img></div>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
         </div>
       </div>
-      <div><button className={style.button}><a className={style.noLink} target="_blank" href="https://www.instagram.com/viajaya_pagina_oficial/">Mas testimonios</a></button></div>
+      <div><button className={style.button}><a className={style.noLink} target="_blank" href="https://www.instagram.com/stories/highlights/17846810168704295/">Mas testimonios</a></button></div>
     </motion.div>
     </Element>
   )

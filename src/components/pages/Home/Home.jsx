@@ -18,11 +18,11 @@ const Home = () => {
         <h2 className={style.nombre2}>Somos operador turístico y agencias de viajes ViajaYa con RNT 122035 el canal intermediario que facilita la compra y reserva de vacaciones programadas entre los viajeros y proveedores por medio de plataformas digitales, convenios directos, asesores externos profesionales; resaltando la cultura de los destinos empaquetando {"("}Alojamiento, vuelos, transportes y receptivos{")"} entregando planes turísticos con información verídica cumpliendo con las normas vigentes del turismo</h2>
         <Link to="proyectos" smooth={true} duration={500}><button className={style.button}>Reservar ahora</button></Link>
       </div>
-      {/* <div className={style.videosContainer}>
-        <video src={v1} className={style.videos}></video>
-        <video src={v2} className={style.videos}></video>
-        <video src={v3} className={style.videos}></video>
-      </div> */}
+      <div className={style.videosContainer}>
+        <img src="https://periodico.unal.edu.co/uploads/UN_Periodico_Digital/Imagenes/2021/04-Abril/0408/pm/01-LLanos_cc0.jpg" style={{objectFit:"contain"}} className={style.videos}></img>
+        <img src="https://www.eltiempo.com/files/image_640_428/files/crop/uploads/2020/09/29/5f73775f1a5e7.r_1601492272849.0-1213-2961-2682.jpeg" style={{objectFit:"contain"}} className={style.videos}></img>
+        <img src="https://estaticos.elcolombiano.com/binrepository/580x386/0c22/580d365/none/11101/TOPK/mvichada-turismo-159_37841543_20210611122849.jpg" className={style.videos} style={{objectFit:"contain"}}></img>
+      </div>
     </div>
     </Element>
   )

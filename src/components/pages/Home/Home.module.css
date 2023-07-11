@@ -113,9 +113,19 @@ background: linear-gradient(90deg, rgb(255, 255, 255) 35%, rgba(0, 0, 0, 0) 70%)
 
 .videos{
     height: 130px;
-    margin: 10px;
+    width: 120px;
+    margin: 10px 30px;
+    /* background-color: rgba(128, 0, 128, 0.483); */
     /* height: 90%; */
     /* margin: 5%; */
+    cursor:pointer;
+    transition: .3s;
+    opacity:.85;
+}
+
+.videos:hover{
+    scale:1.1;
+    opacity:1;
 }
 
 @keyframes aparecer {

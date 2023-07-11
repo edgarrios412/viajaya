@@ -60,7 +60,6 @@ const Contact = () => {
         </div>
         <div className={style.emails}>
           <h4 className={style.email}>EMAIL1</h4>
-          <h4 className={style.email}>EMAIL2</h4>
         </div>
         </div>
         <div className={style.correos}>
@@ -68,13 +67,13 @@ const Contact = () => {
         <FiPhone className={style.icon}/>
         </div>
         <div className={style.numbers}>
-          <a className={style.noLink} target="_blank" href="https://bit.ly/3IY4PGk"><h4 className={style.number}>{"(+57)"} NUMBER1</h4></a>
-          <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.number}>{"(+57)"} NUMBER2</h4></a>
+          <a className={style.noLink} target="_blank" href="#"><h4 className={style.number}>{"(+57)"} 312 3563925</h4></a>
+          {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.number}>{"(+57)"} NUMBER2</h4></a> */}
         </div>
         </div>
         <div className={style.mapouter}>
           <div className={style.gmap_canvas}>
-          <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=Calle 42 numero 5118 Villavicencio&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+          <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=Calle 7 numero 5-54, Restrepo, Meta&t=&z=16&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
           </div>
         </div>
         </div>

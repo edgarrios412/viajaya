@@ -23,7 +23,7 @@ import { map } from 'leaflet';
 import axios from 'axios';
 import Select from "react-select"
 import {BiCurrentLocation} from "react-icons/bi"
-import {filterPacksChar, setPaquetes} from "../../../redux/actions/actions"
+import {filterPacksChar, setPaquetes, filterPacksTitle} from "../../../redux/actions/actions"
 import { useDispatch, useSelector } from 'react-redux';
 const MAP_LAYER_ATTRIBUTION =
   "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
@@ -74,6 +74,10 @@ const Paquetes = () => {
     dispatch(filterPacksChar(chars))
   }
 
+  const filterPackTitle = (e) => {
+    dispatch(filterPacksTitle(e.target.value))
+  }
+
   const options = chars?.map(c => { return {value:c.id,label:c.name}})
 
   return(
@@ -81,10 +85,11 @@ const Paquetes = () => {
     { projectId && <ModalProject id={projectId} close={() => setProjectId(null)}/>}
     <Element name="proyectos">
     <motion.div ref={ref} animate={animation} className={style.paquetes} id="proyectos">
-      <h2 className={style.titleSection}>Paquetes</h2>
+      <h2 className={style.titleSection}>Promociones</h2>
       <div className={style.selectContainer}>
         {/* <RiRefreshFill className={style.refresh}/> */}
         <Select placeholder="Caracteristicas" isMulti className={style.select} onChange={filterPacks} options={options}/>
+        <input placeholder="Buscar" onChange={filterPackTitle} className={style.select2}/>
       </div>
       <div className={style.container}>
         <div className={style.paquetesContainer}>
