@@ -55,8 +55,77 @@ const Pay = () => {
           transaction: transaction,
           userId:user.id,
           packId:pack.id,
+          reserva:false,
           person: dataPay.person,
           inicio:dataPay.inicio,
+          fin:dataPay.fin,
+          email: user.email,
+          passenger: passenger,
+          comprado: dayjs().format('YYYY-MM-DD'),
+        })
+        // TODO: ENVIAR COMPROBANTE Y DATOS DE LOS PASAJEROS AL CORREO DE VIAJAYA
+        setTimeout(() => {
+          navigate("/profile")
+        },2000)
+      }else{
+        toast.error("No pudimos realizar el pago")
+      }
+    })
+  }
+
+  const payreserva = () => {
+    const total = `${dataPay?.person*pack?.reserva}00`
+    var checkout = new WidgetCheckout({
+      currency: 'COP',
+      amountInCents: total,
+      reference: refe,
+      publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
+    })
+    checkout.open(function ( result ) {
+      var transaction = result.transaction
+      if(transaction.status == "APPROVED"){
+        toast.success("Compra exitosa")
+        axios.post("/buy",{
+          transaction: transaction,
+          userId:user.id,
+          packId:pack.id,
+          person: dataPay.person,
+          reserva: true,
+          inicio:dataPay.inicio,
+          fin:dataPay.fin,
+          email: user.email,
+          passenger: passenger,
+          comprado: dayjs().format('YYYY-MM-DD'),
+        })
+        // TODO: ENVIAR COMPROBANTE Y DATOS DE LOS PASAJEROS AL CORREO DE VIAJAYA
+        setTimeout(() => {
+          navigate("/profile")
+        },2000)
+      }else{
+        toast.error("No pudimos realizar el pago")
+      }
+    })
+  }
+
+  const pay2 = () => {
+    const total = `${dataPay?.person*promo?.price}00`
+    var checkout = new WidgetCheckout({
+      currency: 'COP',
+      amountInCents: total,
+      reference: refe,
+      publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
+    })
+    checkout.open(function ( result ) {
+      var transaction = result.transaction
+      if(transaction.status == "APPROVED"){
+        toast.success("Compra exitosa")
+        axios.post("/buy",{
+          transaction: transaction,
+          userId:user.id,
+          packId:"promo",
+          person: dataPay.person,
+          inicio:dataPay.inicio,
+          reserva:false,
           fin:dataPay.fin,
           email: user.email,
           passenger: passenger,
@@ -114,8 +183,10 @@ const Pay = () => {
               </div>
               </div>
               <p className={style.subtotal}>Subtotal: <b>${dataPay?.person*pack?.price}</b></p>
+              <p className={style.subtotal}>Subtotal reserva: <b>${dataPay?.person*pack?.reserva}</b></p>
               <div className={style.buttons}>
-                <button className={style.button} onClick={pay}><MdPayment className={style.payIcon}/> Pagar ahora</button>
+                <button className={style.button} onClick={pay}><MdPayment className={style.payIcon}/> Pagar todo</button>
+                <button className={style.button} onClick={payreserva}><MdPayment className={style.payIcon}/> Pagar solo reserva</button>
                 <Link to="/"><button style={{width:"200px"}} className={style.button}>Seguir comprando</button></Link>
               </div>
             </div></>:<>
@@ -136,7 +207,7 @@ const Pay = () => {
               </div>
               <p className={style.subtotal}>Subtotal: <b>${dataPay?.person*promo?.price}</b></p>
               <div className={style.buttons}>
-                <button className={style.button} onClick={pay}><MdPayment className={style.payIcon}/> Pagar ahora</button>
+                <button className={style.button} onClick={pay2}><MdPayment className={style.payIcon}/> Pagar ahora</button>
                 <Link to="/"><button style={{width:"200px"}} className={style.button}>Seguir comprando</button></Link>
               </div>
             </div></>}

@@ -28,7 +28,8 @@ const initialState = {
   maxPagesUser:null,
   maxPagesClass: null,
   filter: "all",
-  pay:{}
+  pay:{},
+  word:"",
 };
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -48,10 +49,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       if(payload.length == 0){
         return{
           ...state,
-          paquetes: state.paquetesOrigin
+          paquetes: state.paquetesOrigin,
+          word: payload
         }}else{
           return{
             ...state,
+            word:payload,
             paquetes: state.paquetesOrigin.filter(p => p.title.toLowerCase().includes(payload.toLowerCase()))
           }
         }

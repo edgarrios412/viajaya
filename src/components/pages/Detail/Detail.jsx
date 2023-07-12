@@ -65,7 +65,8 @@ const Detail = () => {
     };
 
     const selectDate = (date) => {
-      setFecha(dayjs(date).format("YYYY-MM-DD"))
+      setFecha(date)
+      // setFecha(dayjs(date).format("YYYY-MM-DD"))
       const fechaFinal = new Date(date);
       fechaFinal.setDate(fechaFinal.getDate() + pack?.days);
       setDateFinal(fechaFinal.toISOString().split('T')[0])
@@ -91,15 +92,20 @@ const Detail = () => {
             <h2 className={style.title}>{pack?.title}</h2>
             <p className={style.location}>{pack?.location} - Todo incluido</p>
             <b className={style.price}>${pack?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
-            <Flatpickr
+            <select onChange={(e) => selectDate(e.target.value)}>
+              <option value="2023-12-06">2023-12-06</option>
+              <option value="2023-12-07">2023-12-07</option>
+              <option value="2023-12-08">2023-12-08</option>
+            </select>
+            {/* <Flatpickr
           value={fecha}
           style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
           options={flatpickrOptions}
           // ref={refCalendar}
           placeholder='Fecha inicio'
           onChange={([date]) => selectDate(date)}
-            />
-            <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span>
+            /> */}
+            <span style={{fontFamily:"system-ui",fontSize:"15px"}}> - {dateFinal}</span>
             <p style={{width:"400px"}}>{pack?.detail}</p>
             <div className={style.tags}>
               {pack?.chars.map(c => <span className={style.tag}>{c.name}</span>)}

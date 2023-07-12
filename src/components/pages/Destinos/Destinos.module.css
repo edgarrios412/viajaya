@@ -53,6 +53,7 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 .service{
     width: 250px;
     height: 400px;
+    cursor:pointer;
     /* background-color: red; */
 }
 

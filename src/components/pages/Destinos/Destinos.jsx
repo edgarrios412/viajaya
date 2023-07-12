@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {Element} from "react-scroll"
 import { useState } from 'react';
-import Modal from '../../layout/Modal/Modal';
+import ModalDestino from '../../layout/ModalDestino/ModalDestino';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation,motion } from 'framer-motion';
 import { useEffect } from 'react';
@@ -12,7 +12,7 @@ import nacionales from "../../../assets/nacionales.png"
  
 const Destinos = () => {
 
-  const [serviceId, setServiceId] = useState(null)
+  const [destinoId, setDestinoId] = useState(null)
 
 
   const settings = {
@@ -50,7 +50,7 @@ const Destinos = () => {
 
   return(
     <>
-    { serviceId && <Modal id={serviceId} close={() => setServiceId(null)}/>}
+    { destinoId && <ModalDestino id={destinoId} close={() => setDestinoId(null)}/>}
     <Element name="servicios">
     <motion.div animate={animation} ref={ref} className={style.services} id="servicios">
       <div className={style.header}>
@@ -58,11 +58,11 @@ const Destinos = () => {
       <button className={style.button2}><a target="_blank" className={style.noLink} href="https://w.app/Viajaya">Hablar con un asesor</a></button>
       </div>
       <div className={style.servicesContainer}>
-        <div className={style.service}>
+        <div className={style.service} onClick={() => setDestinoId(1)}>
           <img src={nacionales} className={style.img}/>
           <button className={style.button}>Nacionales</button>
         </div>
-        <div className={style.service}>
+        <div className={style.service} onClick={() => setDestinoId(2)}>
           <img src="https://tipsparatuviaje.com/wp-content/uploads/2017/05/1.-Cuba.jpg" className={style.img}/>
           <button className={style.button}>Internacionales</button>
         </div>

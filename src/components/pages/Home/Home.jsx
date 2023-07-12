@@ -2,8 +2,13 @@ import style from './Home.module.css'
 import {Element} from "react-scroll" 
 import video from "../../../assets/vf.mp4"
 import { Link } from "react-scroll";
+import { useDispatch } from 'react-redux';
+import { filterPacksTitle } from '../../../redux/actions/actions';
 
 const Home = () => {
+
+  const dispatch = useDispatch()
+
   return(
     <Element name="home">
     <div className={style.home} id="home">
@@ -19,9 +24,9 @@ const Home = () => {
         <Link to="proyectos" smooth={true} duration={500}><button className={style.button}>Reservar ahora</button></Link>
       </div>
       <div className={style.videosContainer}>
-        <img src="https://periodico.unal.edu.co/uploads/UN_Periodico_Digital/Imagenes/2021/04-Abril/0408/pm/01-LLanos_cc0.jpg" style={{objectFit:"contain"}} className={style.videos}></img>
-        <img src="https://www.eltiempo.com/files/image_640_428/files/crop/uploads/2020/09/29/5f73775f1a5e7.r_1601492272849.0-1213-2961-2682.jpeg" style={{objectFit:"contain"}} className={style.videos}></img>
-        <img src="https://estaticos.elcolombiano.com/binrepository/580x386/0c22/580d365/none/11101/TOPK/mvichada-turismo-159_37841543_20210611122849.jpg" className={style.videos} style={{objectFit:"contain"}}></img>
+      <Link to="proyectos" onClick={() => dispatch(filterPacksTitle("llanos"))} smooth={true} duration={500}><img src="https://periodico.unal.edu.co/uploads/UN_Periodico_Digital/Imagenes/2021/04-Abril/0408/pm/01-LLanos_cc0.jpg" style={{objectFit:"contain"}} className={style.videos}/></Link>
+      <Link to="proyectos" onClick={() => dispatch(filterPacksTitle("llanos"))} smooth={true} duration={500}><img src="https://www.eltiempo.com/files/image_640_428/files/crop/uploads/2020/09/29/5f73775f1a5e7.r_1601492272849.0-1213-2961-2682.jpeg" style={{objectFit:"contain"}} className={style.videos}/></Link>
+      <Link to="proyectos" onClick={() => dispatch(filterPacksTitle("llanos"))} smooth={true} duration={500}><img src="https://estaticos.elcolombiano.com/binrepository/580x386/0c22/580d365/none/11101/TOPK/mvichada-turismo-159_37841543_20210611122849.jpg" className={style.videos} style={{objectFit:"contain"}}/></Link>
       </div>
     </div>
     </Element>

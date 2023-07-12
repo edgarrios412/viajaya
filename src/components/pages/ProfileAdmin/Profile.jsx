@@ -13,7 +13,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Map from '../../layout/Map/Map';
 import {toast, Toaster} from "react-hot-toast"
 import Select from "react-select"
+import "flatpickr/dist/themes/light.css";
+import Flatpickr from "react-flatpickr";
+import { Spanish } from "flatpickr/dist/l10n/es.js";
+import dayjs from "dayjs";
+import "dayjs/locale/es";
  
+dayjs.locale("es");
+
 const Profile = () => {
     const [page, setPage] = useState(0)
     const navigate = useNavigate()
@@ -68,6 +75,21 @@ const Profile = () => {
         ...clase,
         [name]:value
       })
+    }
+
+    const flatpickrOptions = {
+      locale: Spanish,
+      minDate: dayjs(new Date()).format("YYYY-MM-DD"),
+      enableTime: false,
+      defaultDate: "Hola",
+    };
+
+    const [fecha, setFecha] = useState([])
+
+    const selectDate = (date) => {
+      setPack({...pack,
+        fechas:[...fecha, dayjs(date).format("YYYY-MM-DD")]})
+      console.log(pack.fechas)
     }
 
     const [packDetail, setPackDetail] = useState(null)
@@ -370,6 +392,7 @@ const Profile = () => {
                     <b className={style.planName}>{b.pack.title}</b>
                     <b className={style.planPrice}>${b.pack.price} p/p</b>
                   </div>
+                  {b.pack.reserva ? <p>Pago de reserva</p>:<p>Pago completo</p>}
                   <p>{b.pack.location} - Todo incluido</p>
                   <div className={style.tags}>
                     {b.pack.chars.map( c => <span className={style.tag}>{c.name}</span>)}
@@ -494,7 +517,8 @@ const Profile = () => {
               <input className={style.inputForm} onChange={handlePack} value={pack?.title} name="title" placeholder="Nombre del paquete"/>
               <input type="number" onChange={handlePack} value={pack?.days} name="days" className={style.inputForm} placeholder="Duracion (dias)"/>
               <Select  className={style.inputForm1} styles={customStyles} isMulti placeholder="Caracteristicas" onChange={handleChars} options={options} />
-              <input className={style.inputForm} onChange={handlePack} value={pack?.price} name="price" placeholder="Precio"/>
+              <input className={style.inputForm} onChange={handlePack} value={pack?.price} name="price" placeholder="Precio p/p"/>
+              <input className={style.inputForm} onChange={handlePack} value={pack?.reserva} name="reserva" placeholder="Reserva p/p"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.location} name="location" placeholder="Direccion del hotel"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
               <textarea className={style.inputFormText} onChange={handlePack} value={pack?.detail} name="detail" placeholder="Descripcion"/>
@@ -505,6 +529,14 @@ const Profile = () => {
             </form>
           </div>
           <div className={style.imgs}>
+          <Flatpickr
+          value={fecha}
+          style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
+          options={flatpickrOptions}
+          // ref={refCalendar}
+          placeholder='Fechas'
+          onChange={([date]) => selectDate(date)}
+            />
             <div className={style.imgContainer}>
             <img className={style.img} src={!pack?.images.length ? "https://morenoa.com/wp-content/themes/consultix/images/no-image-found-360x250.png" : pack?.images.at(-1)}/>
             { pack?.images.length < 3 && <input type="file" className={style.upload} onChange={uploadImages}/>}

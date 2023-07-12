@@ -1,7 +1,7 @@
 import style from './Modal.module.css'
 import Slider from 'react-slick';
  
-const ModalProject = ({close, detail}) => {
+const ModalProject = ({close, detail, price}) => {
   const settings = {
     infinite: true,
     slidesToScroll: 1,
@@ -18,9 +18,9 @@ const ModalProject = ({close, detail}) => {
     <div className={style.modalContainer}>
       <div className={style.modal}>
         <h2 className={style.title}>Promocion ya pa ya</h2>
+        <p className={style.price}>${price} p/p</p>
         <p className={style.desc}>{detail}</p>
-        <Slider {...settings}>
-        </Slider>
+        <br></br>
         <button className={style.button} onClick={close}>Cerrar</button>
       </div>
     </div>

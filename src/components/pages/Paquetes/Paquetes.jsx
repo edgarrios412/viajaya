@@ -38,6 +38,7 @@ const Paquetes = () => {
   const animation = useAnimation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const word = useSelector(s => s.word)
   // MAPA
 
   const [zoom, setZoom] = useState(15)
@@ -89,7 +90,7 @@ const Paquetes = () => {
       <div className={style.selectContainer}>
         {/* <RiRefreshFill className={style.refresh}/> */}
         <Select placeholder="Caracteristicas" isMulti className={style.select} onChange={filterPacks} options={options}/>
-        <input placeholder="Buscar" onChange={filterPackTitle} className={style.select2}/>
+        <input placeholder="Buscar" value={word} onChange={filterPackTitle} className={style.select2}/>
       </div>
       <div className={style.container}>
         <div className={style.paquetesContainer}>

@@ -42,7 +42,7 @@ const Promo = () => {
 
   return(
     <Element name="nosotros">
-    {modal && <ModalProject detail={promo?.details} close={() => setModal(false)}/>}
+    {modal && <ModalProject price={promo?.price} detail={promo?.details} close={() => setModal(false)}/>}
     <motion.div animate={animation} ref={ref} className={style.Promo} id="nosotros">
       <div className={style.PromoContainer}>
         <h4 className={style.desc}>
