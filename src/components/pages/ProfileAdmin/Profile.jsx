@@ -6,7 +6,7 @@ import {AiOutlineUser} from "react-icons/ai"
 import {MdPayment , MdExitToApp, MdOutlineLocalOffer} from "react-icons/md"
 import {FiUsers} from "react-icons/fi"
 import {BsBoxSeam} from "react-icons/bs"
-import {FaChalkboardTeacher} from "react-icons/fa"
+import {FaChalkboardTeacher, FaExchangeAlt} from "react-icons/fa"
 import axios from 'axios';
 import { FIND_USERS, findPaquetes, setPaquetes, findUsers, setUsers, setClass, findClass, setPagina, filterPacks } from '../../../redux/actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,7 +43,8 @@ const Profile = () => {
 
     const [packs, setPacks] = useState()
     const [pack, setPack] = useState({
-      images:[]
+      images:[],
+      fechas:[]
     })
     const paquetes = useSelector(s => s.paquetes)
     const users = useSelector(s => s.users)
@@ -87,9 +88,13 @@ const Profile = () => {
     const [fecha, setFecha] = useState([])
 
     const selectDate = (date) => {
-      setPack({...pack,
-        fechas:[...fecha, dayjs(date).format("YYYY-MM-DD")]})
-      console.log(pack.fechas)
+      if(pack.fechas.includes(dayjs(date).format("YYYY-MM-DD"))){
+        setPack({...pack,
+          fechas:pack.fechas.filter(f => f !== dayjs(date).format("YYYY-MM-DD"))})
+      }else{
+        setPack({...pack,
+          fechas:[...pack.fechas, dayjs(date).format("YYYY-MM-DD")]})
+      }
     }
 
     const [packDetail, setPackDetail] = useState(null)
@@ -530,7 +535,7 @@ const Profile = () => {
           </div>
           <div className={style.imgs}>
           <Flatpickr
-          value={fecha}
+          value={pack.fechas}
           style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
           options={flatpickrOptions}
           // ref={refCalendar}
