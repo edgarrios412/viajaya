@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import {motion} from "framer-motion"
 import { useEffect, useState } from 'react';
 import { useAnimation } from 'framer-motion';
+import mascota from "../../../assets/mascota.png"
 
 const Operador = () => {
 
@@ -31,9 +32,10 @@ const Operador = () => {
   },[inView])
 
   return(
-    <Element name="nosotros">
+    <Element name="operador">
     {/* {modal && <ModalProject detail={promo?.details} close={() => setModal(false)}/>} */}
-    <motion.div animate={animation} ref={ref} className={style.Promo} id="nosotros">
+    <motion.div animate={animation} ref={ref} className={style.Promo} id="operador">
+      <img className={style.bg} src={mascota}/>
       <div className={style.PromoContainer}>
         <h4 className={style.desc}>
             <div className={style.titleContainer}>

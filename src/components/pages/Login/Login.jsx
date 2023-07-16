@@ -34,7 +34,7 @@ const Login = () => {
                 password:"",
                 password2:"",
             })
-        })
+        }, (err) => toast.error("Email existente"))
     }
 
     const authUser = async () => {

@@ -97,6 +97,16 @@ const Profile = () => {
       }
     }
 
+    const selectDatePromo = (date) => {
+      if(promo.fechas.length > 0 && promo.fechas.includes(dayjs(date).format("YYYY-MM-DD"))){
+        setPromo({...promo,
+          fechas:promo.fechas.filter(f => f !== dayjs(date).format("YYYY-MM-DD"))})
+      }else{
+        setPromo({...promo,
+          fechas:[...promo.fechas, dayjs(date).format("YYYY-MM-DD")]})
+      }
+    }
+
     const [packDetail, setPackDetail] = useState(null)
 
     const getPackDetail = (id) => {
@@ -128,6 +138,7 @@ const Profile = () => {
     const createPack = () => {
       if(!pack?.title.length || pack?.title.length < 5) return toast.error("El titulo debe tener al menos 5 caracteres")
       if(!pack?.detail.length || pack?.detail.length < 2) return toast.error("La descripcion debe tener al menos 2 caracteres")
+      if(!pack?.fechas.length) return toast.error("Debes seleccionar al menos una fecha")
       if(!pack?.lat || !pack?.lng) return toast.error("Debes seleccionar una ubicacion en el mapa")
       axios.post("/pack", {...pack, created:user.name}).then(() => {setCreator(false);toast.success("Paquete creado exitosamente"); axios.get("/pack").then((data) => dispatch(setPaquetes(data.data)))})
     }
@@ -149,6 +160,7 @@ const Profile = () => {
     }
 
     const updatePromo = () => {
+      if(!promo.fechas.length) return toast.error("Debes agregar una fecha")
       axios.put("/promo", promo).then(() => {toast.success("Promocion actualizada exitosamente"); axios.get("/promo").then((data) => setPromo(data.data))})
     }
 
@@ -536,7 +548,8 @@ const Profile = () => {
           <div className={style.imgs}>
           <Flatpickr
           value={pack.fechas}
-          style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
+          className={style.inputForm}
+          // style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
           options={flatpickrOptions}
           // ref={refCalendar}
           placeholder='Fechas'
@@ -562,6 +575,15 @@ const Profile = () => {
           </div>
           <div className={style.containerRight}>
           <textarea value={promo?.details} onChange={handlePromo} name="details" className={style.detalles}></textarea>
+          <Flatpickr
+          value={promo.fechas}
+          className={style.inputForm}
+          // style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
+          options={flatpickrOptions}
+          // ref={refCalendar}
+          placeholder='Fechas'
+          onChange={([date]) => selectDatePromo(date)}
+            />
           <input className={style.inputPrice} onChange={handlePromo} value={promo?.price} name="price" type="text" placeholder="Precio p/p"/>
           </div>
           </div>

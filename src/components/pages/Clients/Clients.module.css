@@ -4,6 +4,13 @@
     height: fit-content;
 }
 
+.bg{
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    opacity: .5;
+}
+
 .client{
     width: 150px;
     height: 150px;
@@ -53,13 +60,14 @@
 .titleSection{
     text-align: center;
     margin-bottom: 50px;
-    font-size: 3em;
+    font-size: 5em;
     color:var(--primary);
     font-family: var(--font);
 }
 
 .titleValores{
     text-align: center;
+    font-size: 4em;
     margin: 75px 0px;
 }
 

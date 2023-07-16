@@ -43,7 +43,15 @@ const Contact = () => {
 
   const sendMail = (e) => {
     e.preventDefault()
+    if(!contact.name.length || !contact.phone.length || !contact.mail.length || !contact.subject.length || !contact.message.length) return toast.error("Rellena todos los campos")
     axios.post("/user/contact", contact).then((data) => toast.success(data.data.message))
+    setContact({
+      name:"",
+      phone:"",
+      mail:"",
+      subject:"",
+      message:""
+    })
   }
 
   return(

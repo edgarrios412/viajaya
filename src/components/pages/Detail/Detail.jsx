@@ -65,11 +65,14 @@ const Detail = () => {
     };
 
     const selectDate = (date) => {
-      setFecha(date)
-      // setFecha(dayjs(date).format("YYYY-MM-DD"))
+      if(id !== "promo"){
+        setFecha(date)
       const fechaFinal = new Date(date);
       fechaFinal.setDate(fechaFinal.getDate() + pack?.days);
       setDateFinal(fechaFinal.toISOString().split('T')[0])
+      }else{
+        setFecha(date)
+      }
     }
     if(localStorage.getItem("token") == null){
       return <Navigate to="/login" replace />
@@ -115,15 +118,10 @@ const Detail = () => {
             <h2 className={style.title}>Promocion YA PA YA</h2>
             {/* <p className={style.location}>{pack?.location} - Todo incluido</p> */}
             <b className={style.price}>${promo?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
-            <Flatpickr
-          value={fecha}
-          style={{fontFamily:"system-ui", fontSize:"15px",display:"inline-block", width:"77px", padding: "5px 15px", borderRadius: "10px", border: "none" }}
-          options={flatpickrOptions}
-          // ref={refCalendar}
-          placeholder='Fecha inicio'
-          onChange={([date]) => selectDate(date)}
-            />
-            <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span>
+            <select onChange={(e) => selectDate(e.target.value)}>
+              {promo?.fechas.map( f => <option value={f}>{f}</option>)}
+            </select>
+            {/* <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span> */}
             <p style={{width:"400px"}}>{promo?.details}</p>
             <button onClick={addCar} className={style.addCar}>Comprar paquete</button>
         </div></>

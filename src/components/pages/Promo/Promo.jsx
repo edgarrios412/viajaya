@@ -41,13 +41,15 @@ const Promo = () => {
   },[])
 
   return(
-    <Element name="nosotros">
+    <>
+    {promo?.fechas?.length > 0 &&
+    <Element name="promo">
     {modal && <ModalProject price={promo?.price} detail={promo?.details} close={() => setModal(false)}/>}
-    <motion.div animate={animation} ref={ref} className={style.Promo} id="nosotros">
+    <motion.div animate={animation} ref={ref} className={style.Promo} id="promo">
       <div className={style.PromoContainer}>
         <h4 className={style.desc}>
             <div className={style.titleContainer}>
-            <h2 className={style.titleSection}>Promocion</h2>
+            <h2 className={style.titleSection}>Promoción</h2>
             <img className={style.yapaya} src={yapaya}/>
             </div>
             <div className={style.buttonContainer}>
@@ -58,7 +60,8 @@ const Promo = () => {
         <img src={promo?.image} className={style.img}/>
       </div>
     </motion.div>
-    </Element>
+    </Element>}
+    </>
   )
 };
 

@@ -7,6 +7,7 @@ import {Element} from "react-scroll"
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
 import { useEffect } from 'react';
+import mascota from "../../../assets/mascota.png"
 
 import l1 from "../../../assets/aliados/1.jpg"
 import l2 from "../../../assets/aliados/2.png"
@@ -51,7 +52,7 @@ const Clients = () => {
     slidesToScroll: 1,
     slidesToShow: 4,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     pauseOnHover: true,
     style:{
       margin:"0px 100px",

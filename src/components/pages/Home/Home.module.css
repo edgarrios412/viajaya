@@ -104,28 +104,47 @@ background: linear-gradient(90deg, rgb(255, 255, 255) 35%, rgba(0, 0, 0, 0) 70%)
 
 .videosContainer{
     width: 600px;
-    height: 150px;
+    height: 170px;
     background-color: rgba(255, 255, 255, 0.47);
     position: absolute;
     right: 0;
     bottom: 60px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.titleLlano{
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-left: 30px;
 }
 
 .videos{
-    height: 130px;
+    height: 90px;
     width: 120px;
-    margin: 10px 30px;
+    margin: 0px 30px;
     /* background-color: rgba(128, 0, 128, 0.483); */
     /* height: 90%; */
     /* margin: 5%; */
     cursor:pointer;
     transition: .3s;
     opacity:.85;
+    /* object-fit: contain; */
+    border-radius: 10px;
 }
 
 .videos:hover{
     scale:1.1;
     opacity:1;
+}
+
+.imgLogo{
+    position:absolute;
+    right: 170px;
+    top: 120px;
+    width: 270px;
+    z-index: 50;
+    transform: scaleX(-1);
 }
 
 @keyframes aparecer {
