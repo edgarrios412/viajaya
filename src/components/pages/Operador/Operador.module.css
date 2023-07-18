@@ -123,4 +123,7 @@
     .service{
         margin: 0 auto;
     }
+    .bg{
+        display: none;
+    }
 }
