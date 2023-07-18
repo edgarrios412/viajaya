@@ -4,14 +4,27 @@ import {Element} from "react-scroll"
 import { Toaster, toast } from 'react-hot-toast';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation,motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-
+import "leaflet/dist/leaflet.css";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+  Tooltip
+} from "react-leaflet";
+import myIcon from "../../layout/Map/Iconos"
+import iconLogo from "../../layout/Map/Icono"
+const MAP_LAYER_ATTRIBUTION =
+  "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
+const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 const Contact = () => {
   
   const [contact, setContact] = useState()
-
+  const mapRef= useRef()
   const {ref, inView} = useInView({
     // threshold:0.1
   })
@@ -79,10 +92,26 @@ const Contact = () => {
           {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.number}>{"(+57)"} NUMBER2</h4></a> */}
         </div>
         </div>
-        <div className={style.mapouter}>
-          <div className={style.gmap_canvas}>
-          <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=Calle 7 numero 5-54, Restrepo, Meta&t=&z=16&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-          </div>
+        <div className={style.mapa}>
+        <div>
+    <div className={style.mapContainer}>
+      <MapContainer
+        ref={mapRef}
+        center={[4.3214043,-73.807862]}
+        zoom={8}
+        scrollWheelZoom={false}
+        className={style.map}
+      >
+        <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
+        <Marker icon={iconLogo} position={[4.2614043,-73.567862]}>
+        </Marker>
+        <Marker icon={iconLogo} position={[4.3911921,-74.2122951]}>
+        </Marker>
+        <Marker icon={iconLogo} position={[4.582409,-74.1593002]}>
+        </Marker>
+      </MapContainer>
+    </div>
+    </div>
         </div>
         </div>
         <form className={style.formContacto}>
