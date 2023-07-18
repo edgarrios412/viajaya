@@ -116,7 +116,7 @@ const Clients = () => {
         <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
         <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
         <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
-        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
+        {/* <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a> */}
         </div>
       </div>
       <div><button className={style.button}><a className={style.noLink} target="_blank" href="https://www.instagram.com/stories/highlights/17846810168704295/">Mas testimonios</a></button></div>

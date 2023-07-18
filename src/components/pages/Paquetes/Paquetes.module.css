@@ -176,3 +176,13 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
     border-radius:5px;
     z-index: 1;
 }
+
+@media screen and (max-width: 900px){
+    .mapa{
+        display: none;
+    }
+    .selectContainer{
+        width: fit-content;
+        margin: 0 auto;
+    }
+}

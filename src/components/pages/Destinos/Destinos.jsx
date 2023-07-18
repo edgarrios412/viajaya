@@ -66,7 +66,7 @@ const Destinos = () => {
           <img src="https://tipsparatuviaje.com/wp-content/uploads/2017/05/1.-Cuba.jpg" className={style.img}/>
           <button className={style.button}>Internacionales</button>
         </div>
-        <div className={style.service}>
+        <div className={style.service} onClick={() => setDestinoId(3)}>
           <img src="https://elcomercio.pe/resizer/oxPDjKIAr2KW2fb4Eof6FteJ99Q=/980x0/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/XRPSNHBEQZH3RFI6CAEPYHKBAQ.jpg" className={style.img}/>
           <button className={style.button}>Cruceros</button>
         </div>

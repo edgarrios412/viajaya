@@ -110,3 +110,17 @@
     cursor: pointer;
     font-weight: 600;
 }
+
+@media screen and (max-width:900px) {
+    .Promo{
+        height: fit-content;
+    }
+    .servicesContainer{
+        gap: 0px;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+    .service{
+        margin: 0 auto;
+    }
+}

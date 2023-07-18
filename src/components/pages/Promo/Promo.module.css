@@ -3,6 +3,7 @@
     width: 100%;
     height: 80vh;
     /* padding: 20px 0px; */
+    
 }
 
 .titleContainer{
@@ -80,5 +81,9 @@
     }
     .img{
         width: 300px;
+        margin-top: 0;
+    }
+    .Promo{
+        height: fit-content;
     }
 }

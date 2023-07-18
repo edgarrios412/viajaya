@@ -90,3 +90,19 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
     cursor: pointer;
     font-weight: 600;
 }
+
+@media screen and (max-width:900px) {
+    .header{
+        flex-direction: column;
+        margin-bottom: 50px;
+        /* justify-content: center; */
+    }
+    .servicesContainer{
+        gap: 0;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+    .service{
+        margin: 0 auto;
+    }
+}

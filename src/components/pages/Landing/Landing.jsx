@@ -1,4 +1,4 @@
-// import style from './Landing.module.css'
+import style from './Landing.module.css'
  
 import NavBar from "../../layout/NavBar/NavBar"
 import Footer from "../../layout/Footer/Footer"

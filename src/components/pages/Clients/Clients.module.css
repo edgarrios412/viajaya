@@ -123,6 +123,12 @@
     text-decoration: none;
 }
 
+@media screen and (max-width:600px){
+    .valores{
+        flex-direction:column;
+    }
+}
+
 @media screen and (max-width:400px){
     .valores{
         gap:30px;

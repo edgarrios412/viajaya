@@ -56,6 +56,23 @@ const ModalDestino = ({close, id}) => {
         <button className={style.button} onClick={close}>Cerrar</button>
       </div>
     </div>}
+
+    {id == 3 &&
+    <div className={style.modalContainer}>
+      <div className={style.modal}>
+        <h2 className={style.title}>Cruceros</h2>
+        <div className={style.flex}>
+          <ul className={style.ul}>
+            <li className={style.li}>Disney</li>
+            <li className={style.li}>Royal Caribbean</li>
+            <li className={style.li}>Princess</li>
+          </ul>
+        </div>
+        <br></br><br></br>
+{/* <button className={style.button} onClick={close}>Si estoy seguro</button><br></br> */}
+        <button className={style.button} onClick={close}>Cerrar</button>
+      </div>
+    </div>}
     </>
   )
 };

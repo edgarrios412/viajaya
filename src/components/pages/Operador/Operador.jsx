@@ -39,7 +39,7 @@ const Operador = () => {
       <div className={style.PromoContainer}>
         <h4 className={style.desc}>
             <div className={style.titleContainer}>
-            <h2 className={style.titleSection}>Operador Turistico</h2>
+            <h2 className={style.titleSection}>Tours al llano</h2>
             {/* <img className={style.yapaya} src={yapaya}/> */}
             </div>
         </h4>
