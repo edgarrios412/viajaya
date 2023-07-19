@@ -4,14 +4,14 @@ import { useInView } from 'react-intersection-observer';
 import {motion} from "framer-motion"
 import { useEffect } from 'react';
 import { useAnimation } from 'framer-motion';
-import about from "../../../assets/about.jpg"
-import about1 from "../../../assets/about1.jpg"
-import about2 from "../../../assets/about2.jpg"
-import about3 from "../../../assets/about3.jpg"
-import about4 from "../../../assets/about4.jpg"
-import about5 from "../../../assets/about5.jpg"
-import about6 from "../../../assets/about6.jpg"
-import about7 from "../../../assets/about7.jpg"
+import about from "../../../assets/miembros/f8.jpg"
+import about1 from "../../../assets/miembros/f1.jpg"
+import about2 from "../../../assets/miembros/f2.jpg"
+import about3 from "../../../assets/miembros/f3.jpg"
+import about4 from "../../../assets/miembros/f4.jpg"
+import about5 from "../../../assets/miembros/f5.jpg"
+import about6 from "../../../assets/miembros/f6.jpg"
+import about7 from "../../../assets/miembros/f7.jpg"
 
 import va1 from "../../../assets/va1.mp4"
 import va2 from "../../../assets/va2.mp4"
@@ -50,7 +50,7 @@ const About = () => {
         <div className={style.row}>
           <div className={style.column}>
             <img src={about1} className={style.video}/>
-            <img src={about5} className={style.video}/>
+            {/* <img src={about5} className={style.video}/> */}
           </div>
           <div className={style.column}>
             <img src={about4} className={style.video}/>

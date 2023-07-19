@@ -1,5 +1,6 @@
 import style from './Contact.module.css'
 import {FiMail, FiPhone} from "react-icons/fi"
+import {GrLocation} from "react-icons/gr"
 import {Element} from "react-scroll" 
 import { Toaster, toast } from 'react-hot-toast';
 import { useInView } from 'react-intersection-observer';
@@ -29,6 +30,9 @@ const Contact = () => {
     // threshold:0.1
   })
   const animation = useAnimation()
+
+  const [zoom, setZoom] = useState(8)
+  const [center, setCenter] = useState([4.3214043,-73.807862])
 
   useEffect(() => {
     if(inView){
@@ -80,7 +84,7 @@ const Contact = () => {
           <FiMail className={style.icon}/>
         </div>
         <div className={style.emails}>
-          <h4 className={style.email}>EMAIL1</h4>
+          <h4 className={style.email}>viajaya.hotelesytodoincluido@gmail.com</h4>
         </div>
         </div>
         <div className={style.correos}>
@@ -92,13 +96,39 @@ const Contact = () => {
           {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.number}>{"(+57)"} NUMBER2</h4></a> */}
         </div>
         </div>
+        <div className={style.locations} onMouseLeave={() => mapRef.current.flyTo(center,zoom)} onMouseOver={() => mapRef.current.flyTo([4.2614043,-73.567862],15)}>
+        <div>
+        <GrLocation className={style.icon}/>
+        </div>
+        <div className={style.numbers}>
+          <h4 className={style.direccion}>Restrepo Meta- Centro Comercial Plaza Roma Calle 7 No 5-48 oficina 105</h4>
+        </div>
+        </div>
+        <div className={style.locations} onMouseLeave={() => mapRef.current.flyTo(center,zoom)} onMouseOver={() => mapRef.current.flyTo([4.3911921,-74.2122951],15)}>
+        <div>
+        <GrLocation className={style.icon}/>
+        </div>
+        <div className={style.numbers}>
+          <a className={style.noLink} target="_blank" href="#"><h4 className={style.direccion}>Bogota Calle 38 a sur No 34d-51 </h4></a>
+          {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.direccion}>{"(+57)"} NUMBER2</h4></a> */}
+        </div>
+        </div>
+        <div className={style.locations} onMouseLeave={() => mapRef.current.flyTo(center,zoom)} onMouseOver={() => mapRef.current.flyTo([4.582409,-74.1593002],15)}>
+        <div>
+        <GrLocation className={style.icon}/>
+        </div>
+        <div className={style.numbers}>
+          <a className={style.noLink} target="_blank" href="#"><h4 className={style.direccion}>av villavicencio tv 63 Bogotá piso 2</h4></a>
+          {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.direccion}>{"(+57)"} NUMBER2</h4></a> */}
+        </div>
+        </div>
         <div className={style.mapa}>
         <div>
     <div className={style.mapContainer}>
       <MapContainer
         ref={mapRef}
-        center={[4.3214043,-73.807862]}
-        zoom={8}
+        center={center}
+        zoom={zoom}
         scrollWheelZoom={false}
         className={style.map}
       >

@@ -25,6 +25,27 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
     align-items: center;
 }
 
+.locations{
+        display: flex;
+        align-items: center;
+        border: 2px solid rgba(163, 163, 163, 0.456);
+        margin: 10px auto;
+        padding: 0px 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: .2s;
+}
+
+.locations:hover{
+    border: 2px solid var(--primary);
+}
+
+.direccion{
+    padding: 0;
+    width: 300px;
+    margin-left: 15px;
+}
+
 .button{
     border: 0;
     border-radius: 5px;
@@ -48,7 +69,7 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 
 .mapa{
     width: 300px;
-    height: 250px;
+    height: 150px;
     background-color: green;
     overflow: hidden;
 }
@@ -58,7 +79,7 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 }
 
 .icon{
-    font-size: 2.8em;
+    font-size: 1.7em;
 }
 
 .formContacto{
@@ -109,7 +130,7 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 
 /* MAPA */
 .mapContainer{
-    height: 250px;
+    height: 200px;
     width: 300px;
     /* margin:180px 0px 0px 100px; */
     /* border-radius: 5px; */
@@ -123,7 +144,7 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 
 .map{
     /* position: sticky; */
-    height: 250px;
+    height: 200px;
     width: 300px;
     border-radius:5px;
     z-index: 1;
