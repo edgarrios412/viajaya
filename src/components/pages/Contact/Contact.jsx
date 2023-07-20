@@ -109,7 +109,7 @@ const Contact = () => {
         <GrLocation className={style.icon}/>
         </div>
         <div className={style.numbers}>
-          <a className={style.noLink} target="_blank" href="#"><h4 className={style.direccion}>Bogota Calle 38 a sur No 34d-51 </h4></a>
+          <h4 className={style.direccion}>Bogota Calle 38A Sur No 34d-51 </h4>
           {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.direccion}>{"(+57)"} NUMBER2</h4></a> */}
         </div>
         </div>
@@ -118,7 +118,7 @@ const Contact = () => {
         <GrLocation className={style.icon}/>
         </div>
         <div className={style.numbers}>
-          <a className={style.noLink} target="_blank" href="#"><h4 className={style.direccion}>av villavicencio tv 63 Bogotá piso 2</h4></a>
+          <h4 className={style.direccion}>Av. Villavicencio Tv. 63 Bogotá piso 2</h4>
           {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.direccion}>{"(+57)"} NUMBER2</h4></a> */}
         </div>
         </div>
