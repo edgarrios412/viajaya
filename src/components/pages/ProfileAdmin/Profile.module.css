@@ -10,6 +10,19 @@
     font-size: 1.5em;
 }
 
+.titleMobile{
+    /* text-align: center; */
+    font-size: 1.5em;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.close{
+    margin: 20px 50px;
+    position: absolute;
+    cursor: pointer;
+}
+
 .icon{
     margin: 0px 10px;
 }
@@ -43,6 +56,16 @@
     /* background-color: rgb(176, 176, 176); */
     margin: 0;
     display: block;
+}
+
+.navMobile{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(90deg, rgb(255, 213, 249) 0%, rgb(192, 253, 255) 62%, rgba(251,253,254,1) 100%);
+    margin: 0;
+    position: fixed;
+    display: block;
+    z-index: 999;
 }
 
 .view{
@@ -390,7 +413,7 @@ table{
 .top{
     display: flex;
     justify-content: space-evenly;
-    width: 820px;
+    width: 100%;
     margin: 50px auto;
     margin-bottom: 20px;
     /* margin: 50px 0px 20px 0px; */
@@ -610,4 +633,22 @@ table{
         transform: translate(24px, 0);
       }
     }
-    
+
+
+@media screen and (max-width: 900px){
+    .topTd{
+        padding: 5px;
+    }
+    .td{
+        padding: 5px;
+    }
+    .top{
+        height: 50px;
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        gap: 10px;
+        margin-top: 100px;
+        margin-bottom: 60px;
+    }
+}

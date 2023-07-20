@@ -18,6 +18,8 @@ import Flatpickr from "react-flatpickr";
 import { Spanish } from "flatpickr/dist/l10n/es.js";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
+import {HiMenu} from "react-icons/hi"
+import {GrClose} from "react-icons/gr"
  
 dayjs.locale("es");
 
@@ -309,6 +311,8 @@ const Profile = () => {
     setPackChars([...packChars, e.at(-1)])
   }
 
+  const [visible, setVisible] = useState(false)
+
   const options = chars?.map( c => { return{value:c.id, label:c.name}})
 
   const customStyles = {
@@ -337,14 +341,12 @@ const Profile = () => {
       border: 'none'
     })
     }
-
-
   return(
     <>
     {loading ? <div className={style.ldsellipsis}><div></div><div></div><div></div><div></div></div> :
     <div className={style.profileContainer}>
       <Toaster/>
-      <nav className={style.nav}>
+      {window.innerWidth > 900 ? <nav className={style.nav}>
         <h3 className={style.title}>Mi perfil</h3>
         <ul className={style.ul}>
         <li onClick={() => setPage(0)} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
@@ -356,7 +358,19 @@ const Profile = () => {
         <li onClick={() => navigate("/")} className={style.li}><FaChalkboardTeacher className={style.icon}/> Volver</li>
         <li onClick={() => {navigate("/"); localStorage.removeItem("token"); dispatch(setUser(false))}} className={style.li}><MdExitToApp className={style.icon}/> Cerrar sesion</li>
         </ul>
-      </nav>
+      </nav>: ( visible ? <nav className={style.navMobile}>
+        <h3 className={style.titleMobile} onClick={() => setVisible(false)}><GrClose/></h3>
+        <ul className={style.ul}>
+        <li onClick={() => {setPage(0); setVisible(false)}} className={style.li}><AiOutlineUser className={style.icon}/> Información</li>
+        <li onClick={() => {setPage(1); setVisible(false)}} className={style.li}><MdPayment className={style.icon}/> Mis compras</li>
+        { user?.role == 3 && <li onClick={() => {setPage(2); setVisible(false); dispatch(setPagina(1))}} className={style.li}><FiUsers className={style.icon}/> Usuarios</li>}        
+        { user?.role == 3 &&<li onClick={() => {setPage(3); setVisible(false) ; dispatch(setPagina(1))}} className={style.li}><BsBoxSeam className={style.icon}/> Paquetes</li>}
+        { user?.role == 3 &&<li onClick={() => {setPage(4); setVisible(false)}} className={style.li}><MdOutlineLocalOffer className={style.icon}/> Promocion</li>}
+        { user?.role >= 2 &&<li onClick={() => {setPage(5); setVisible(false) ; dispatch(setPagina(1))}} className={style.li}><FaChalkboardTeacher className={style.icon}/> Capacitaciones</li>}
+        <li onClick={() => navigate("/")} className={style.li}><FaChalkboardTeacher className={style.icon}/> Volver</li>
+        <li onClick={() => {navigate("/"); localStorage.removeItem("token"); dispatch(setUser(false))}} className={style.li}><MdExitToApp className={style.icon}/> Cerrar sesion</li>
+        </ul>
+      </nav> : <h1 className={style.close} onClick={() => setVisible(true)}><HiMenu/></h1>)}
       { page == 0 && <div className={style.view}>
         <div className={style.profile}>
             <div className={style.imgContainer2}>
