@@ -182,7 +182,9 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
         display: none;
     }
     .selectContainer{
-        width: fit-content;
-        margin: 0 auto;
+        margin: 50px;
+    }
+    .select2{
+        width: 100px;
     }
 }
