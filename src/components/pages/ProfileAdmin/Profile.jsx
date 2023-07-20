@@ -603,6 +603,8 @@ const Profile = () => {
           onChange={([date]) => selectDatePromo(date)}
             />
           <input className={style.inputPrice} onChange={handlePromo} value={promo?.price} name="price" type="text" placeholder="Precio p/p"/>
+          <input className={style.inputPrice} onChange={handlePromo} value={promo?.days} name="days" type="number" placeholder="Dias"/>
+
           </div>
           </div>
           <button className={style.buttonPromo} onClick={updatePromo}>Guardar</button>

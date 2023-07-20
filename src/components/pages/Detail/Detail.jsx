@@ -72,6 +72,9 @@ const Detail = () => {
       setDateFinal(fechaFinal.toISOString().split('T')[0])
       }else{
         setFecha(date)
+        const fechaFinal = new Date(date);
+      fechaFinal.setDate(fechaFinal.getDate() + promo?.days);
+      setDateFinal(fechaFinal.toISOString().split('T')[0])
       }
     }
     if(localStorage.getItem("token") == null){
@@ -121,7 +124,7 @@ const Detail = () => {
             <select onChange={(e) => selectDate(e.target.value)}>
               {promo?.fechas.map( f => <option value={f}>{f}</option>)}
             </select>
-            {/* <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span> */}
+            <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span>
             <p style={{width:"400px"}}>{promo?.details}</p>
             <button onClick={addCar} className={style.addCar}>Comprar paquete</button>
         </div></>

@@ -152,3 +152,17 @@
       }
     }
     
+
+@media screen and (max-width:900px){
+  .detailPay{
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  }
+  .form{
+    flex-direction: column;
+  }
+  .detailContainer{
+    /* width: 10px; */
+  }
+}
