@@ -553,10 +553,10 @@ const Profile = () => {
               <input className={style.inputForm} onChange={handlePack} value={pack?.location} name="location" placeholder="Direccion del hotel"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
               <textarea className={style.inputFormText} onChange={handlePack} value={pack?.detail} name="detail" placeholder="Descripcion"/>
-              <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
+              {window.innerHeight > 900 && <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
               <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>
               <button className={style.buttonCreate} onClick={createPack}>Crear</button>
-              </div>
+              </div>}
             </form>
           </div>
           <div className={style.imgs}>
@@ -577,6 +577,10 @@ const Profile = () => {
             <div className={style.mapa}>
               <Map height={30} width={26} fn={setLocation}/>
             </div>
+            {window.innerHeight < 900 && <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
+              <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>
+              <button className={style.buttonCreate} onClick={createPack}>Crear</button>
+              </div>}
           </div>
         </div>
       </div>}

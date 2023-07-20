@@ -1,6 +1,6 @@
 .profileContainer{
     display: flex;
-    height: 100vh;
+    height: fit-content;
     background: rgb(227,179,220);
     background: linear-gradient(90deg, rgba(227,179,220,0.88) 0%, rgba(143,239,243,0.35) 62%, rgba(251,253,254,1) 100%);
 }
@@ -71,6 +71,7 @@
 .view{
     /* background-color: blue; */
     width: 100%;
+    min-height: 100vh;
 }
 
 .profile{
@@ -650,5 +651,28 @@ table{
         gap: 10px;
         margin-top: 100px;
         margin-bottom: 60px;
+    }
+    .profile{
+        flex-direction: column;
+        align-items: center;
+        /* text-align: center; */
+    }
+    .divisor{
+        flex-direction: column;
+    }
+    .buttons{
+        margin-bottom: 60px;
+    }
+    .edit{
+        flex-direction: column;
+    }
+    .buttonPromo{
+        margin-bottom: 50px;
+    }
+    .creator{
+        flex-direction: column;
+        height: fit-content;
+        align-items: center;
+        gap: 30px;
     }
 }

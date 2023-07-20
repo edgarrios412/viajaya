@@ -206,3 +206,22 @@
       }
     }
     
+
+@media screen and (max-width:900px){
+  .detailContainer{
+    flex-direction: column;
+    /* margin: 0; */
+  }
+  .sliderImg{
+    flex-direction: row;
+    width: 400px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  .bigImg{
+    margin: 0 auto;
+  }
+  .addCar{
+    margin-bottom: 60px;
+  }
+}
