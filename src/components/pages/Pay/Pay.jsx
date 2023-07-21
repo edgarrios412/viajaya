@@ -45,7 +45,7 @@ const Pay = () => {
       currency: 'COP',
       amountInCents: total,
       reference: refe,
-      publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
+      publicKey: 'pub_prod_HEgZ1pvNEzFzbZvyz6TYo9uhUghfZDGi',
     })
     checkout.open(function ( result ) {
       var transaction = result.transaction
