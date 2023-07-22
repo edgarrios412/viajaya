@@ -50,7 +50,7 @@ const Operador = () => {
           <button className={style.button}>Embrujo llanero</button></a>
         </div>
         <div className={style.service}>
-        <a className={style.noLink} target="_blank" href=""><img src="https://www.eltiempo.com/files/image_640_428/files/crop/uploads/2020/09/29/5f73775f1a5e7.r_1601492272849.0-1213-2961-2682.jpeg" className={style.img}/>
+        <a className={style.noLink} target="_blank" href="https://drive.google.com/file/d/14yE4CEhINubE6cHk3uRywct6nFJUzdH-/view?usp=drive_link"><img src="https://www.eltiempo.com/files/image_640_428/files/crop/uploads/2020/09/29/5f73775f1a5e7.r_1601492272849.0-1213-2961-2682.jpeg" className={style.img}/>
           <button className={style.button}>Amanecer llanero</button></a>
         </div>
         <div className={style.service}>
