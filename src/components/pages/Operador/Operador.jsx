@@ -46,16 +46,16 @@ const Operador = () => {
       </div>
       <div className={style.servicesContainer}>
         <div className={style.service}>
-          <img src="https://periodico.unal.edu.co/uploads/UN_Periodico_Digital/Imagenes/2021/04-Abril/0408/pm/01-LLanos_cc0.jpg" className={style.img}/>
-          <button className={style.button}>Embrujo llanero</button>
+        <a className={style.noLink} target="_blank" href=""><img src="https://periodico.unal.edu.co/uploads/UN_Periodico_Digital/Imagenes/2021/04-Abril/0408/pm/01-LLanos_cc0.jpg" className={style.img}/>
+          <button className={style.button}>Embrujo llanero</button></a>
         </div>
         <div className={style.service}>
-          <img src="https://www.eltiempo.com/files/image_640_428/files/crop/uploads/2020/09/29/5f73775f1a5e7.r_1601492272849.0-1213-2961-2682.jpeg" className={style.img}/>
-          <button className={style.button}>Amanecer llanero</button>
+        <a className={style.noLink} target="_blank" href=""><img src="https://www.eltiempo.com/files/image_640_428/files/crop/uploads/2020/09/29/5f73775f1a5e7.r_1601492272849.0-1213-2961-2682.jpeg" className={style.img}/>
+          <button className={style.button}>Amanecer llanero</button></a>
         </div>
         <div className={style.service}>
-          <img src="https://canaltrece.com.co/uploads/newsarticle/83ce7f036c904f39a33dc6533a098064/llanos-orientales-colombia.jpg" className={style.img}/>
-          <button className={style.button}>Pie de monte llanero</button>
+          <a className={style.noLink} target="_blank" href="https://drive.google.com/file/d/1-hSjK9145gJQ59W-NgTTyX3-qNyMZoxI/view"><img src="https://canaltrece.com.co/uploads/newsarticle/83ce7f036c904f39a33dc6533a098064/llanos-orientales-colombia.jpg" className={style.img}/>
+          <button className={style.button}>Pie de monte llanero</button></a>
         </div>
         </div>
     </motion.div>

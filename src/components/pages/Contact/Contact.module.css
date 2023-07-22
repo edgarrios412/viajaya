@@ -8,6 +8,8 @@ background: linear-gradient(90deg, rgba(143,239,243,1) 0%, rgba(255,222,250,1) 5
 
 .titleSection{
     text-align: center;
+    margin: 0;
+    padding: 20px;
     font-size: 5.5em;
     color:var(--primary);
     font-family: var(--font);

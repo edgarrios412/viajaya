@@ -45,6 +45,10 @@
        /* margin-left: 50px; */
 }
 
+.noLink{
+    text-decoration: none;
+}
+
 .img{
     width: 350px;
     border-radius: 15px;

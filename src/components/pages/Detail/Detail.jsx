@@ -99,6 +99,7 @@ const Detail = () => {
             <p className={style.location}>{pack?.location} - Todo incluido</p>
             <b className={style.price}>${pack?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
             <select onChange={(e) => selectDate(e.target.value)}>
+            <option selected value={null}>Seleccionar fecha</option>
               {pack?.fechas.map( f => <option value={f}>{f}</option>)}
             </select>
             {/* <Flatpickr
@@ -122,6 +123,7 @@ const Detail = () => {
             {/* <p className={style.location}>{pack?.location} - Todo incluido</p> */}
             <b className={style.price}>${promo?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
             <select onChange={(e) => selectDate(e.target.value)}>
+            <option selected value={null}>Seleccionar fecha</option>
               {promo?.fechas.map( f => <option value={f}>{f}</option>)}
             </select>
             <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span>

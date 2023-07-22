@@ -147,7 +147,7 @@ background: linear-gradient(90deg, rgb(255, 255, 255) 35%, rgba(0, 0, 0, 0) 70%)
 .imgLogo{
     position:absolute;
     right: 250px;
-    top: 120px;
+    bottom: 230px;
     width: 270px;
     z-index: 50;
     transform: scaleX(-1);
