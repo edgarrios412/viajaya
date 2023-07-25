@@ -9,18 +9,22 @@ import { useAnimation, motion } from 'framer-motion';
 import { useEffect } from 'react';
 import mascota from "../../../assets/mascota.png"
 
-import l1 from "../../../assets/aliados/1.jpg"
+import l1 from "../../../assets/aliados/13.png"
 import l2 from "../../../assets/aliados/2.png"
-import l3 from "../../../assets/aliados/3.png"
+import l3 from "../../../assets/aliados/12.webp"
 import l4 from "../../../assets/aliados/4.png"
 import l5 from "../../../assets/aliados/5.png"
 import l6 from "../../../assets/aliados/6.png"
-import l7 from "../../../assets/aliados/7.jpg"
+import l7 from "../../../assets/aliados/7.png"
 import l8 from "../../../assets/aliados/8.png"
 import l9 from "../../../assets/aliados/9.png"
-import l10 from "../../../assets/aliados/10.jpg"
+import l10 from "../../../assets/aliados/10.png"
 import l11 from "../../../assets/aliados/11.png"
 // import l4 from "../../../assets/aliados/4.png"
+
+import c1 from "../../../assets/c1.mp4"
+import c2 from "../../../assets/c2.jpeg"
+import c3 from "../../../assets/c3.jpeg"
  
 const Clients = () => {
 
@@ -112,12 +116,18 @@ const Clients = () => {
 
       <div>
         <h3 className={style.titleSection}>Clientes felices</h3>
-        <div className={style.valores}>
-        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
-        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
-        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
-        {/* <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a> */}
+        
+        <div className={style.row}>
+            <img src={c3} className={style.video}/>
+            <img src={c2} className={style.video}/>
+          <video src={c1} controls className={style.video}/>
         </div>
+
+        {/* <div className={style.valores}>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
+        <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.valor}><img className={style.imgValores} src={logo}></img></div></a>
+        </div> */}
       </div>
       <div><button className={style.button}><a className={style.noLink} target="_blank" href="https://www.instagram.com/stories/highlights/17846810168704295/">Mas testimonios</a></button></div>
     </motion.div>

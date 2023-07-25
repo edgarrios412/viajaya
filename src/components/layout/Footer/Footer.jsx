@@ -2,6 +2,7 @@ import style from './Footer.module.css'
 import {AiOutlineWhatsApp} from "react-icons/ai"
 import {BiLogoFacebookCircle} from "react-icons/bi"
 import {FiInstagram} from "react-icons/fi"
+import {FaTiktok,FaTelegramPlane} from "react-icons/fa"
  
 const Footer = () => {
   return(
@@ -12,6 +13,8 @@ const Footer = () => {
         <a className={style.noLink} href="https://wa.link/25yphy" target="_blank"><div className={style.facebook}><AiOutlineWhatsApp className={style.icons} /></div></a>
         <a className={style.noLink} href="https://www.facebook.com/oficialviajaya/" target="_blank"><div className={style.facebook}><BiLogoFacebookCircle className={style.icons}/></div></a>
         <a className={style.noLink} href="https://www.instagram.com/viajaya_pagina_oficial/" target="_blank"><div className={style.facebook}><FiInstagram className={style.icons}/></div></a>
+        <a className={style.noLink} href="https://www.tiktok.com/@agenciadeviajesviajaya" target="_blank"><div><FaTiktok className={style.icons}/></div></a>
+        <a className={style.noLink} href="https://www.t.me/+jVPYyJBifRJiMjdh" target="_blank"><div><FaTelegramPlane className={style.icons}/></div></a>
       </div>
       </div>
     </footer>
