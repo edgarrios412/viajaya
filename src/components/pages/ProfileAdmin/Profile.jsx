@@ -39,7 +39,7 @@ const Profile = () => {
     // ADMIN
     const [creator, setCreator] = useState(false)
     const [pagination, setPagination] = useState(1)
-
+    const [center, setCenter] = useState([0,0])
     // const [clases, dispatch(setClass] = useStat)e()
     const [clase, setClase] = useState()
 
@@ -71,6 +71,11 @@ const Profile = () => {
       axios.get("/promo").then((data) => setPromo(data.data))
       axios.get(`/user/verify/${localStorage.getItem("token")}`).then((data) => {axios.get(`/user/${data.data.id}`).then((data) => setUser(data.data)); axios.get(`/buy/${data.data.id}`).then((data) => setBuy(data.data))})
     }, [])
+
+    const findLocation = (e) => {
+      axios.get(`https://nominatim.openstreetmap.org/search?q=${e.target.value}&format=json`)
+      .then((d) => setCenter([d.data[0].lat, d.data[0].lon]))
+    }
 
     const handleClass = (e) => {
       const {name, value} = e.target
@@ -551,7 +556,7 @@ const Profile = () => {
               <input className={style.inputForm} onChange={handlePack} value={pack?.price} name="price" placeholder="Precio p/p"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.reserva} name="reserva" placeholder="Reserva p/p"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.location} name="location" placeholder="Direccion del hotel"/>
-              <input className={style.inputForm} onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
+              <input className={style.inputForm}  onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
               <textarea className={style.inputFormText} onChange={handlePack} value={pack?.detail} name="detail" placeholder="Descripcion"/>
               {window.innerHeight > 900 && <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
               <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>

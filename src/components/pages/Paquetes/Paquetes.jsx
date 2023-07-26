@@ -101,7 +101,7 @@ const Paquetes = () => {
                 <div className={style.planDetail}>
                   <div className={style.nameAndPrice}>
                     <b className={style.planName}>{t.title}</b>
-                    <b className={style.planPrice}>${t.price} p/p</b>
+                    <b className={style.planPrice}>${t.price.toLocaleString()} p/p</b>
                   </div>
                   <p>Hotel maracana - Todo incluido</p>
                   <div className={style.tags}>

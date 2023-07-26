@@ -44,7 +44,7 @@ const Promo = () => {
     <>
     {promo?.fechas?.length > 0 &&
     <Element name="promo">
-    {modal && <ModalProject price={promo?.price} detail={promo?.details} close={() => setModal(false)}/>}
+    {modal && <ModalProject price={promo?.price.toLocaleString()} detail={promo?.details} close={() => setModal(false)}/>}
     <motion.div animate={animation} ref={ref} className={style.Promo} id="promo">
       <div className={style.PromoContainer}>
         <h4 className={style.desc}>

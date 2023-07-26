@@ -16,8 +16,8 @@ const MAP_LAYER_ATTRIBUTION =
   "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
-function Map({height, width, fn}) {
-  const [zoom, setZoom] = useState(15)
+function Map({height, width, fn, center}) {
+  const [zoom, setZoom] = useState(7)
   const [coord, setCoord] = useState([5.0267284, -74.0093039]);
   const mapRef= useRef()
   const [travels, setTravels] = useState([])

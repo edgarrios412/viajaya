@@ -13,6 +13,7 @@ import "dayjs/locale/es";
 import { useDispatch } from 'react-redux';
 import { setDataPay } from '../../../redux/actions/actions';
 import {Navigate} from "react-router-dom"
+import { GrRestaurant } from 'react-icons/gr';
 
 dayjs.locale("es");
  
@@ -81,6 +82,18 @@ const Detail = () => {
       return <Navigate to="/login" replace />
   }
 
+  const fechaFinal = (date) => {
+    const fechaFinal = new Date(date);
+      fechaFinal.setDate(fechaFinal.getDate() + pack?.days);
+      return fechaFinal.toISOString().split('T')[0]
+  }
+
+  const fechaFinalPromo = (date) => {
+    const fechaFinal = new Date(date);
+    fechaFinal.setDate(fechaFinal.getDate() + promo?.days);
+      return fechaFinal.toISOString().split('T')[0]
+  }
+
     return(
     <>
     <ShortNav/>
@@ -97,10 +110,10 @@ const Detail = () => {
         <div className={style.detail}>
             <h2 className={style.title}>{pack?.title}</h2>
             <p className={style.location}>{pack?.location} - Todo incluido</p>
-            <b className={style.price}>${pack?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
-            <select onChange={(e) => selectDate(e.target.value)}>
+            <b className={style.price}>${pack?.price.toLocaleString()} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
+            <select style={{border:"none"}} onChange={(e) => selectDate(e.target.value)}>
             <option selected value={null}>Seleccionar fecha</option>
-              {pack?.fechas.map( f => <option value={f}>{f}</option>)}
+              {pack?.fechas.map( f => <option value={f}>{f.replaceAll("-","/")} - {fechaFinal(f).replaceAll("-","/")}</option>)}
             </select>
             {/* <Flatpickr
           value={fecha}
@@ -110,8 +123,8 @@ const Detail = () => {
           placeholder='Fecha inicio'
           onChange={([date]) => selectDate(date)}
             /> */}
-            <span style={{fontFamily:"system-ui",fontSize:"15px"}}> - {dateFinal}</span>
-            <p style={{width:"400px"}}>{pack?.detail}</p>
+            {/* <span style={{fontFamily:"system-ui",fontSize:"15px"}}> - {dateFinal}</span> */}
+            <p style={{width:"400px", height:"200px", overflowX:"scroll", whiteSpace: 'pre-line'}}>{pack?.detail}</p>
             <div className={style.tags}>
               {pack?.chars.map(c => <span className={style.tag}>{c.name}</span>)}
                   </div>
@@ -121,13 +134,13 @@ const Detail = () => {
         <div className={style.detail}>
             <h2 className={style.title}>Promocion YA PA YA</h2>
             {/* <p className={style.location}>{pack?.location} - Todo incluido</p> */}
-            <b className={style.price}>${promo?.price} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
-            <select onChange={(e) => selectDate(e.target.value)}>
+            <b className={style.price}>${promo?.price.toLocaleString()} p/p</b> <span className={style.more} onClick={() => count > 1 ? setCount(count-1) : ""}>-</span><span className={style.cantidad}>{count}</span><span className={style.more} onClick={() => setCount(count+1)}>+</span>
+            <select style={{border:"none"}} onChange={(e) => selectDate(e.target.value)}>
             <option selected value={null}>Seleccionar fecha</option>
-              {promo?.fechas.map( f => <option value={f}>{f}</option>)}
+              {promo?.fechas.map( f => <option value={f}>{f} - {fechaFinalPromo(f).replaceAll("-","/")}</option>)}
             </select>
-            <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span>
-            <p style={{width:"400px"}}>{promo?.details}</p>
+            {/* <span style={{fontFamily:"system-ui",fontSize:"15px"}}>- {dateFinal}</span> */}
+            <p style={{width:"400px", height:"200px", overflowX:"scroll", whiteSpace: 'pre-line'}}>{promo?.details}</p>
             <button onClick={addCar} className={style.addCar}>Comprar paquete</button>
         </div></>
         }

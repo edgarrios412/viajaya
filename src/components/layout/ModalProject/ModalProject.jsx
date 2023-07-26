@@ -19,7 +19,7 @@ const ModalProject = ({close, detail, price}) => {
       <div className={style.modal}>
         <h2 className={style.title}>Promocion ya pa ya</h2>
         <p className={style.price}>${price} p/p</p>
-        <p className={style.desc}>{detail}</p>
+        <p className={style.desc} style={{height:"300px", overflowX:"scroll", whiteSpace: 'pre-line' }}>{`${detail}`}</p>
         <br></br>
         <button className={style.button} onClick={close}>Cerrar</button>
       </div>

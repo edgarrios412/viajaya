@@ -45,7 +45,8 @@ const Pay = () => {
       currency: 'COP',
       amountInCents: total,
       reference: refe,
-      publicKey: 'pub_prod_HEgZ1pvNEzFzbZvyz6TYo9uhUghfZDGi',
+      // publicKey: 'pub_prod_HEgZ1pvNEzFzbZvyz6TYo9uhUghfZDGi',
+      publicKey: 'pub_test_w28dxS2v9clmkb8UbFrlkw3GxBUx3bsq',
     })
     checkout.open(function ( result ) {
       var transaction = result.transaction
@@ -148,17 +149,26 @@ const Pay = () => {
     })
   }
 
-  const passengers = Array.from({ length: dataPay?.person }, (_, index) => (
-    <><p className={style.passenger}>Pasajero {index+1}</p>
+  const passengers = Array.from({ length: dataPay?.person }, (_, index) => {
+    if(index == 0) return (<><p className={style.passenger}>Titular</p>
     <form className={style.form}>
       <input className={style.inputForm} name={`name${index+1}`} value={passenger && passenger[`name${index+1}`]} onChange={handlePassengers} placeholder="Nombre completo"/>
       <input className={style.inputForm} name={`doc${index+1}`} value={passenger &&passenger[`doc${index+1}`]} onChange={handlePassengers} placeholder="Documento"/>
       <input className={style.inputForm} name={`phone${index+1}`} value={passenger &&passenger[`phone${index+1}`]} onChange={handlePassengers} placeholder="Numero de contacto"/>
-      <input className={style.inputForm} name={`phone2${index+1}`} value={passenger &&passenger[`phone2${index+1}`]} onChange={handlePassengers} placeholder="Numero de contacto 2"/>
-      <input className={style.inputForm} name={`date${index+1}`} value={passenger &&passenger[`date${index+1}`]} onChange={handlePassengers} placeholder="Fecha de nacimiento"/>
+      <input className={style.inputForm} name={`location${index+1}`} value={passenger &&passenger[`location${index+1}`]} onChange={handlePassengers} placeholder="Direccion y ciudad"/>
+      <input className={style.inputForm} type="date" name={`date${index+1}`} value={passenger &&passenger[`date${index+1}`]} onChange={handlePassengers} placeholder="Fecha de nacimiento"/>
       <input className={style.inputForm} name={`mail${index+1}`} value={passenger &&passenger[`mail${index+1}`]} onChange={handlePassengers} placeholder="Email"/>
-    </form></>))
+    </form></>)
+    return (<><p className={style.passenger}>Pasajero {index+1}</p>
+    <form className={style.form}>
+      <input className={style.inputForm} name={`name${index+1}`} value={passenger && passenger[`name${index+1}`]} onChange={handlePassengers} placeholder="Nombre completo"/>
+      <input className={style.inputForm} name={`doc${index+1}`} value={passenger &&passenger[`doc${index+1}`]} onChange={handlePassengers} placeholder="Documento"/>
+      <input className={style.inputForm} type="date" name={`date${index+1}`} value={passenger &&passenger[`date${index+1}`]} onChange={handlePassengers} placeholder="Fecha de nacimiento"/>
+    </form></>)})
 
+    const subtotal = dataPay?.person*pack?.price
+    const subtotalr = dataPay?.person*pack?.reserva
+    const promoSubtotal = dataPay?.person*promo?.price
   return(
     <>
     <ShortNav/>
@@ -179,11 +189,11 @@ const Pay = () => {
               <b>{pack?.title}</b>
               <p style={{margin:"3px 0px"}}>{dataPay?.inicio}</p>
               <p style={{margin:"3px 0px"}}>{dataPay?.person} personas</p>
-              <p className={style.price}>${pack?.price} p/p</p>
+              <p className={style.price}>${pack?.price.toLocaleString()} p/p</p>
               </div>
               </div>
-              <p className={style.subtotal}>Subtotal: <b>${dataPay?.person*pack?.price}</b></p>
-              <p className={style.subtotal}>Subtotal reserva: <b>${dataPay?.person*pack?.reserva}</b></p>
+              <p className={style.subtotal}>Subtotal: <b>${subtotal.toLocaleString()}</b></p>
+              <p className={style.subtotal}>Subtotal reserva: <b>${subtotalr.toLocaleString()}</b></p>
               <div className={style.buttons}>
                 <button className={style.button} onClick={pay}><MdPayment className={style.payIcon}/> Pagar todo</button>
                 <button className={style.button} onClick={payreserva}><MdPayment className={style.payIcon}/> Pagar solo reserva</button>
@@ -202,10 +212,10 @@ const Pay = () => {
               <b>Promocion YA PA YA</b>
               <p style={{margin:"3px 0px"}}>{dataPay?.inicio}</p>
               <p style={{margin:"3px 0px"}}>{dataPay?.person} personas</p>
-              <p className={style.price}>${promo?.price} p/p</p>
+              <p className={style.price}>${promo?.price.toLocaleString()} p/p</p>
               </div>
               </div>
-              <p className={style.subtotal}>Subtotal: <b>${dataPay?.person*promo?.price}</b></p>
+              <p className={style.subtotal}>Subtotal: <b>${promoSubtotal.toLocaleString()}</b></p>
               <div className={style.buttons}>
                 <button className={style.button} onClick={pay2}><MdPayment className={style.payIcon}/> Pagar ahora</button>
                 <Link to="/"><button style={{width:"200px"}} className={style.button}>Seguir comprando</button></Link>

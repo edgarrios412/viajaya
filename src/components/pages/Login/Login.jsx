@@ -60,6 +60,14 @@ const Login = () => {
         })
     }
 
+    const recoveryPass = () => {
+        axios.get(`/user/recovery/${user.email}`)
+        .then(() => {
+            setLogin(1)
+            toast.success("Email de recuperación enviado")
+        })
+    }
+
     if(localStorage.getItem("token") !== null){
         return <Navigate to="/profile" replace />
     }
@@ -69,7 +77,18 @@ const Login = () => {
   position="top-center"
   reverseOrder={false}
 />
-        {login ? <div className={style.loginContainer}>
+
+        {login == 2 && <div className={style.loginContainer}>
+            <h2 className={style.title}>Recupera tu cuenta</h2>
+            <form className={style.form} onSubmit={(e) => {recoveryPass(); e.preventDefault()}}>
+                <input onChange={handleLogin} key={2} value={user?.email} name="email" type="email" className={style.input} placeholder="Ingresa tu email"/>
+                <button type="submit" className={style.button}>Recuperar</button>
+                {/* <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Entra con google</span></button> */}
+            </form>
+            <p className={style.register}>¿Aun no tienes cuenta?<p onClick={() => setLogin(0)} className={style.buttonRegister}>Registrate</p></p>
+        </div>}
+
+        {login == 1 && <div className={style.loginContainer}>
             <h2 className={style.title}>Iniciar sesion</h2>
             <form className={style.form} onSubmit={(e) => {authUser(); e.preventDefault()}}>
                 <input onChange={handleLogin} key={1} value={user?.email} name="email" type="email" className={style.input} placeholder="Email"/>
@@ -78,9 +97,10 @@ const Login = () => {
                 {/* <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Entra con google</span></button> */}
 
             </form>
-            <p className={style.register}>¿Aun no tienes cuenta?<p onClick={() => setLogin(false)} className={style.buttonRegister}>Registrate</p></p>
-        </div>:
-        <div className={style.loginContainer}>
+            <p className={style.register}><p onClick={() => setLogin(2)} className={style.buttonRegister}>Olvide mi contraseña</p></p>
+            <p className={style.register}>¿Aun no tienes cuenta?<p onClick={() => setLogin(0)} className={style.buttonRegister}>Registrate</p></p>
+        </div>}
+        {login == 0 && <div className={style.loginContainer}>
         <h2 className={style.title}>Registrarme</h2>
         <form className={style.form}>
             <input onChange={handleChange} key={3} value={newUser?.name} name="name" type="text" className={style.input} placeholder="Nombre"/>
@@ -92,7 +112,7 @@ const Login = () => {
             <input onClick={createUser} type="button" value="Registrarme" className={style.button}/>
             {/* <button className={style.buttonGoogle}><FcGoogle className={style.google}/> <span>Registrate con google</span></button> */}
         </form>
-        <p className={style.register}>¿Ya tienes cuenta?<p onClick={() => setLogin(true)} className={style.buttonRegister}>Ingresa</p></p>
+        <p className={style.register}>¿Ya tienes cuenta?<p onClick={() => setLogin(1)} className={style.buttonRegister}>Ingresa</p></p>
     </div>
         }
     </div>
