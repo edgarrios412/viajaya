@@ -39,7 +39,7 @@ const Profile = () => {
     // ADMIN
     const [creator, setCreator] = useState(false)
     const [pagination, setPagination] = useState(1)
-    const [center, setCenter] = useState([0,0])
+    const [center, setCenter] = useState([4.0267284, -74.0093039])
     // const [clases, dispatch(setClass] = useStat)e()
     const [clase, setClase] = useState()
 

@@ -18,7 +18,7 @@ const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 function Map({height, width, fn, center}) {
   const [zoom, setZoom] = useState(7)
-  const [coord, setCoord] = useState([8.0267284, -74.0093039]);
+  const [coord, setCoord] = useState([4.0267284, -74.0093039]);
   const mapRef= useRef()
   const [travels, setTravels] = useState([])
 
@@ -39,8 +39,9 @@ function Map({height, width, fn, center}) {
       </Marker>
     )
   }
-
-  mapRef.current.flyTo(center,11)
+  if(center){
+  mapRef?.current?.flyTo(center,11)
+  }
 
   useEffect(() => {
     if(position){
