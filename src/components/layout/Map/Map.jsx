@@ -18,7 +18,7 @@ const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 function Map({height, width, fn, center}) {
   const [zoom, setZoom] = useState(7)
-  const [coord, setCoord] = useState([5.0267284, -74.0093039]);
+  const [coord, setCoord] = useState([8.0267284, -74.0093039]);
   const mapRef= useRef()
   const [travels, setTravels] = useState([])
 
@@ -27,17 +27,20 @@ function Map({height, width, fn, center}) {
     const map = useMapEvents({
       click: (e) => {
         setPosition(e.latlng)
-        // setCoord([e.latlng.lat,e.latlng.lng])
+        setCoord([e.latlng.lat, e.latlng.lng])
+        mapRef.current.flyTo(coord)
         // setTravels([...travels, e.latlng])
       },
     })
     return position === null ? null : (
       <Marker position={position}>
-        <Tooltip>Tooltip for Marker</Tooltip>
+        {/* <Tooltip>Tooltip for Marker</Tooltip> */}
         <Popup>You are here</Popup>
       </Marker>
     )
   }
+
+  mapRef.current.flyTo(center,11)
 
   useEffect(() => {
     if(position){
@@ -58,11 +61,11 @@ function Map({height, width, fn, center}) {
         style={{height:`${height}vh`,width:`${width}vw`}}
       >
         <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-        <Marker draggable={true} position={[5.0267284, -74.0093039]} icon={myIcon}>
+        {/* <Marker draggable={true} position={[5.0267284, -74.0093039]} icon={myIcon}>
           <Popup>
             <div>Aca estas tu</div>
           </Popup>
-          </Marker>
+          </Marker> */}
         {travels.map((p,i) => { return(<Marker icon={iconLogo} key={p} position={p}>
         <Popup>Viaje #{i}</Popup>
       </Marker>)})}

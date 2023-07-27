@@ -73,8 +73,10 @@ const Profile = () => {
     }, [])
 
     const findLocation = (e) => {
+      if(e.target.value.length >= 4){
       axios.get(`https://nominatim.openstreetmap.org/search?q=${e.target.value}&format=json`)
       .then((d) => setCenter([d.data[0].lat, d.data[0].lon]))
+      }
     }
 
     const handleClass = (e) => {
@@ -556,7 +558,7 @@ const Profile = () => {
               <input className={style.inputForm} onChange={handlePack} value={pack?.price} name="price" placeholder="Precio p/p"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.reserva} name="reserva" placeholder="Reserva p/p"/>
               <input className={style.inputForm} onChange={handlePack} value={pack?.location} name="location" placeholder="Direccion del hotel"/>
-              <input className={style.inputForm}  onChange={handlePack} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
+              <input className={style.inputForm}  onBlur={findLocation} onChange={(e) => {handlePack(e)}} value={pack?.titcityle} name="city" placeholder="Ciudad"/>
               <textarea className={style.inputFormText} onChange={handlePack} value={pack?.detail} name="detail" placeholder="Descripcion"/>
               {window.innerHeight > 900 && <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
               <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>
@@ -580,7 +582,7 @@ const Profile = () => {
             </div>
             <p className={style.tip}>Selecciona al menos 3 imagenes {"("+pack?.images.length+"/3)"}</p>
             <div className={style.mapa}>
-              <Map height={30} width={26} fn={setLocation}/>
+              <Map height={30} width={26} center={center} fn={setLocation}/>
             </div>
             {window.innerHeight < 900 && <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
               <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>

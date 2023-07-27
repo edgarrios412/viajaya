@@ -123,11 +123,11 @@ const Paquetes = () => {
         style={{height:`60vh`,width:`36vw`}}
       >
         <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-        <Marker draggable={true} position={[5.0267284, -74.0093039]} icon={myIcon}>
+        {/* <Marker draggable={true} position={[5.0267284, -74.0093039]} icon={myIcon}>
           <Popup>
             <div>Voy hasta acá</div>
           </Popup>
-          </Marker>
+          </Marker> */}
         {paquetes.map((p,i) => <Marker key={i} icon={iconLogo} position={[p.lat,p.lng]}>
         <Popup>Viaje #{i}</Popup>
       </Marker>)}
