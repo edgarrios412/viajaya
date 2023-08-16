@@ -1,5 +1,7 @@
 .nav{
-    background-color: #370861ed;
+    /* background-color: #370861ed; */
+    background: rgb(227,179,220);
+background: linear-gradient(90deg, rgba(227,179,220,1) 0%, rgba(62,22,106,1) 100%);
     display: flex;
     position: fixed;
     align-items: center;
