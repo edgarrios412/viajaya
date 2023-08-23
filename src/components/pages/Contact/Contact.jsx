@@ -92,7 +92,7 @@ const Contact = () => {
         <FiPhone className={style.icon}/>
         </div>
         <div className={style.numbers}>
-          <a className={style.noLink} target="_blank" href="https://wa.link/25yphy"><h4 className={style.number}>{"(+57)"} 312 3563925</h4></a>
+          <a className={style.noLink} target="_blank" href="https://wa.link/28unmk"><h4 className={style.number}>{"(+57)"} 310 3361235</h4></a>
           {/* <a className={style.noLink} target="_blank" href="https://bit.ly/3MQvqXe"><h4 className={style.number}>{"(+57)"} NUMBER2</h4></a> */}
         </div>
         </div>

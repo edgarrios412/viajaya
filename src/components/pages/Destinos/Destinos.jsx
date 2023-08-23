@@ -55,7 +55,7 @@ const Destinos = () => {
     <motion.div animate={animation} ref={ref} className={style.services} id="servicios">
       <div className={style.header}>
       <h2 className={style.titleSection}>Destinos</h2>
-      <button className={style.button2}><a target="_blank" className={style.noLink} href="https://wa.link/25yphy">Hablar con un asesor</a></button>
+      <button className={style.button2}><a target="_blank" className={style.noLink} href="https://wa.link/28unmk">Hablar con un asesor</a></button>
       </div>
       <div className={style.servicesContainer}>
         <div className={style.service} onClick={() => setDestinoId(1)}>
