@@ -530,7 +530,7 @@ const Profile = () => {
               <textarea className={style.inputFormText} onChange={handlePackDetail} value={packDetail.detail} name="detail" placeholder="Descripcion"/>
               <div style={{display:"flex", width:"200px", justifyContent:"space-beetween"}}>
               <button className={style.buttonCreate} onClick={() => setCreator(false)}>Volver</button>
-              <button className={style.buttonCreate} onClick={updatePaquete}>Editar</button>
+              <button className={style.buttonCreate} onClick={updatePaquete}>Guardar</button>
               <button className={style.buttonCreate} onClick={() => deletePaquete(packDetail.id)}>Borrar</button>
               </div>
             </form>

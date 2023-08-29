@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {Element} from "react-scroll"
 import { useState } from 'react';
-import ModalDestino from '../../layout/ModalDestino/ModalDestino';
+import ModalDestino from '../../layout/ModalPoli/ModalDestino';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation,motion } from 'framer-motion';
 import { useEffect } from 'react';

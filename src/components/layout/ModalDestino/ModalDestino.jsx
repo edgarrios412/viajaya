@@ -1,72 +1,54 @@
+import { useState } from 'react';
 import style from './ModalDestino.module.css'
  
-const ModalDestino = ({close, id}) => {
+const ModalDestino = ({close}) => {
+  const [pages, setPages] = useState(1)
   return(
     <>
-    {id == 1 &&
-    <div className={style.modalContainer}>
+    {pages == 1 &&<div className={style.modalContainer}>
       <div className={style.modal}>
-        <h2 className={style.title}>Destinos nacionales</h2>
+        <h2 className={style.title}>Politicas y condiciones</h2>
         <div className={style.flex}>
-          <ul className={style.ul}>
-            <li className={style.li}>San Andrés</li>
-            <li className={style.li}>Santa Marta</li>
-            <li className={style.li}>Cartagena</li>
-            <li className={style.li}>Tolu</li>
-            <li className={style.li}>Coveñas</li>
-            <li className={style.li}>Guajira</li>
-            <li className={style.li}>Cali</li>
-          </ul>
-          <ul className={style.ul}>
-            <li className={style.li}>Llanos orientales</li>
-            <li className={style.li}>Santander</li>
-            <li className={style.li}>Eje cafetero</li>
-            <li className={style.li}>Boyaca</li>
-            <li className={style.li}>Amazonas</li>
-            <li className={style.li}>Huila</li>
-            <li className={style.li}>Buga</li>
-          </ul>
-        </div>
-        <br></br><br></br>
-{/* <button className={style.button} onClick={close}>Si estoy seguro</button><br></br> */}
-        <button className={style.button} onClick={close}>Cerrar</button>
-      </div>
-    </div>}
-    {id == 2 &&
-    <div className={style.modalContainer}>
-      <div className={style.modal}>
-        <h2 className={style.title}>Destinos internacionales</h2>
-        <div className={style.flex}>
-          <ul className={style.ul}>
-            <li className={style.li}>Cancún</li>
-            <li className={style.li}>México</li>
-            <li className={style.li}>Curacao</li>
-            <li className={style.li}>Punta Cana</li>
-          </ul>
-          <ul className={style.ul}>
-            <li className={style.li}>Aruba</li>
-            <li className={style.li}>Chile</li>
-            <li className={style.li}>Argentina</li>
-            <li className={style.li}>Madrid</li>
-            <li className={style.li}>España Circuito</li>
-          </ul>
-        </div>
-        <br></br><br></br>
-{/* <button className={style.button} onClick={close}>Si estoy seguro</button><br></br> */}
-        <button className={style.button} onClick={close}>Cerrar</button>
-      </div>
-    </div>}
+          <p>VIAJA YA! entiende que tu privacidad es importante para ti. Estamos comprometidos en proteger la privacidad de tu información personal mientras usas este sitio web. Esta Política de Privacidad explica cómo protegemos y usamos la información que recolectamos de ti. Al usar este sitio web, aceptas los términos descritos en la versión más reciente de esta Política de Privacidad. También debes leer nuestros Términos de Uso para entender las reglas generales acerca del uso de este sitio web, y cualesquiera términos adicionales que puedan aplicar cuando accedes a servicios particulares o materiales en ciertas áreas de este sitio web. “Nosotros”, “nuestro” significa Viaja ya y sus afiliados. “Tú”, “tu”, “visitante” o “usuario” significa el individuo accediendo a este sitio.
 
-    {id == 3 &&
-    <div className={style.modalContainer}>
+
+Información personal y no personal
+Nuestra Política de Privacidad identifica cómo tratamos tu información personal y no personal.
+
+
+¿Qué es la información no personal y cómo es recolectada y usada?
+La información no personal es información que no puede identificarte. Si visitas este sitio web para leer información, así como información acerca de uno de nuestros servicios, podemos recolectar cierta información no personal del navegador web de tu computadora. Debido a que la información no personal no puede identificarte o no puede ser atada a ti de ninguna forma, no hay restricciones en las formas en las que usamos o compartimos información no personal.
+
+
+¿Qué es la información personal y cómo es recolectada?
+La información personal es información que te identifica como un individuo, tales como tu nombre, dirección de correo, dirección de correo electrónico, número de teléfono, y número de fax. Podemos recolectar información personal de ti en una variedad de formas:
+Cuando nos mandas una aplicación o alguna otra forma
+Cuando conduces una transacción con nosotros, nuestros afiliados y/o otros
+Cuando recolectamos tu información en soporte de una transacción, tal como información de tarjeta de crédito
+En algunos lugares de este sitio web tienes la oportunidad de mandarnos información personal sobre ti, para elegir recibir información particular, para comprar acceso a uno de nuestros productos o servicios, o para participar en una actividad.
+</p>
+        </div>
+        <br></br><br></br>
+{/* <button className={style.button} onClick={close}>Si estoy seguro</button><br></br> */}
+        <button className={style.button} onClick={() => setPages(2)}>Siguiente</button>
+      </div>
+    </div>}
+    {pages == 2 &&<div className={style.modalContainer}>
       <div className={style.modal}>
-        <h2 className={style.title}>Cruceros</h2>
+        <h2 className={style.title}>Politicas y nose</h2>
         <div className={style.flex}>
-          <ul className={style.ul}>
-            <li className={style.li}>Disney</li>
-            <li className={style.li}>Royal Caribbean</li>
-            <li className={style.li}>Princess</li>
-          </ul>
+          <p>Politicas de  daw wdwada wdawd wda awd wd wadwadwadaw wdawdadawd awd</p>
+        </div>
+        <br></br><br></br>
+{/* <button className={style.button} onClick={close}>Si estoy seguro</button><br></br> */}
+        <button className={style.button} onClick={close}>Cerrar</button>
+      </div>
+    </div>}
+    {pages == 3 &&<div className={style.modalContainer}>
+      <div className={style.modal}>
+        <h2 className={style.title}>Politicas y nose</h2>
+        <div className={style.flex}>
+          <p>Politicas de nosequeverga daw wdwada wdawd wda awd wd wadwadwadaw wdawdadawd awd</p>
         </div>
         <br></br><br></br>
 {/* <button className={style.button} onClick={close}>Si estoy seguro</button><br></br> */}
