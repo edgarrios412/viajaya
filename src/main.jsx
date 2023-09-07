@@ -7,7 +7,8 @@ import axios from "axios"
 import store from './redux/store/store';
 import { Provider } from 'react-redux';
 
-axios.defaults.baseURL = "https://viajaya.onrender.com"
+axios.defaults.baseURL = "https://viajayabacktest.onrender.com"
+// axios.defaults.baseURL = "https://viajaya.onrender.com"
 // axios.defaults.baseURL = "http://localhost:3001"
 
 
